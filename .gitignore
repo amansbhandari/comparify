@@ -1,3 +1,7 @@
 /.idea/
 /client/node_modules/
 /server/analytics/venv/
+/server/core/.mvn/
+/server/core/mvnw
+/server/core/mvnw.cmd
+/server/core/target/
