@@ -1,7 +1,8 @@
 /.idea/
 /client/node_modules/
 /server/analytics/venv/
-/server/core/.mvn/
-/server/core/mvnw
-/server/core/mvnw.cmd
-/server/core/target/
+/server/.mvn/
+/server/mvnw
+/server/mvnw.cmd
+/server/target/
+client/workspace.code-workspace
