@@ -40,11 +40,7 @@ build:
 deploy:
   stage: develop-server
   tags:
-    - ugrad
-  before_script:
-    - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
-    - eval $(ssh-agent -s)
-    - echo "$DEPLOY_SSH_KEY" | tr -d '\r' | ssh-add -    
+    - ugrad  
   script:
     - echo ${DEPLOY_USER}
     - echo ${DEPLOY_HOST}
