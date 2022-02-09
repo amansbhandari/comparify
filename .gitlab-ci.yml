@@ -6,19 +6,18 @@ cache:
     - target/
 
 stages:
-  - test
+  - test-server
   - build
   - develop
 
 # test stage will compile the code and run all the unit tests present in the
 # test folder.
 test:
-  stage: test
+  stage: test-server
   tags:
     - ugrad
   script:
     - cd server
-    - pwd
     - mvn clean test
     
 # build stage will just build the codebase without running
@@ -29,7 +28,6 @@ build:
     - ugrad
   script:
     - cd server
-    - pwd
     - mvn clean package -DskipTests=true
     - ls
   artifacts:
