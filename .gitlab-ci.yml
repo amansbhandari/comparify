@@ -17,6 +17,8 @@ test:
   tags:
     - ugrad
   script:
+    - cd server
+    - pwd
     - mvn clean test
     
 # build stage will just build the codebase without running
@@ -27,6 +29,7 @@ build:
     - ugrad
   script:
     - cd server
+    - pwd
     - mvn clean package -DskipTests=true
     - ls
   artifacts:
