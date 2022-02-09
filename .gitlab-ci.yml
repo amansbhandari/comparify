@@ -9,7 +9,6 @@ stages:
   - test
   - build
   - develop
-  - production
 
 # test stage will compile the code and run all the unit tests present in the
 # test folder.
@@ -27,7 +26,8 @@ build:
   tags:
     - ugrad
   script:
-    - mvn clean install -DskipTests=true
+    - cd server
+    - mvn clean package -DskipTests=true
     - ls
   artifacts:
     paths:
@@ -45,10 +45,6 @@ deploy:
     - eval $(ssh-agent -s)
     - echo "$DEPLOY_SSH_KEY" | tr -d '\r' | ssh-add -    
   script:
-    - echo "dbURL=$DATABASE_URL" > config.properties
-    - echo "dbUserName=$TEST_DATABASE_USERNAME" >> config.properties
-    - echo "dbPassword=$TEST_DATABASE_PASSWORD" >> config.properties
-    - echo "dbDriver=$TEST_DATABASE" >> config.properties
     - pwd
     - ls -lrth
     - ls target/
@@ -60,28 +56,3 @@ deploy:
     - scp -r -o StrictHostKeyChecking=no config.properties "${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_DIR}/config.properties"
   only:
     - develop
-
-production:
-  stage: production
-  tags:
-    - ugrad
-  before_script:
-    - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
-    - eval $(ssh-agent -s)
-    - echo "$DEPLOY_SSH_KEY" | tr -d '\r' | ssh-add -
-  script:
-    - echo "dbURL=$DATABASE_URL" > config.properties
-    - echo "dbUserName=$PROD_DATABASE_USERNAME" >> config.properties
-    - echo "dbPassword=$PROD_DATABASE_PASSWORD" >> config.properties
-    - echo "dbDriver=$PROD_DATABASE" >> config.properties
-    - pwd
-    - ls -lrth
-    - ls target/
-    - ls -lrth ~/.ssh
-    - echo "$CI_COMMIT_REF_NAME"
-    - zip -r ${CI_COMMIT_SHORT_SHA}.zip . -i target/*.jar
-    - ls -lrth ${CI_COMMIT_SHORT_SHA}.zip
-    - scp -r -o StrictHostKeyChecking=no ${CI_COMMIT_SHORT_SHA}.zip "${DEPLOY_USER}@${DEPLOY_HOST}:${PROD_DIR}/${CI_COMMIT_SHORT_SHA}.zip"
-    - scp -r -o StrictHostKeyChecking=no config.properties "${DEPLOY_USER}@${DEPLOY_HOST}:${PROD_DIR}/config.properties"
-  only:
-    - master
