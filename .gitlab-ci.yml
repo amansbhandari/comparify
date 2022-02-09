@@ -44,6 +44,6 @@ deploy:
   before_script:
     - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
     - eval $(ssh-agent -s)
-    - echo "$HARSH_DEPLOY_SSH_KEY" | tr -d '\r' | ssh-add -    
+    - echo "$HARSH_DEPLOY_SSH_KEY" | ssh-add     
   script:
     - scp -r -o StrictHostKeyChecking=no server/target/*.jar "${HARSH_DEPLOY_USER}@${TIMBERLEA_DEPLOY_HOST}:${SERVER_DEPLOY_DIR}"
