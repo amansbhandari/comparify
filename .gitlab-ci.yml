@@ -50,5 +50,3 @@ deploy:
     - echo ${DEPLOY_HOST}
     - scp -r -o StrictHostKeyChecking=no server/target/*.jar "${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_DIR}/${CI_COMMIT_SHORT_SHA}.zip"
     - scp -r -o StrictHostKeyChecking=no config.properties "${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_DIR}/config.properties"
-  only:
-    - develop
