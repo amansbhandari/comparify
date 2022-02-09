@@ -7,8 +7,8 @@ cache:
 
 stages:
   - test-server
-  - build
-  - develop
+  - build-server
+  - develop-server
 
 # test stage will compile the code and run all the unit tests present in the
 # test folder.
@@ -23,7 +23,7 @@ test:
 # build stage will just build the codebase without running
 # any tests or creating any jar file.
 build:
-  stage: build
+  stage: build-server
   tags:
     - ugrad
   script:
@@ -38,7 +38,7 @@ build:
 ## deploy stage will create package the jar and keep it in the target folder.
 ## The success of deploy stage will mark the pipeline as passed.
 deploy:
-  stage: develop
+  stage: develop-server
   tags:
     - ugrad
   before_script:
@@ -46,14 +46,9 @@ deploy:
     - eval $(ssh-agent -s)
     - echo "$DEPLOY_SSH_KEY" | tr -d '\r' | ssh-add -    
   script:
-    - pwd
-    - ls -lrth
-    - ls target/
-    - ls -lrth ~/.ssh
-    - echo "$CI_COMMIT_REF_NAME"
-    - zip -r ${CI_COMMIT_SHORT_SHA}.zip . -i target/*.jar
-    - ls -lrth ${CI_COMMIT_SHORT_SHA}.zip
-    - scp -r -o StrictHostKeyChecking=no ${CI_COMMIT_SHORT_SHA}.zip "${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_DIR}/${CI_COMMIT_SHORT_SHA}.zip"
+    - echo ${DEPLOY_USER}
+    - echo ${DEPLOY_HOST}
+    - scp -r -o StrictHostKeyChecking=no server/target/*.jar "${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_DIR}/${CI_COMMIT_SHORT_SHA}.zip"
     - scp -r -o StrictHostKeyChecking=no config.properties "${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_DIR}/config.properties"
   only:
     - develop
