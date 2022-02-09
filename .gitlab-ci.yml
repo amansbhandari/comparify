@@ -44,7 +44,7 @@ build:
 ## deploy stage will create package the jar and keep it in the target folder.
 ## The success of deploy stage will mark the pipeline as passed.
 deploy:
-  stage: develop-server
+  stage: deploy-heroku-staging-server
   image: ruby:latest
   tags:
     - dalfcs_docker_autoscale  
