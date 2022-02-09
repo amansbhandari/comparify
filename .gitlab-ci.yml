@@ -8,7 +8,7 @@ cache:
 stages:
   - test-server
   - build-server
-  - develop-server
+  - deploy-heroku-staging-server
 
 # test stage will compile the code and run all the unit tests present in the
 # test folder.
@@ -18,7 +18,13 @@ test:
     - ugrad
   script:
     - cd server
-    - mvn clean test
+    - mvn verify
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - target/surefire-reports/TEST-*.xml
+        - target/failsafe-reports/TEST-*.xml
     
 # build stage will just build the codebase without running
 # any tests or creating any jar file.
@@ -39,12 +45,13 @@ build:
 ## The success of deploy stage will mark the pipeline as passed.
 deploy:
   stage: develop-server
+  image: ruby:latest
   tags:
-    - ugrad  
+    - dalfcs_docker_autoscale  
   before_script:
-    - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
-    - eval $(ssh-agent -s) 
-    - echo "$DEPLOY_SSH_KEY" | tr -d '\r' | ssh-add -    
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
   script:
-    - pwd
-    - scp -r -o StrictHostKeyChecking=no server/target/*.jar "${HARSH_DEPLOY_USER}@${TIMBERLEA_DEPLOY_HOST}:${SERVER_DEPLOY_DIR}"
+    - dpl --provider=heroku --app=$HARSH_HEROKU_APP_NAME_STAGING --api-key=$HARSH_HEROKU_API_KEY
+
