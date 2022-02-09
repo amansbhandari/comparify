@@ -1,0 +1,1 @@
+web: java -jar target/comparify-0.0.1.jar
