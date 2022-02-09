@@ -42,6 +42,4 @@ deploy:
   tags:
     - ugrad  
   script:
-    - echo ${DEPLOY_USER}
-    - echo ${DEPLOY_HOST}
-    - scp -r -o StrictHostKeyChecking=no server/target/*.jar "${DEPLOY_USER}@${DEPLOY_HOST}:/server/"
+    - scp -r -o StrictHostKeyChecking=no server/target/*.jar "${HARSH_DEPLOY_USER}@${TIMBERLEA_DEPLOY_HOST}:${SERVER_DEPLOY_DIR}"
