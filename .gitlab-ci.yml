@@ -24,7 +24,7 @@ test:
     when: always
     reports:
       junit:
-        - "target/surefire-reports/TEST-*.xml"
+        - target/surefire-reports/TEST-*.xml
         - target/surefire-reports/TEST-ca.dal.comparify.ApplicationTests.xml
     
 # build stage will just build the codebase without running
