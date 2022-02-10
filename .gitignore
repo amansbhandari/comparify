@@ -1,6 +1,5 @@
-/.idea/
+server/.idea/
 /client/node_modules/
-/server/analytics/venv/
 /server/.mvn/
 /server/mvnw
 /server/mvnw.cmd
