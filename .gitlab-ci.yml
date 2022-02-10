@@ -19,7 +19,7 @@ test:
   script:
     - cd server
     - mvn verify
-    - ls
+    - tree target
   artifacts:
     when: always
     reports:
@@ -36,7 +36,6 @@ build:
   script:
     - cd server
     - mvn clean package -DskipTests=true
-    - ls
   artifacts:
     paths:
        - target/*.jar
