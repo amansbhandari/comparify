@@ -1,0 +1,7 @@
+package ca.dal.comparify.user;
+
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class UserController {
+}
