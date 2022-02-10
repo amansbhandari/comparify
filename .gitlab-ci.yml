@@ -19,7 +19,7 @@ test:
   script:
     - cd server
     - mvn verify
-    - target/surefire-reports ls
+    - target ls
   artifacts:
     when: always
     reports:
