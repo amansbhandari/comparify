@@ -1,5 +1,10 @@
 image: maven:latest
 
+cache:
+  paths:
+    - .m2/repository/
+    - target/
+
 stages:
   - test-server
   - build-server
@@ -19,7 +24,6 @@ test:
     reports:
       junit:
         - target/surefire-reports/TEST-*.xml
-        - target/surefire-reports/TEST-ca.dal.comparify.ApplicationTests.xml
     
 # build stage will just build the codebase without running
 # any tests or creating any jar file.
