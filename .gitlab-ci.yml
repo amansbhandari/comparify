@@ -1,10 +1,5 @@
 image: maven:latest
 
-cache:
-  paths:
-    - .m2/repository/
-    - target/
-
 stages:
   - test-server
   - build-server
