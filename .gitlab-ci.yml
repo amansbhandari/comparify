@@ -19,7 +19,7 @@ test:
   script:
     - cd server
     - mvn verify
-    - target ls
+    - ls target
   artifacts:
     when: always
     reports:
