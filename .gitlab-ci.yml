@@ -18,8 +18,7 @@ test:
     - ugrad
   script:
     - cd server
-    - mvn verify
-    - ls target/surefire-reports
+    - mvn clean verify
   artifacts:
     when: always
     reports:
