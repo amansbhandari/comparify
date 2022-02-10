@@ -20,7 +20,7 @@ public class MongoConfig {
 
     @Bean
     @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
-    public MongoClient mongoClient(@Value("${spring.mongodb.uri}") String connectionString) {
+    public MongoClient mongoClient(@Value("${spring.data.mongodb.uri}") String connectionString) {
 
         ConnectionString connString = new ConnectionString(connectionString);
 
