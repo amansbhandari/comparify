@@ -27,7 +27,5 @@ public class TokenService {
                     .withIssuedAt(DateUtils.now())
                     .withExpiresAt(new Date(now.getTime() + tokenExpiration))
                 .sign(Algorithm.HMAC256(tokenSecret));
-
-
     }
 }

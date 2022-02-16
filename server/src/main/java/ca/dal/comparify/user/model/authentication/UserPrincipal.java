@@ -1,4 +1,4 @@
-package ca.dal.comparify.user.model;
+package ca.dal.comparify.user.model.authentication;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

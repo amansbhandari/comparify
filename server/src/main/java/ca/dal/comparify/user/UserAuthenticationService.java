@@ -1,2 +1,7 @@
-package ca.dal.comparify.user;public class UserAuthenticationService {
+package ca.dal.comparify.user;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class UserAuthenticationService {
 }
