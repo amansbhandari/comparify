@@ -1,7 +1,8 @@
-server/.idea/
 /client/node_modules/
+client/workspace.code-workspace
+client/.idea/
+server/.idea/
 /server/.mvn/
 /server/mvnw
 /server/mvnw.cmd
 /server/target/
-client/workspace.code-workspace
