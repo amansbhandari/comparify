@@ -1,6 +1,6 @@
 package ca.dal.comparify.framework.security;
 
-import ca.dal.comparify.user.UserService;
+import ca.dal.comparify.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,45 +1,78 @@
 package ca.dal.comparify.user.model.authentication;
 
 import ca.dal.comparify.utils.DateUtils;
+import ca.dal.comparify.utils.UUIDUtils;
+import org.bson.codecs.pojo.annotations.BsonCreator;
+import org.bson.codecs.pojo.annotations.BsonId;
+import org.bson.codecs.pojo.annotations.BsonIgnore;
+import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import java.io.Serializable;
+
 import java.time.LocalDate;
 import java.util.Collection;
 
-public class UserAuthenticationModel implements Serializable {
+public class UserAuthenticationModel {
 
+    public static final String USER_IDENTIFIER = "user_identifier";
+
+    @BsonId
     private String id;
 
+    @BsonProperty(USER_IDENTIFIER)
     private String userIdentifier;
 
     private String secret;
 
-    private Collection<? extends GrantedAuthority> authorities;
-
+    @BsonProperty("is_active")
     private boolean isActive;
 
+    @BsonProperty("number_of_incorrect_attempts")
     private Integer numberOfIncorrectAttempts;
 
+    @BsonProperty("account_expires_on")
     private LocalDate accountExpiresOn;
 
+    @BsonProperty("secret_expires_on")
     private LocalDate secretExpiresOn;
 
-    public UserAuthenticationModel() {}
+    private Collection<? extends GrantedAuthority> authorities;
 
-    public UserAuthenticationModel(String id, String userIdentifier, String secret,
-                                   Collection<? extends GrantedAuthority> authorities,
-                                   boolean isActive, Integer numberOfIncorrectAttempts,
-                                   LocalDate accountExpiresOn, LocalDate secretExpiresOn) {
+    @BsonCreator
+    public UserAuthenticationModel(@BsonId String id,
+                                   @BsonProperty(USER_IDENTIFIER) String userIdentifier,
+                                   @BsonProperty("secret") String secret,
+                                   @BsonProperty("is_active") boolean isActive,
+                                   @BsonProperty("number_of_incorrect_attempts") Integer numberOfIncorrectAttempts,
+                                   @BsonProperty("account_expires_on")  LocalDate accountExpiresOn,
+                                   @BsonProperty("secret_expires_on") LocalDate secretExpiresOn,
+                                   @BsonProperty("authorities") Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.userIdentifier = userIdentifier;
         this.secret = secret;
-        this.authorities = authorities;
         this.isActive = isActive;
         this.numberOfIncorrectAttempts = numberOfIncorrectAttempts;
         this.accountExpiresOn = accountExpiresOn;
         this.secretExpiresOn = secretExpiresOn;
+        this.authorities = authorities;
+    }
+
+    public UserAuthenticationModel(String userIdentifier,
+                                   String secret,
+                                   boolean isActive,
+                                   Integer numberOfIncorrectAttempts,
+                                   LocalDate accountExpiresOn,
+                                   LocalDate secretExpiresOn,
+                                   Collection<? extends GrantedAuthority> authorities) {
+
+        this.id = UUIDUtils.generate();
+        this.userIdentifier = userIdentifier;
+        this.secret = secret;
+        this.isActive = isActive;
+        this.numberOfIncorrectAttempts = numberOfIncorrectAttempts;
+        this.accountExpiresOn = accountExpiresOn;
+        this.secretExpiresOn = secretExpiresOn;
+        this.authorities = authorities;
     }
 
     public String getId() {
@@ -74,7 +107,12 @@ public class UserAuthenticationModel implements Serializable {
         this.authorities = authorities;
     }
 
+    @BsonIgnore()
     public boolean isActive() {
+        return isActive;
+    }
+
+    public boolean getIsActive() {
         return isActive;
     }
 
@@ -106,14 +144,17 @@ public class UserAuthenticationModel implements Serializable {
         this.secretExpiresOn = secretExpiresOn;
     }
 
+    @BsonIgnore()
     public boolean isLocked() {
         return numberOfIncorrectAttempts > 3;
     }
 
+    @BsonIgnore()
     public boolean isAccountExpired() {
         return DateUtils.isAfterNow(accountExpiresOn);
     }
 
+    @BsonIgnore()
     public boolean isSecretExpired() {
         return DateUtils.isAfterNow(secretExpiresOn);
     }
