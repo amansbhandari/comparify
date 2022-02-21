@@ -43,13 +43,13 @@ Build Server:
 
 Build Client:
   stage: build
-  image: node:15
   tags:
-    - dalfcs_docker_autoscale
+    - ugrad
   script:
-    - cd client
+    - cd comparify-client/src/main/resources/client
     - npm install
     - npm run build
+    - mvn clean install
 
 
 ## deploy stage will create package the jar and keep it in the target folder.
@@ -64,7 +64,7 @@ Deploy Staging Client:
     - apt-get install -y ruby-dev
     - gem install dpl
   script:
-    - cd client
+    - cd comparify-client
     - dpl --provider=heroku --app=$STAGING_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY
   only:
     - /^feature-.*/
