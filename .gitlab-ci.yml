@@ -43,7 +43,7 @@ Build Server:
 
 Build Client:
   stage: build
-  image: node:lastest
+  image: node:15
   tags:
     - dalfcs_docker_autoscale
   script:
