@@ -53,7 +53,12 @@ Build Client:
     - cd comparify-client/src/main/resources/client
     - npm install
     - npm run build
+    - echo pwd
+    - cd ../../../../../
     - mvn clean install
+  artifacts:
+    paths:
+       - target/*.jar
 
 
 ## deploy stage will create package the jar and keep it in the target folder.
