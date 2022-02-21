@@ -50,11 +50,14 @@ Build Client:
     - apk update
     - apk add maven nodejs npm
   script:
+    - pwd
+    - proot=$pwd
     - cd comparify-client/src/main/resources/client
     - npm install
     - npm run build
-    - echo pwd
-    - cd ../../../../../
+    - pwd
+    - cd $proot
+    - pwd
     - mvn clean install
   artifacts:
     paths:
