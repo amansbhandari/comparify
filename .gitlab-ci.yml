@@ -24,8 +24,7 @@ test:
     when: always
     reports:
       junit:
-        - echo ${pwd}
-        - ${pwd}/target/surefire-reports/TEST-*.xml
+        - server/target/surefire-reports/TEST-*.xml
     
 # build stage will just build the codebase without running
 # any tests or creating any jar file.
