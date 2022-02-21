@@ -9,6 +9,7 @@ stages:
   - test-server
   - build-server
   - deploy-heroku-staging-server
+  - deploy-heroku-production-server
 
 # test stage will compile the code and run all the unit tests present in the
 # test folder.
@@ -23,7 +24,8 @@ test:
     when: always
     reports:
       junit:
-        - target/surefire-reports/TEST-*.xml
+        - echo ${pwd}
+        - ${pwd}/target/surefire-reports/TEST-*.xml
     
 # build stage will just build the codebase without running
 # any tests or creating any jar file.
