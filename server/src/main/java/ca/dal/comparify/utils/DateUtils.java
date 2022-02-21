@@ -1,9 +1,10 @@
 package ca.dal.comparify.utils;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.Date;
 
 public class DateUtils {
@@ -12,22 +13,26 @@ public class DateUtils {
 
     private static final ZoneId DEFAULT_ZONE_ID = ZoneId.systemDefault();
 
-    public static Date now(){
-        return  Date.from(localNow().atStartOfDay(DEFAULT_ZONE_ID).toInstant());
+    /*------------------  Instant ------------------*/
+
+    private static ZonedDateTime now(){
+        return Instant.now().atZone(DEFAULT_ZONE_ID);
     }
 
-    public static Date addSecondsToNow(long seconds){
-        return new Date(now().getTime() + seconds);
+    /*------------------  Date ------------------*/
+
+    public static Date dateNow(){
+        return  Date.from(Instant.from(Instant.now().atZone(DEFAULT_ZONE_ID)));
     }
 
-    public static boolean isAfterNow(Date localDate){
-        return localNow().isAfter(localDate.toInstant().atZone(DEFAULT_ZONE_ID).toLocalDate());
+    public static Date addSecondsToDateNow(long seconds){
+        return new Date(dateNow().getTime() + seconds);
     }
 
     /*------------------  Local Date ------------------*/
 
     public static LocalDate localNow(){
-        return LocalDate.now(DEFAULT_ZONE_ID);
+        return now().toLocalDate();
     }
 
     public static LocalDate addSecondsToLocalNow(long seconds){

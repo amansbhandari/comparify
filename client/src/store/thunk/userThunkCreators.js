@@ -1,10 +1,10 @@
-import axios from "axios";
+import httpClient from "./interceptor";
 
-export const login = (credentials) => async (dispatch) => {
+export const authenication = (credentials) => async (dispatch) => {
     try {
-      const { data } = await axios.post("/user/authenication", credentials);
-      localStorage.setItem("messenger-token", data.token);
+      const { data } = await httpClient.post("/user/authentication", credentials);
+      localStorage.setItem("auth-token", data.token);
     } catch (error) {
-      console.error(error);
+      localStorage.removeItem("auth-token")
     }
   };

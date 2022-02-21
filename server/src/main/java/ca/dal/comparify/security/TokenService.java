@@ -41,8 +41,8 @@ public class TokenService implements AuthenticationProviders {
         return JWT.create()
                     .withSubject(userPrincipal.getId())
                     .withIssuer(issuer)
-                    .withIssuedAt(DateUtils.now())
-                    .withExpiresAt(DateUtils.addSecondsToNow(tokenExpiration))
+                    .withIssuedAt(DateUtils.dateNow())
+                    .withExpiresAt(DateUtils.addSecondsToDateNow(tokenExpiration))
                     .sign(getAlgorithm(tokenSecret));
     }
 
