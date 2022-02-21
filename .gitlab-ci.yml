@@ -49,7 +49,7 @@ Build Client:
   before_script:
     - apk update
     - apk add maven
-    - apt add node
+    - apk add node
   script:
     - cd comparify-client/src/main/resources/client
     - npm install
