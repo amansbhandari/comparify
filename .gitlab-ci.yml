@@ -6,15 +6,14 @@ cache:
     - target/
 
 stages:
-  - test-server
-  - build-client
-  - build-server
-  - deploy-heroku-staging-server
+  - test
+  - build
+  - deploy
 
 # test stage will compile the code and run all the unit tests present in the
 # test folder.
 Test:
-  stage: test-server
+  stage: test
   tags:
     - ugrad
   script:
@@ -30,8 +29,8 @@ Test:
     
 # build stage will just build the codebase without running
 # any tests or creating any jar file.
-Build App 1/2:
-  stage: build-server
+Build Server:
+  stage: build
   tags:
     - ugrad
   script:
@@ -41,19 +40,20 @@ Build App 1/2:
     paths:
        - target/*.jar
 
-Build App 2/2:
-  stage: build-client
+Build Client:
+  stage: build
   image: node:15
   tags:
     - dalfcs_docker_autoscale
   script:
+    - cd client
     - npm install
     - npm run build
 
 
 ## deploy stage will create package the jar and keep it in the target folder.
 ## The success of deploy stage will mark the pipeline as passed.
-deploy:
+Deploy Server:
   stage: deploy-heroku-staging-server
   image: ruby:latest
   tags:
