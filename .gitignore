@@ -8,3 +8,8 @@ server/.idea/
 /server/target/
 client/client.code-workspace
 client/build/
+comparify-client/src/main/resources/client/client.code-workspace
+comparify-client/src/main/resources/client/build/
+comparify-client/src/main/resources/client/node_modules/
+comparify-client/src/main/resources/static/
+comparify-client/target/

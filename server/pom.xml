@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>ca.dal</groupId>
-    <artifactId>comparify</artifactId>
+    <artifactId>comparify-server</artifactId>
     <version>0.0.1</version>
     <name>Server</name>
     <description>Comparify Server</description>
@@ -72,6 +72,7 @@
     </dependencies>
 
     <build>
+        <finalName>comparify-server</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
