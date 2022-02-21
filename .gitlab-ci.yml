@@ -6,14 +6,15 @@ cache:
     - target/
 
 stages:
-  - test-server
-  - build-server
-  - deploy-heroku-staging-server
+  - test
+  - build
+  - deploy-staging
+  - deploy-production
 
 # test stage will compile the code and run all the unit tests present in the
 # test folder.
-test:
-  stage: test-server
+Test:
+  stage: test
   tags:
     - ugrad
   script:
@@ -24,13 +25,13 @@ test:
     when: always
     reports:
       junit:
-        - target/surefire-reports/TEST-*.xml
-        - target/failsafe-reports/TEST-*.xml
+        - server/target/surefire-reports/TEST-*.xml
+        - server/target/failsafe-reports/TEST-*.xml
     
 # build stage will just build the codebase without running
 # any tests or creating any jar file.
-build:
-  stage: build-server
+Build Server:
+  stage: build
   tags:
     - ugrad
   script:
@@ -40,11 +41,36 @@ build:
     paths:
        - target/*.jar
 
+Build Client:
+  stage: build
+  image: node:15
+  tags:
+    - dalfcs_docker_autoscale
+  script:
+    - cd client
+    - npm install
+    - npm run build
+
 
 ## deploy stage will create package the jar and keep it in the target folder.
 ## The success of deploy stage will mark the pipeline as passed.
-deploy:
-  stage: deploy-heroku-staging-server
+Deploy Staging Client:
+  stage: deploy-staging
+  image: ruby:latest
+  tags:
+    - dalfcs_docker_autoscale  
+  before_script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+  script:
+    - cd client
+    - dpl --provider=heroku --app=$STAGING_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY
+  only:
+    - /^feature-.*/
+
+Deploy Staging Server:
+  stage: deploy-staging
   image: ruby:latest
   tags:
     - dalfcs_docker_autoscale  
@@ -54,5 +80,22 @@ deploy:
     - gem install dpl
   script:
     - cd server
-    - dpl --provider=heroku --app=$HARSH_HEROKU_APP_NAME_STAGING --api-key=$HARSH_HEROKU_API_KEY
+    - dpl --provider=heroku --app=$STAGING_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY
+  only:
+    - /^feature-.*/
+
+Deploy Production Server:
+  stage: deploy-production
+  image: ruby:latest
+  tags:
+    - dalfcs_docker_autoscale  
+  before_script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+  script:
+    - cd server
+    - dpl --provider=heroku --app=$PRODUCTION_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY
+  only:
+    - tag
 
