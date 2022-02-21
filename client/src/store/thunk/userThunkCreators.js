@@ -7,4 +7,4 @@ export const authenication = (credentials) => async (dispatch) => {
     } catch (error) {
       localStorage.removeItem("auth-token")
     }
-  };
+};

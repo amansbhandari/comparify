@@ -7,3 +7,4 @@ server/.idea/
 /server/mvnw.cmd
 /server/target/
 client/client.code-workspace
+client/build/
