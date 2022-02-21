@@ -43,8 +43,13 @@ Build Server:
 
 Build Client:
   stage: build
+  image: alpine:lastest
   tags:
-    - ugrad
+    - dalfcs_docker_autoscale
+  before_script:
+    - apt-get update -qy
+    - apt-get install -y maven
+    - apt-get install -y node
   script:
     - cd comparify-client/src/main/resources/client
     - npm install
