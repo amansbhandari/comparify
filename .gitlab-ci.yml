@@ -43,25 +43,13 @@ Build Server:
 
 Build Client:
   stage: build
-  image: alpine:3
+  image: node:lastest
   tags:
     - dalfcs_docker_autoscale
-  before_script:
-    - apk update
-    - apk add maven nodejs npm
   script:
-    - pwd
-    - project_src=`pwd`
-    - echo $project_src
-    - cd comparify-client/src/main/resources/client
+    - cd client
     - npm install
     - npm run build
-    - cd ../../../../
-    - pwd
-    - mvn clean install -e
-  artifacts:
-    paths:
-       - target/*.jar
 
 
 ## deploy stage will create package the jar and keep it in the target folder.
@@ -76,8 +64,8 @@ Deploy Staging Client:
     - apt-get install -y ruby-dev
     - gem install dpl
   script:
-    - cd comparify-client
-    - dpl --provider=heroku --app=$STAGING_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY
+    - cd client
+    - dpl --provider=heroku --app=$STAGING_CLIENT_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY
   only:
     - /^feature-.*/
 
@@ -92,7 +80,7 @@ Deploy Staging Server:
     - gem install dpl
   script:
     - cd server
-    - dpl --provider=heroku --app=$STAGING_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY
+    - dpl --provider=heroku --app=$STAGING_SERVER_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY
   only:
     - /^feature-.*/
 
