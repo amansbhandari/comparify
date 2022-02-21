@@ -65,7 +65,7 @@ Deploy Staging Client:
     - gem install dpl
   script:
     - cd client
-    - dpl --provider=heroku --app=$STAGING_CLIENT_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY
+    - dpl --provider=heroku --app=$STAGING_CLIENT_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY --cleanup
   only:
     - /^feature-.*/
 
@@ -80,7 +80,7 @@ Deploy Staging Server:
     - gem install dpl
   script:
     - cd server
-    - dpl --provider=heroku --app=$STAGING_SERVER_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY
+    - dpl --provider=heroku --app=$STAGING_SERVER_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY --cleanup
   only:
     - /^feature-.*/
 
@@ -95,7 +95,7 @@ Deploy Production Server:
     - gem install dpl
   script:
     - cd server
-    - dpl --provider=heroku --app=$PRODUCTION_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY
+    - dpl --provider=heroku --app=$PRODUCTION_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY --cleanup
   only:
     - tag
 
