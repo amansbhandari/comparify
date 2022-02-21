@@ -48,8 +48,8 @@ Build Client:
     - dalfcs_docker_autoscale
   before_script:
     - apk update
-    - apk add -y maven
-    - apt add -y node
+    - apk add maven
+    - apt add node
   script:
     - cd comparify-client/src/main/resources/client
     - npm install
