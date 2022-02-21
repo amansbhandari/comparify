@@ -43,7 +43,7 @@ Build Server:
 
 Build Client:
   stage: build
-  image: alpine:lastest
+  image: alpine:3
   tags:
     - dalfcs_docker_autoscale
   before_script:
