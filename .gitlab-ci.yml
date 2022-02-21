@@ -43,7 +43,7 @@ Build Server:
 
 Build Client:
   stage: build
-  image: node:15
+  image: node:lastest
   tags:
     - dalfcs_docker_autoscale
   script:
@@ -65,7 +65,7 @@ Deploy Staging Client:
     - gem install dpl
   script:
     - cd client
-    - dpl --provider=heroku --app=$STAGING_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY
+    - dpl --provider=heroku --app=$STAGING_CLIENT_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY
   only:
     - /^feature-.*/
 
@@ -80,7 +80,7 @@ Deploy Staging Server:
     - gem install dpl
   script:
     - cd server
-    - dpl --provider=heroku --app=$STAGING_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY
+    - dpl --provider=heroku --app=$STAGING_SERVER_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY
   only:
     - /^feature-.*/
 
