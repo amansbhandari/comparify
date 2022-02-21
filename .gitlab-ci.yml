@@ -41,7 +41,7 @@ build:
 
 ## deploy stage will create package the jar and keep it in the target folder.
 ## The success of deploy stage will mark the pipeline as passed.
-deploy:
+staging:
   stage: deploy-heroku-staging-server
   image: ruby:latest
   tags:
@@ -52,5 +52,22 @@ deploy:
     - gem install dpl
   script:
     - cd server
-    - dpl --provider=heroku --app=$HARSH_HEROKU_APP_NAME_STAGING --api-key=$HARSH_HEROKU_API_KEY
+    - dpl --provider=heroku --app=$STAGING_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY
+  only:
+    - /^feature-.*/
+
+production:
+  stage: deploy-heroku-production-server
+  image: ruby:latest
+  tags:
+    - dalfcs_docker_autoscale  
+  before_script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+  script:
+    - cd server
+    - dpl --provider=heroku --app=$HARSH_HEROKU_APP_NAME_PROD --api-key=$HARSH_HEROKU_API_KEY
+  only:
+    - tag
 
