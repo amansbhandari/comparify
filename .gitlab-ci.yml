@@ -7,12 +7,13 @@ cache:
 
 stages:
   - test-server
+  - build-client
   - build-server
   - deploy-heroku-staging-server
 
 # test stage will compile the code and run all the unit tests present in the
 # test folder.
-test:
+Test:
   stage: test-server
   tags:
     - ugrad
@@ -29,7 +30,7 @@ test:
     
 # build stage will just build the codebase without running
 # any tests or creating any jar file.
-build:
+Build App 1/2:
   stage: build-server
   tags:
     - ugrad
@@ -39,6 +40,15 @@ build:
   artifacts:
     paths:
        - target/*.jar
+
+Build App 2/2:
+  stage: build-client
+  image: node:15
+  tags:
+    - dalfcs_docker_autoscale
+  script:
+    - npm install
+    - npm run build
 
 
 ## deploy stage will create package the jar and keep it in the target folder.
