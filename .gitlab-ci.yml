@@ -51,14 +51,14 @@ Build Client:
     - apk add maven nodejs npm
   script:
     - pwd
-    - project_src=${pwd}
+    - project_src=`pwd`
     - echo $project_src
     - cd comparify-client/src/main/resources/client
     - npm install
     - npm run build
     - cd ../../../../
     - pwd
-    - mvn clean install
+    - mvn clean install -e
   artifacts:
     paths:
        - target/*.jar
