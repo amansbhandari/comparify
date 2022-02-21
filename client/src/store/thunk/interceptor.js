@@ -1,9 +1,8 @@
 import axios from "axios";
 
-const httpClient = axios.create({ baseURL: process.env.REACT_APP_SERVER_BASE_URL })
+const httpClient = axios.create({ baseURL: process.env.REACT_APP_SERVER_BASE_URL + process.env.REACT_APP_SERVER_CONTEXT_PATH })
     
 httpClient.interceptors.request.use(async function (config) {
-    config.url = process.env.REACT_APP_SERVER_BASE_URL + config.url
     
     const token = localStorage.getItem("auth-token");
     config.headers["Authorization"] = token;
