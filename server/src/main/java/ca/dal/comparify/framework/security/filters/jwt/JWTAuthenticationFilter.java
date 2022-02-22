@@ -1,4 +1,4 @@
-package ca.dal.comparify.framework.security;
+package ca.dal.comparify.framework.security.filters.jwt;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,12 +13,20 @@ import java.io.IOException;
 public class
 JWTAuthenticationFilter extends OncePerRequestFilter {
 
+    private AuthenticationProviders authenticationProviders;
+
     @Override
     protected void doFilterInternal(
             HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        SecurityContextHolder.getContext().setAuthentication(null);
+        Authentication auth = authenticationProviders.getAuthentication(request);
+
+        SecurityContextHolder.getContext().setAuthentication(auth);
         filterChain.doFilter(request, response);
+    }
+
+    public void setAuthenticationProviders(AuthenticationProviders authenticationProviders) {
+        this.authenticationProviders = authenticationProviders;
     }
 }

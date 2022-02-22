@@ -4,8 +4,12 @@ public class StringUtils {
 
     private StringUtils(){}
 
-    public static boolean isEmpty(String str){
+    public static boolean isNotEmpty(String str){
         return org.springframework.util.StringUtils.hasLength(str);
+    }
+
+    public static boolean isEmpty(String str){
+        return !isNotEmpty(str);
     }
 
     public static boolean isAnyEmpty(String... strs) {

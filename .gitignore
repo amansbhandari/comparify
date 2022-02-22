@@ -1,7 +1,7 @@
 client/node_modules/
 client/workspace.code-workspace
-client/client.code-workspace
 client/.idea/
+client/client.code-workspace
 client/build/
 server/.idea/
 server/.mvn/
