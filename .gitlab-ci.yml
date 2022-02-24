@@ -1,22 +1,15 @@
-image: maven:latest
-
-cache:
-  paths:
-    - .m2/repository/
-    - target/
-
 stages:
   - test
   - build
   - deploy-staging
   - deploy-production
 
-# test stage will compile the code and run all the unit tests present in the
-# test folder.
+# -------------------------- Test -------------------------- #
 Test:
   stage: test
+  image: maven:latest
   tags:
-    - ugrad
+    - dalfcs_docker_autoscale
   script:
     - cd server
     - mvn clean verify
@@ -27,19 +20,53 @@ Test:
         - server/target/surefire-reports/TEST-*.xml
         - server/target/failsafe-reports/TEST-*.xml
     
-# build stage will just build the codebase without running
-# any tests or creating any jar file.
-Build Server:
+# -------------------------- Build Server for Dev -------------------------- #
+Build Server for Dev:
   stage: build
+  image: maven:latest
   tags:
-    - ugrad
+    - dalfcs_docker_autoscale
   script:
     - cd server
     - mvn clean package -DskipTests=true
   artifacts:
     paths:
        - target/*.jar
+  except:
+    - main
+    - tag
 
+# -------------------------- Build Server for Staging -------------------------- #
+Build Server for Staging:
+  stage: build
+  image: maven:latest
+  tags:
+    - dalfcs_docker_autoscale
+  script:
+    - cd server
+    - mvn clean package -DskipTests=true -Pstaging
+  artifacts:
+    paths:
+       - target/*.jar
+  only:
+    - main
+
+# -------------------------- Build Server for Production -------------------------- #
+Build Server for Prod:
+  stage: build
+  image: maven:latest
+  tags:
+    - dalfcs_docker_autoscale
+  script:
+    - cd server
+    - mvn clean package -DskipTests=true -Pprod
+  artifacts:
+    paths:
+       - target/*.jar
+  only:
+    - tag
+
+# -------------------------- Build Client -------------------------- #
 Build Client:
   stage: build
   image: node:15
@@ -50,9 +77,7 @@ Build Client:
     - npm install
     - npm run build
 
-
-## deploy stage will create package the jar and keep it in the target folder.
-## The success of deploy stage will mark the pipeline as passed.
+# -------------------------- Deploy on Staging -------------------------- #
 Deploy Staging Client:
   stage: deploy-staging
   image: ruby:latest
@@ -66,7 +91,7 @@ Deploy Staging Client:
     - cd client
     - dpl --provider=heroku --app=$STAGING_CLIENT_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY --cleanup
   only:
-    - /^feature-.*/
+    - main
 
 Deploy Staging Server:
   stage: deploy-staging
@@ -81,7 +106,23 @@ Deploy Staging Server:
     - cd server
     - dpl --provider=heroku --app=$STAGING_SERVER_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY --cleanup
   only:
-    - /^feature-.*/
+    - main
+
+# -------------------------- Deploy on Prod -------------------------- #
+Deploy Production Client:
+  stage: deploy-production
+  image: ruby:latest
+  tags:
+    - dalfcs_docker_autoscale  
+  before_script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+  script:
+    - cd client
+    - dpl --provider=heroku --app=$PRODUCTION_CLIENT_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY --cleanup
+  only:
+    - tag
 
 Deploy Production Server:
   stage: deploy-production
@@ -94,7 +135,6 @@ Deploy Production Server:
     - gem install dpl
   script:
     - cd server
-    - dpl --provider=heroku --app=$PRODUCTION_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY --cleanup
+    - dpl --provider=heroku --app=$PRODUCTION_SERVER_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY --cleanup
   only:
     - tag
-
