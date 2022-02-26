@@ -8,8 +8,8 @@ import useStyles from "../../hooks/use-styles";
 
 const style = {
     root: {
-      display: "flex",
-      justifyContent: "center"
+        display: "inline-block",
+        margin: "30px 0px",
     },
     button: {
         marginTop: "16px",
@@ -19,7 +19,7 @@ const style = {
         display: "flex",
         justifyContent: "end"
     }
-  };
+};
 
 
 const Authentication = (props) => {
