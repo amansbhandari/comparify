@@ -31,7 +31,7 @@ Build Server for Dev:
     - mvn clean package -DskipTests=true
   artifacts:
     paths:
-       - target/*.jar
+       - server/target/*.jar
   except:
     - main
     - tag
@@ -47,7 +47,7 @@ Build Server for Staging:
     - mvn clean package -DskipTests=true -Pstaging
   artifacts:
     paths:
-       - target/*.jar
+       - server/target/*.jar
   only:
     - main
 
@@ -62,7 +62,7 @@ Build Server for Prod:
     - mvn clean package -DskipTests=true -Pprod
   artifacts:
     paths:
-       - target/*.jar
+       - server/target/*.jar
   only:
     - tag
 
