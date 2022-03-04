@@ -1,11 +1,12 @@
 stages:
   - test
   - build
+  - code-quality
   - deploy-staging
   - deploy-production
 
 # -------------------------- Test -------------------------- #
-Test:
+test:
   stage: test
   image: maven:latest
   tags:
@@ -21,7 +22,7 @@ Test:
         - server/target/failsafe-reports/TEST-*.xml
     
 # -------------------------- Build Server for Dev -------------------------- #
-Build Server for Dev:
+build_server_for_dev:
   stage: build
   image: maven:latest
   tags:
@@ -37,7 +38,7 @@ Build Server for Dev:
     - tag
 
 # -------------------------- Build Server for Staging -------------------------- #
-Build Server for Staging:
+build_server_for_staging:
   stage: build
   image: maven:latest
   tags:
@@ -52,7 +53,7 @@ Build Server for Staging:
     - main
 
 # -------------------------- Build Server for Production -------------------------- #
-Build Server for Prod:
+build_server_for_prod:
   stage: build
   image: maven:latest
   tags:
@@ -67,7 +68,7 @@ Build Server for Prod:
     - tag
 
 # -------------------------- Build Client -------------------------- #
-Build Client:
+build_client:
   stage: build
   image: node:16
   tags:
@@ -76,9 +77,61 @@ Build Client:
     - cd client
     - npm install
     - npm run build
+    
+# -------------------------- Code Quality on Development -------------------------- #
+
+code_quality_for_dev_by_designite:
+  stage: code-quality
+  tags:
+    - ugrad
+  variables:
+    UPLOAD_QUALITY_REPORT: 'curl -X PUT -H "Authorization: Token $QSCORED_API_KEY_HARSH" -H "repository-link:$CI_PROJECT_URL" -H 
+        "username:$QSCORED_USERNAME_HARSH" -H "Content-Type:multipart/form-data" --url "https://qscored.com/api/upload/file.xml?is_open_access=off&version=$CI_CONCURRENT_ID&project_name=$PROJECT_NAME_DEVELOPMENT" -F "file=$DESIGNITE_XML_OUTPUT"
+    DOWNLOAD_DESINITE_URL: "https://www.designite-tools.com/static/download/DJE/DesigniteJava.jar"'
+  script:
+    - wget -O DesigniteJava.jar $DOWNLOAD_DESIGNITE_URL
+    - java -jar DesigniteJava.jar -ci -repo $CI_PROJECT_ID/$CI_PROJECT_NAME -pat $PAT -host "https://git.cs.dal.ca/"
+    - eval "$UPLOAD_QUALITY_REPORT"
+  except:
+    - main
+    - tag
+
+# -------------------------- Code Quality on Staging -------------------------- #
+
+code_quality_for_staging_by_designite:
+  stage: code-quality
+  tags:
+    - ugrad
+  variables:
+    UPLOAD_QUALITY_REPORT: 'curl -X PUT -H "Authorization: Token $QSCORED_API_KEY_HARSH" -H "repository-link:$CI_PROJECT_URL" -H 
+        "username:$QSCORED_USERNAME_HARSH" -H "Content-Type:multipart/form-data" --url "https://qscored.com/api/upload/file.xml?is_open_access=off&version=$CI_CONCURRENT_ID&project_name=$PROJECT_NAME_STAGING" -F "file=$DESIGNITE_XML_OUTPUT"
+    DOWNLOAD_DESINITE_URL: "https://www.designite-tools.com/static/download/DJE/DesigniteJava.jar"'
+  script:
+    - wget -O DesigniteJava.jar $DOWNLOAD_DESIGNITE_URL
+    - java -jar DesigniteJava.jar -ci -repo $CI_PROJECT_ID/$CI_PROJECT_NAME -pat $PAT -host "https://git.cs.dal.ca/"
+    - eval "$UPLOAD_QUALITY_REPORT"
+  only:
+    - main
+
+# -------------------------- Code Quality on Production -------------------------- #
+
+code_quality_for_prod_by_designite:
+  stage: code-quality
+  tags:
+    - ugrad
+  variables:
+    UPLOAD_QUALITY_REPORT: 'curl -X PUT -H "Authorization: Token $QSCORED_API_KEY_HARSH" -H "repository-link:$CI_PROJECT_URL" -H 
+        "username:$QSCORED_USERNAME_HARSH" -H "Content-Type:multipart/form-data" --url "https://qscored.com/api/upload/file.xml?is_open_access=off&version=$CI_CONCURRENT_ID&project_name=$PROJECT_NAME_PROD" -F "file=$DESIGNITE_XML_OUTPUT"
+    DOWNLOAD_DESINITE_URL: "https://www.designite-tools.com/static/download/DJE/DesigniteJava.jar"'
+  script:
+    - wget -O DesigniteJava.jar $DOWNLOAD_DESIGNITE_URL
+    - java -jar DesigniteJava.jar -ci -repo $CI_PROJECT_ID/$CI_PROJECT_NAME -pat $PAT -host "https://git.cs.dal.ca/"
+    - eval "$UPLOAD_QUALITY_REPORT"
+  only:
+    - tag
 
 # -------------------------- Deploy on Staging -------------------------- #
-Deploy Staging Client:
+deploy_staging_client:
   stage: deploy-staging
   image: ruby:latest
   tags:
@@ -93,7 +146,7 @@ Deploy Staging Client:
   only:
     - main
 
-Deploy Staging Server:
+deploy_staging_server:
   stage: deploy-staging
   image: ruby:latest
   tags:
@@ -115,7 +168,7 @@ Deploy Staging Server:
     - main
 
 # -------------------------- Deploy on Prod -------------------------- #
-Deploy Production Client:
+deploy_prod_client:
   stage: deploy-production
   image: ruby:latest
   tags:
@@ -130,7 +183,7 @@ Deploy Production Client:
   only:
     - tag
 
-Deploy Production Server:
+deploy_prod_server:
   stage: deploy-production
   image: ruby:latest
   tags:
