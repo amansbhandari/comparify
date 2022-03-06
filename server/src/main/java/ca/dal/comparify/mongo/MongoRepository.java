@@ -29,10 +29,8 @@ public class MongoRepository {
     private CodecRegistry pojoCodecRegistry;
 
     @Autowired
-    private MongoTemplate mongoTemplate;
-
-    @Autowired
-    protected MongoRepository(MongoClient mongoClient, @Value("${spring.data.mongodb.database}") String databaseName){
+    protected MongoRepository(MongoClient mongoClient,
+                              @Value("${spring.data.mongodb.database}") String databaseName){
        this.database = mongoClient.getDatabase(databaseName);
 
        this.pojoCodecRegistry =
