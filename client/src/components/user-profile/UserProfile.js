@@ -1,10 +1,8 @@
 import { Box } from "@material-ui/core";
 import React from "react";
-import Authentication from "../authenication/Authentication";
 import useStyles from "../../hooks/use-styles";
 
 
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
@@ -13,7 +11,6 @@ import Paper from '@mui/material/Paper';
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
-import logo from './../../assets/images/logo.png';
 
 const style = {
     root: {
@@ -37,7 +34,19 @@ const UserProfile = (props) => {
     const classes = useStyles(style);
 
     return(<>
-        
+        <Grid item xs={12} sm={7} md={6} component={Paper} elevation={6} square>
+                <Box className={classes.root}>
+                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        User Profile
+                    </Typography>
+
+
+                    
+                </Box>
+            </Grid>
     </>)
 }
 
