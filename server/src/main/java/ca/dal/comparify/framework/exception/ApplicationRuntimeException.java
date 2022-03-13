@@ -2,9 +2,9 @@ package ca.dal.comparify.framework.exception;
 
 public class ApplicationRuntimeException extends RuntimeException {
 
-    private Integer status;
+    private final Integer status;
 
-    private Integer errorCode;
+    private final Integer errorCode;
 
     public ApplicationRuntimeException(Integer status, Integer errorCode) {
         this.status = status;

@@ -113,6 +113,7 @@ code_quality_for_staging_by_designite:
   only:
     - main
 
+
 # -------------------------- Code Quality on Production -------------------------- #
 
 code_quality_for_prod_by_designite:
@@ -129,6 +130,26 @@ code_quality_for_prod_by_designite:
     - eval "$UPLOAD_QUALITY_REPORT"
   only:
     - tag
+
+
+# -------------------------- Code Quality by Sonar -------------------------- #
+
+code_quality_by_sonar:
+  stage: code-quality
+  image: maven:latest
+  tags:
+    - dalfcs_docker_autoscale
+  script:
+    - cd server
+    - mvn clean verify sonar:sonar
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - server/target/surefire-reports/TEST-*.xml
+        - server/target/failsafe-reports/TEST-*.xml
+  only:
+    - feature-code-quality
 
 # -------------------------- Deploy on Staging -------------------------- #
 deploy_staging_client:

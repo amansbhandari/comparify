@@ -19,8 +19,7 @@ public class ObjectUtils {
         try {
             return mapper.readValue(json, classOf);
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            return null;
         }
-        return null;
     }
 }

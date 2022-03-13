@@ -11,7 +11,7 @@ import static com.mongodb.client.model.Filters.eq;
 @Service
 public class UserAuthenticationRepository {
 
-    private final static String USER_AUTH_COLLECTION = "user_auth";
+    private static final String USER_AUTH_COLLECTION = "user_auth";
 
     @Autowired
     private MongoRepository mongoRepository;
@@ -38,10 +38,8 @@ public class UserAuthenticationRepository {
             mongoRepository.insert(USER_AUTH_COLLECTION, userAuthenticationModel, UserAuthenticationModel.class);
             return true;
         } catch (MongoException e){
-            e.printStackTrace();
+            return false;
         }
-
-        return false;
     }
 
     /**
