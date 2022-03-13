@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 public class MissingRequiredFieldException extends ApplicationRuntimeException {
 
-    private List<String> fields;
+    private final List<String> fields;
 
     public MissingRequiredFieldException(Integer status, Integer errorCode, List<String> fields) {
         super(status, errorCode);

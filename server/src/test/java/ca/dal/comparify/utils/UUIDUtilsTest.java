@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 /**
  * @author Harsh Shah
  */
-public class UUIDUtilsTest {
+class UUIDUtilsTest {
 
     /**
      * @author Harsh Shah

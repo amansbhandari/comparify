@@ -78,9 +78,8 @@ public class TokenService implements AuthenticationProviders {
             return JWT.decode(token).getSubject();
 
         } catch (JWTVerificationException e) {
-            e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     /**

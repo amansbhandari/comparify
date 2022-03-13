@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Harsh Shah
  */
-public class StringUtilsTest {
+class StringUtilsTest {
 
     /**
      * @return
