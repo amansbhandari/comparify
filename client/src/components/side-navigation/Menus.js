@@ -23,11 +23,22 @@ const drawerWidth = 240;
 
 function Menus(props) {
   const { window } = props;
+ 
+  
+  //Titles stored for all the menus
+  var titles = ['Home','Menu2','Menu3','Menu4', 'User Profile', 'Log out'];
+
+  // //First title
+  // var titlePage = titles[0];
+
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [titlePage, setTitlePage] = React.useState(titles[0]);
+  const [detailPage, setDetailPage] = React.useState(<h1>Our home page !</h1>)
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
 
   function getIcon(index)
   {
@@ -81,10 +92,10 @@ function Menus(props) {
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: 'none' } }}
           >
-            <MenuIcon />
+            <MenuIcon/>
           </IconButton>
-          <Typography variant="h5" noWrap component="div">
-            Home
+          <Typography variant="h5" noWrap component="div" style={{marginLeft : '20px'}}>
+            {titlePage}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -124,21 +135,43 @@ function Menus(props) {
         component="main"
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
         <Toolbar />
-        <Typography paragraph>
+        {/* <Typography paragraph>
           Lorem ipsum d
         </Typography>
         <Typography paragraph>
           Consequat mauris n
-        </Typography>
-        <UserProfile></UserProfile>
+        </Typography> */}
+        {detailPage}
+        {/* <UserProfile></UserProfile> */}
       </Box>
     </Box>
   );
 
 function menuClicked(index)
 {
+  setTitlePage(titles[index]);
+
+  if(index === 0)
+  {
+    setDetailPage(<h1>Our home page detail page can be added by replacing this!</h1>)
+  }
+  else if(index === 1)
+  {
     
-    alert(index);
+    setDetailPage(<h1>Menu 1 detail page can be added by replacing this!</h1>)
+  }
+  else if(index === 2)
+  {
+    setDetailPage(<h1>Menu 2 detail page can be added by replacing this!</h1>)
+  }
+  else if(index === 3)
+  {
+    setDetailPage(<h1>Menu 3 detail page can be added by replacing this!</h1>)
+  }
+  else if(index === 4)
+  {
+    setDetailPage(<UserProfile></UserProfile>);
+  }
 }
 }
 
