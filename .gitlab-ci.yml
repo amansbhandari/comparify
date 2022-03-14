@@ -163,7 +163,7 @@ deploy_staging_client:
     - cd client
     - dpl --provider=heroku --app=$STAGING_CLIENT_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY --cleanup
   only:
-    - fix-pipeline-issue
+    - main
 
 deploy_staging_server:
   stage: deploy-staging
@@ -186,7 +186,7 @@ deploy_staging_server:
   when: delayed
   start_in: 5 minutes
   only:
-    - fix-pipeline-issue
+    - main
 
 # -------------------------- Deploy on Prod -------------------------- #
 deploy_prod_client:
