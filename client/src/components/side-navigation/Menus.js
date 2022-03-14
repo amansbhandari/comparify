@@ -28,9 +28,6 @@ function Menus(props) {
   //Titles stored for all the menus
   var titles = ['Home','Menu2','Menu3','Menu4', 'User Profile', 'Log out'];
 
-  // //First title
-  // var titlePage = titles[0];
-
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [titlePage, setTitlePage] = React.useState(titles[0]);
   const [detailPage, setDetailPage] = React.useState(<h1>Our home page !</h1>)
@@ -53,11 +50,11 @@ function Menus(props) {
   }
 
   const drawer = (
-    <div>
-      <Toolbar />
+    <div style={{height : '100%'}} >
+      <Toolbar  style = {{background : '#2e4670'}}/>
       <Divider />
       <List>
-        {['Home','Menu2','Menu3','Menu4', 'User Profile', 'Log out'].map((text, index) => (
+        {titles.map((text, index) => (
           <ListItem button key={text}  style= {{margin: '20px'}} onClick={() => {
             menuClicked(index);
           }}>
@@ -75,13 +72,14 @@ function Menus(props) {
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: 'flex' }} >
+    <Box sx={{ display: 'flex'}} >
       <CssBaseline />
       <AppBar
         position="fixed"
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
+          background: '#2e4670'
         }}
       >
         <Toolbar>
@@ -94,7 +92,7 @@ function Menus(props) {
           >
             <MenuIcon/>
           </IconButton>
-          <Typography variant="h5" noWrap component="div" style={{marginLeft : '20px'}}>
+          <Typography variant="h5" noWrap component="div" style={{marginLeft : '20px', fontWeight: 'Bold'}}>
             {titlePage}
           </Typography>
         </Toolbar>
@@ -134,7 +132,7 @@ function Menus(props) {
       <Box
         component="main"
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
-        <Toolbar />
+        <Toolbar/>
         {/* <Typography paragraph>
           Lorem ipsum d
         </Typography>

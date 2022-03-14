@@ -13,7 +13,8 @@ const style = {
         flexDirection: 'column',
         alignItems: 'center',
         margin: "64px 128px",
-        marginTop: "150px"
+        marginTop: "80px",
+        
     },
     imageContainer: {
         display: 'flex',
