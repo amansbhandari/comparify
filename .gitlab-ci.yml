@@ -35,7 +35,7 @@ build_server_for_dev:
        - server/target/*.jar
   except:
     - main
-    - tag
+    - tags
 
 # -------------------------- Build Server for Staging -------------------------- #
 build_server_for_staging:
@@ -65,7 +65,7 @@ build_server_for_prod:
     paths:
        - server/target/*.jar
   only:
-    - tag
+    - tags
 
 # -------------------------- Build Client -------------------------- #
 build_client:
@@ -94,7 +94,7 @@ code_quality_for_dev_by_designite:
     - eval "$UPLOAD_QUALITY_REPORT"
   except:
     - main
-    - tag
+    - tags
 
 # -------------------------- Code Quality on Staging -------------------------- #
 
@@ -129,7 +129,7 @@ code_quality_for_prod_by_designite:
     - java -jar DesigniteJava.jar -ci -repo $CI_PROJECT_ID/$CI_PROJECT_NAME -pat $PAT -host "https://git.cs.dal.ca/"
     - eval "$UPLOAD_QUALITY_REPORT"
   only:
-    - tag
+    - tags
 
 
 # -------------------------- Code Quality by Sonar -------------------------- #
@@ -148,8 +148,6 @@ code_quality_by_sonar:
       junit:
         - server/target/surefire-reports/TEST-*.xml
         - server/target/failsafe-reports/TEST-*.xml
-  only:
-    - feature-code-quality
 
 # -------------------------- Deploy on Staging -------------------------- #
 deploy_staging_client:
@@ -165,7 +163,7 @@ deploy_staging_client:
     - cd client
     - dpl --provider=heroku --app=$STAGING_CLIENT_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY --cleanup
   only:
-    - main
+    - fix-pipeline-issue
 
 deploy_staging_server:
   stage: deploy-staging
@@ -185,8 +183,10 @@ deploy_staging_server:
       --header "Authorization: Bearer $HARSH_HEROKU_API_KEY"
     - cd server
     - dpl --provider=heroku --app=$STAGING_SERVER_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY --cleanup
+  when: delayed
+  start_in: 5 minutes
   only:
-    - main
+    - fix-pipeline-issue
 
 # -------------------------- Deploy on Prod -------------------------- #
 deploy_prod_client:
@@ -202,7 +202,7 @@ deploy_prod_client:
     - cd client
     - dpl --provider=heroku --app=$PRODUCTION_CLIENT_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY --cleanup
   only:
-    - tag
+    - tags
 
 deploy_prod_server:
   stage: deploy-production
@@ -222,5 +222,7 @@ deploy_prod_server:
       --header "Authorization: Bearer $HARSH_HEROKU_API_KEY"
     - cd server
     - dpl --provider=heroku --app=$PRODUCTION_SERVER_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY --cleanup
+  when: delayed
+  start_in: 5 minutes
   only:
-    - tag
+    - tags
