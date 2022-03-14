@@ -172,6 +172,10 @@ function menuClicked(index)
   {
     setDetailPage(<UserProfile></UserProfile>);
   }
+  else 
+  {
+    setDetailPage(<h1>User will be logged out !</h1>);
+  }
 }
 }
 
