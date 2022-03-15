@@ -21,4 +21,7 @@
 You need to figure out environment - dev | prod | staging | test
 1. `cd server/misc/dummy\ data/`
 2. `bash importData-<enviroment>.sh`
-Note: Windows users might need to install WSL(Windows Subsystem for Linux)
+Note1: If you want to import data for all environments at once, Replace your 2nd command with
+`bash *.sh`
+
+Note2: Windows users might need to install WSL(Windows Subsystem for Linux)
