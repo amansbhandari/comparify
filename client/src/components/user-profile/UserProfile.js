@@ -106,13 +106,20 @@ const UserProfile = (props) => {
                     <Grid item className={classes.buttonContainer}>
                         <Button color="primary" variant="contained" type="submit" className={classes.button} onClick={() => {
             editClicked()}}>
-                            Edit
+                            {getButtonLabel()}
                         </Button>
                     </Grid>
                 </Box>
     </>)
 
-
+function getButtonLabel()
+{
+    if(isEditMode)
+    {
+        return 'Save';
+    }
+    return 'Edit';
+}
 function editClicked()
 {
     setEditMode(true)

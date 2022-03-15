@@ -10,7 +10,6 @@ const AppRoutes = (props) => {
     <Router basename={process.env.REACT_APP_BASE_HREF}>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/userprofile" element={<UserProfile />} />
         <Route path="/home" element={<Menus/>} />
       </Routes>
     </Router>
