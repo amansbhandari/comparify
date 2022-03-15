@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./components/landing/LandingPage";
 import Menus from "./components/side-navigation/Menus";
-import UserProfile from "./components/user-profile/UserProfile";
 
 const AppRoutes = (props) => {
 
