@@ -1,4 +1,4 @@
-import { Box,Button} from "@material-ui/core";
+import { Box,Button,TextField} from "@material-ui/core";
 import React from "react";
 import useStyles from "../../hooks/use-styles";
 
@@ -64,6 +64,7 @@ const UserProfile = (props) => {
 
     const classes = useStyles(style);
     // const [task, setTask] = useState("");
+    const [isEditMode, setEditMode] = React.useState(false);
 
     function userEmail()
     {
@@ -81,7 +82,6 @@ const UserProfile = (props) => {
     }
 
     return(<>
-        {/* <Grid item xs={12} sm={7} md={6} component={Paper} elevation={6} square style= {style.grid}> */}
                 <Box className={classes.root}>
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                     </Avatar>
@@ -90,41 +90,73 @@ const UserProfile = (props) => {
                     </Typography>
                     <div style={style.field}>
                         <label style= {style.label}>Email Id</label>
-                        <label style= {style.editableField}>{userEmail()}</label>
-                        {/* <Editable text={userEmail()} placeholder="Enter email id" type="input" style={style.editableField} >
-                         <input type="text" name="emailid" placeholder="Enter email id" value={task}
-                            onChange={e => setTask(e.target.value)}  style={style.editableField}/>
-                        </Editable> */}
+                        {showEmailId()}
                     </div>
                     
                     <div style={style.field}>
                         <label style= {style.label}>First name</label>
-                        <label style= {style.editableField}>{userFirstName()}</label>
-                        {/* <Editable text={userFirstName()} placeholder={"Enter first name"} type="input" style={style.editableField}>
-                        <input type="text" name="emailid" placeholder="Enter first name" value={task}
-                        onChange={e => setTask(e.target.value)}   style={style.editableField}/>
-                        </Editable> */}
+                        {showFirstName()}
                     </div>
                      
                     <div style={style.field}>
                         <label style= {style.label}>Last Name</label>
-                        <label style= {style.editableField}>{userLastName()}</label>
-                        {/* <Editable text={userLastName()} placeholder={"Enter last name"} type="input" style={style.editableField}>
-                            <input type="text" name="emailid" placeholder="Enter last name" value={task}
-                            onChange={e => setTask(e.target.value)}   style={style.editableField}/>
-                        </Editable> */}
+                        {showLastName()}
                     </div>
 
                     <Grid item className={classes.buttonContainer}>
-                        <Button color="primary" variant="contained" type="submit" className={classes.button} >
-                            Edit
+                        <Button color="primary" variant="contained" type="submit" className={classes.button} onClick={() => {
+            editClicked()}}>
+                            {getButtonLabel()}
                         </Button>
                     </Grid>
                 </Box>
-            {/* </Grid> */}
-
-    
     </>)
+
+function getButtonLabel()
+{
+    if(isEditMode)
+    {
+        return 'Save';
+    }
+    return 'Edit';
+}
+function editClicked()
+{
+    setEditMode(true)
+}
+
+function showEmailId()
+{
+    if(isEditMode)
+    {
+        return <TextField id="outlined-basic" label="Email Id" variant="outlined" style= {style.editableField} disabled={!isEditMode}/>
+    }
+    else{
+        return <label style= {style.editableField} disabled={isEditMode}>{userEmail()}</label>
+    }
+}
+
+function showFirstName()
+{
+    if(isEditMode)
+    {
+        return <TextField id="outlined-basic" label="First name" variant="outlined" style= {style.editableField} disabled={!isEditMode}/>
+    }
+    else{
+        return <label style= {style.editableField} disabled={isEditMode}>{userFirstName()}</label>
+    }
+}
+
+function showLastName()
+{
+    if(isEditMode)
+    {
+        return <TextField id="outlined-basic" label="Last name" variant="outlined" style= {style.editableField} disabled={!isEditMode} />
+    }
+    else{
+        return <label style= {style.editableField} disabled={isEditMode}>{userLastName()}</label>
+    }
+}
 }
 
 export default UserProfile;
