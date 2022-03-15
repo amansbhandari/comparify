@@ -15,3 +15,10 @@
 1. `cd client`
 2. `npm i`
 3. `npm run serve`
+
+### To setup the database ###
+
+You need to figure out environment - dev | prod | staging | test
+1. `cd server/misc/dummy\ data/`
+2. `bash importData-<enviroment>.sh`
+Note: Windows users might need to install WSL(Windows Subsystem for Linux)
