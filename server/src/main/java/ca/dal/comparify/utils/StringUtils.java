@@ -5,7 +5,10 @@ public class StringUtils {
     private StringUtils(){}
 
     public static boolean isNotEmpty(String str){
-        return org.springframework.util.StringUtils.hasLength(str);
+        if(str == null){
+            return false;
+        }
+        return org.springframework.util.StringUtils.hasLength(str.trim());
     }
 
     public static boolean isEmpty(String str){

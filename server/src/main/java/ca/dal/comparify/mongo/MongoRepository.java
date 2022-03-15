@@ -12,7 +12,6 @@ import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.conversions.Bson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,13 +28,11 @@ public class MongoRepository {
     private CodecRegistry pojoCodecRegistry;
 
     @Autowired
-    private MongoTemplate mongoTemplate;
+    protected MongoRepository(MongoClient mongoClient,
+                              @Value("${spring.data.mongodb.database}") String databaseName) {
+        this.database = mongoClient.getDatabase(databaseName);
 
-    @Autowired
-    protected MongoRepository(MongoClient mongoClient, @Value("${spring.data.mongodb.database}") String databaseName){
-       this.database = mongoClient.getDatabase(databaseName);
-
-       this.pojoCodecRegistry =
+        this.pojoCodecRegistry =
                 fromRegistries(
                         MongoClientSettings.getDefaultCodecRegistry(),
                         fromProviders(PojoCodecProvider.builder().automatic(true).build()));
@@ -45,7 +42,7 @@ public class MongoRepository {
      * @param collectionName
      * @return
      */
-    private MongoCollection<Document> getCollection(String collectionName){
+    private MongoCollection<Document> getCollection(String collectionName) {
         return this.database.getCollection(collectionName);
     }
 
@@ -55,8 +52,12 @@ public class MongoRepository {
      * @param <T>
      * @return
      */
-    private <T> MongoCollection<T> getCollection(String collectionName, Class<T> classOf){
-        return this.database.getCollection(collectionName, classOf).withCodecRegistry(this.pojoCodecRegistry);
+    private <T> MongoCollection<T> getCollection(String collectionName, Class<T> classOf) {
+        try {
+            return this.database.getCollection(collectionName, classOf).withCodecRegistry(this.pojoCodecRegistry);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
 
@@ -67,19 +68,19 @@ public class MongoRepository {
      * @param <T>
      * @return
      */
-    public <T> List<T> find(String collectionName, Bson query, Class<T> classOf){
+    public <T> List<T> find(String collectionName, Bson query, Class<T> classOf) {
         MongoCollection<T> collection = getCollection(collectionName, classOf);
 
-        List<T> output = new ArrayList<T>();
+        List<T> output = new ArrayList<>();
 
-        if(collection == null){
+        if (collection == null) {
             return output;
         }
 
         collection.find(query)
                 .allowDiskUse(true)
                 .iterator()
-                .forEachRemaining(result -> output.add(result));
+                .forEachRemaining(output::add);
 
 
         return output;
@@ -92,13 +93,11 @@ public class MongoRepository {
      * @param <T>
      * @return
      */
-    public <T> T findOne(String collectionName, Bson query, Class<T> classOf){
+    public <T> T findOne(String collectionName, Bson query, Class<T> classOf) {
         MongoCollection<T> collection = getCollection(collectionName, classOf);
 
-        T output = null;
-
-        if(collection == null){
-            return output;
+        if (collection == null) {
+            return null;
         }
 
         return collection.find(query).first();
@@ -115,13 +114,18 @@ public class MongoRepository {
         MongoCollection<T> collection = getCollection(collectionName, classOf);
 
         InsertOneResult result = null;
-        try {
-            result = collection.insertOne(object);
-        } catch (MongoException ex){
-            ex.printStackTrace();
+        if (collection == null) {
+            return false;
         }
 
-        if(result == null){
+
+        try {
+            result = collection.insertOne(object);
+        } catch (MongoException ex) {
+            result = null;
+        }
+
+        if (result == null) {
             return false;
         }
 
@@ -133,7 +137,7 @@ public class MongoRepository {
      * @return
      */
     public long count(String collectionName, Bson query) {
-        MongoCollection<Document>  collection = getCollection(collectionName);
+        MongoCollection<Document> collection = getCollection(collectionName);
         return collection.countDocuments(query);
     }
 }

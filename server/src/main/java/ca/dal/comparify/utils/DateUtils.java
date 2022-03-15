@@ -15,7 +15,7 @@ public class DateUtils {
 
     /*------------------  Instant ------------------*/
 
-    private static ZonedDateTime now(){
+    public static ZonedDateTime zoneNow(){
         return Instant.now().atZone(DEFAULT_ZONE_ID);
     }
 
@@ -32,7 +32,7 @@ public class DateUtils {
     /*------------------  Local Date ------------------*/
 
     public static LocalDate localNow(){
-        return now().toLocalDate();
+        return zoneNow().toLocalDate();
     }
 
     public static LocalDate addSecondsToLocalNow(long seconds){

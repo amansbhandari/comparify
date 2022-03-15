@@ -8,3 +8,4 @@ server/.mvn/
 server/mvnw
 server/mvnw.cmd
 server/target/
+.vscode/
