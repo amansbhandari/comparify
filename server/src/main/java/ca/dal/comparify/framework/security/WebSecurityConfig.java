@@ -21,7 +21,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private TokenService tokenService;
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 

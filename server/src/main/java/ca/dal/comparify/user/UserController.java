@@ -1,8 +1,8 @@
 package ca.dal.comparify.user;
 
 import ca.dal.comparify.framework.exception.MissingRequiredFieldException;
-import ca.dal.comparify.user.model.authentication.UserAuthenticationRequestModel;
-import ca.dal.comparify.user.model.authentication.UserAuthenticationResponseModel;
+import ca.dal.comparify.user.model.iam.UserIAMRequestModel;
+import ca.dal.comparify.user.model.iam.UserIAMResponseModel;
 import ca.dal.comparify.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 import java.util.Map;
 
+/**
+ * @author Harsh Shah
+ */
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -20,32 +23,36 @@ public class UserController {
     private UserService userService;
 
     /**
-     * @param authenticationRequestModel
+     * @param userIAMRequestModel
      * @return
+     *
+     * @author Harsh Shah
      */
     @PostMapping("/authentication")
-    public UserAuthenticationResponseModel authentication(@RequestBody UserAuthenticationRequestModel authenticationRequestModel){
+    public UserIAMResponseModel authentication(@RequestBody UserIAMRequestModel userIAMRequestModel){
 
-        if(authenticationRequestModel.isEmpty()){
-            throw new MissingRequiredFieldException(400, 1000, authenticationRequestModel.getRequiredFields());
+        if(userIAMRequestModel.isEmpty()){
+            throw new MissingRequiredFieldException(400, 1000, userIAMRequestModel.getRequiredFields());
         }
 
-        return userService.authenticate(authenticationRequestModel);
+        return userService.authenticate(userIAMRequestModel);
     }
 
     /**
-     * @param authenticationRequestModel
+     * @param userIAMRequestModel
      * @return
+     *
+     * @author Harsh Shah
      */
     @PostMapping("/register")
-    public ResponseEntity<Map<String, Boolean>> register(@RequestBody UserAuthenticationRequestModel authenticationRequestModel){
+    public ResponseEntity<Map<String, Boolean>> register(@RequestBody UserIAMRequestModel userIAMRequestModel){
 
-        if(authenticationRequestModel.isEmpty()){
-            throw new MissingRequiredFieldException(400, 1000, authenticationRequestModel.getRequiredFields());
+        if(userIAMRequestModel.isEmpty()){
+            throw new MissingRequiredFieldException(400, 1000, userIAMRequestModel.getRequiredFields());
         }
 
-        boolean status = userService.createUserAuthentication(authenticationRequestModel.getUserIdentifier(),
-                authenticationRequestModel.getSecret());
+        boolean status = userService.createUserIAMInfo(userIAMRequestModel.getUserIdentifier(),
+                userIAMRequestModel.getUserSecret());
 
         HttpStatus httpStatus = status ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST;
 

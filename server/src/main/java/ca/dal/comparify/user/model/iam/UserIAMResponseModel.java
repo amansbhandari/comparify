@@ -1,19 +1,19 @@
-package ca.dal.comparify.user.model.authentication;
+package ca.dal.comparify.user.model.iam;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class UserAuthenticationResponseModel {
+public class UserIAMResponseModel {
 
     private String token;
 
     @JsonProperty("refresh_token")
     private String refreshToken;
 
-    public UserAuthenticationResponseModel(String token) {
+    public UserIAMResponseModel(String token) {
         this.token = token;
     }
 
-    public UserAuthenticationResponseModel(String token, String refreshToken) {
+    public UserIAMResponseModel(String token, String refreshToken) {
         this.token = token;
         this.refreshToken = refreshToken;
     }
