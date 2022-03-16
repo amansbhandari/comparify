@@ -1,4 +1,4 @@
-package ca.dal.comparify.user.model.authentication;
+package ca.dal.comparify.user.model.iam;
 
 import ca.dal.comparify.utils.StringUtils;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -7,19 +7,20 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-public class UserAuthenticationRequestModel implements Serializable {
+public class UserIAMRequestModel implements Serializable {
 
     private static final String USER_IDENTIFIER = "user_identifier";
+
     private static final String SECRET = "secret";
 
     @JsonProperty(USER_IDENTIFIER)
     private String userIdentifier;
 
-    private String secret;
+    private String userSecret;
 
-    public UserAuthenticationRequestModel(String userIdentifier, String secret) {
+    public UserIAMRequestModel(String userIdentifier, String secret) {
         this.userIdentifier = userIdentifier;
-        this.secret = secret;
+        this.userSecret = secret;
     }
 
     public String getUserIdentifier() {
@@ -30,16 +31,16 @@ public class UserAuthenticationRequestModel implements Serializable {
         this.userIdentifier = userIdentifier;
     }
 
-    public String getSecret() {
-        return secret;
+    public String getUserSecret() {
+        return userSecret;
     }
 
-    public void setSecret(String secret) {
-        this.secret = secret;
+    public void setUserSecret(String userSecret) {
+        this.userSecret = userSecret;
     }
 
     public boolean isEmpty(){
-        return StringUtils.isAnyEmpty(userIdentifier, secret);
+        return StringUtils.isAnyEmpty(userIdentifier, userSecret);
     }
 
     public List<String> getRequiredFields(){
