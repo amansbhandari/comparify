@@ -1,7 +1,7 @@
 package ca.dal.comparify.security;
 
 import ca.dal.comparify.framework.security.filters.jwt.AuthenticationProviders;
-import ca.dal.comparify.user.model.authentication.UserPrincipal;
+import ca.dal.comparify.user.model.iam.authentication.UserPrincipal;
 import ca.dal.comparify.utils.DateUtils;
 import ca.dal.comparify.utils.StringUtils;
 import com.auth0.jwt.JWT;
@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static ca.dal.comparify.constant.ApplicationConstant.BLANK_SPACE;
 import static java.util.Collections.emptyList;
 
 @Service
@@ -33,6 +34,8 @@ public class TokenService implements AuthenticationProviders {
     /**
      * @param authentication
      * @return
+     *
+     * @author Harsh Shah
      */
     public String generateToken(Authentication authentication) {
 
@@ -50,6 +53,8 @@ public class TokenService implements AuthenticationProviders {
     /**
      * @param request
      * @return
+     *
+     * @author Harsh Shah
      */
     @Override
     public Authentication getAuthentication(HttpServletRequest request) {
@@ -59,13 +64,21 @@ public class TokenService implements AuthenticationProviders {
             return null;
         }
 
-        String user = getAuthenticationUser(token);
+        String[] parts = token.split(BLANK_SPACE);
+
+        if(parts.length != 2){
+            return null;
+        }
+
+        String user = getAuthenticationUser(parts[1]);
         return user != null ? new UsernamePasswordAuthenticationToken(user, null, emptyList()) : null;
     }
 
     /**
      * @param token
      * @return
+     *
+     * @author Harsh Shah
      */
     public String getAuthenticationUser(String token) {
         try {
@@ -85,6 +98,8 @@ public class TokenService implements AuthenticationProviders {
     /**
      * @param secret
      * @return
+     *
+     * @author Harsh Shah
      */
     private Algorithm getAlgorithm(String secret){
         return Algorithm.HMAC256(secret);
