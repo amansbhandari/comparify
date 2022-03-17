@@ -164,10 +164,6 @@ public class MongoRepository {
             return -2;
         }
 
-        if (null == result) {
-            return -1;
-        }
-
         return result.wasAcknowledged() ? 0 : -1;
     }
 

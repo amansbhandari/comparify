@@ -6,11 +6,12 @@ import ca.dal.comparify.user.model.iam.UserIAMResponseModel;
 import ca.dal.comparify.user.service.UserService;
 import ca.dal.comparify.utils.ResponseEntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -26,13 +27,12 @@ public class UserController {
     /**
      * @param userIAMRequestModel
      * @return
-     *
      * @author Harsh Shah
      */
     @PostMapping("/authentication")
-    public UserIAMResponseModel authentication(@RequestBody UserIAMRequestModel userIAMRequestModel){
+    public UserIAMResponseModel authentication(@RequestBody UserIAMRequestModel userIAMRequestModel) {
 
-        if(userIAMRequestModel.isEmpty()){
+        if (userIAMRequestModel.isEmpty()) {
             throw new MissingRequiredFieldException(400, 1000, userIAMRequestModel.getRequiredFields());
         }
 
@@ -42,13 +42,12 @@ public class UserController {
     /**
      * @param userIAMRequestModel
      * @return
-     *
      * @author Harsh Shah
      */
     @PostMapping("/register")
-    public ResponseEntity<Map<String, String>> register(@RequestBody UserIAMRequestModel userIAMRequestModel){
+    public ResponseEntity<Map<String, String>> register(@RequestBody UserIAMRequestModel userIAMRequestModel) {
 
-        if(userIAMRequestModel.isEmpty()){
+        if (userIAMRequestModel.isEmpty()) {
             throw new MissingRequiredFieldException(400, 1000, userIAMRequestModel.getRequiredFields());
         }
 

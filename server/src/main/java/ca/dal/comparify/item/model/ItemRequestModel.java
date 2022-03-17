@@ -1,10 +1,6 @@
 package ca.dal.comparify.item.model;
 
-import ca.dal.comparify.model.AuditModel;
-import ca.dal.comparify.utils.UUIDUtils;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.bson.codecs.pojo.annotations.BsonId;
-import org.bson.codecs.pojo.annotations.BsonProperty;
 
 /**
  * @author Harsh Shah

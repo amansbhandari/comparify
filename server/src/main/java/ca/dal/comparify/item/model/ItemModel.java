@@ -8,14 +8,10 @@ import org.bson.codecs.pojo.annotations.BsonProperty;
 /**
  * @author Harsh Shah
  */
-public class ItemModel {
+public class ItemModel extends ItemRequestModel {
 
     @BsonId
     private String id;
-
-    private String name;
-
-    private String description;
 
     @BsonProperty("default_image")
     private String defaultImage;
@@ -27,17 +23,14 @@ public class ItemModel {
                      @BsonProperty("description") String description,
                      @BsonProperty("default_image") String defaultImage,
                      @BsonProperty("audit") AuditModel audit) {
+        super(name, description, defaultImage);
         this.id = id;
-        this.name = name;
-        this.description = description;
-        this.defaultImage = defaultImage;
         this.audit = audit;
     }
 
     public ItemModel(String name, String description, String defaultImage, AuditModel audit) {
+        super(name, description, defaultImage);
         this.id = UUIDUtils.generate();
-        this.name = name;
-        this.description = description;
         this.defaultImage = defaultImage;
         this.audit = audit;
     }
@@ -52,22 +45,6 @@ public class ItemModel {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getDefaultImage() {

@@ -1,6 +1,5 @@
 package ca.dal.comparify.item;
 
-import ca.dal.comparify.item.model.ItemModel;
 import ca.dal.comparify.item.model.ItemRequestModel;
 import ca.dal.comparify.utils.ResponseEntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +26,10 @@ public class ItemController {
     /**
      * @param model
      * @return
-     *
      * @author Harsh Shah
      */
     @PostMapping("/")
-    public ResponseEntity<Map<String, String>> create(@RequestBody ItemRequestModel model){
+    public ResponseEntity<Map<String, String>> create(@RequestBody ItemRequestModel model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         int status = itemService.create(model, (String) auth.getPrincipal());
 

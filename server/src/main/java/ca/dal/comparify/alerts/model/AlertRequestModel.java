@@ -1,11 +1,8 @@
 package ca.dal.comparify.alerts.model;
 
-import ca.dal.comparify.brand.model.BrandModel;
-import ca.dal.comparify.item.model.ItemModel;
 import ca.dal.comparify.model.EntityReference;
 import ca.dal.comparify.model.RangeModel;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.bson.codecs.pojo.annotations.BsonProperty;
 
 import java.util.Date;
 
@@ -23,9 +20,14 @@ public class AlertRequestModel {
 
     private AlertTypeEnum type;
 
+    @JsonProperty("price_range")
     private RangeModel<Integer> priceRange;
 
+    @JsonProperty("expires_on")
     private Date expiresOn;
+
+    public AlertRequestModel() {
+    }
 
     public AlertRequestModel(String alertIdentifier, EntityReference item, EntityReference brand,
                              AlertTypeEnum type, RangeModel<Integer> priceRange, Date expiresOn) {
@@ -35,6 +37,12 @@ public class AlertRequestModel {
         this.type = type;
         this.priceRange = priceRange;
         this.expiresOn = expiresOn;
+    }
+
+    public AlertRequestModel(EntityReference item, EntityReference brand, AlertTypeEnum type) {
+        this.item = item;
+        this.brand = brand;
+        this.type = type;
     }
 
     public String getAlertIdentifier() {

@@ -1,7 +1,6 @@
 package ca.dal.comparify.alerts.model;
 
 import ca.dal.comparify.model.AuditModel;
-import ca.dal.comparify.model.EntityReference;
 import ca.dal.comparify.model.RangeModel;
 import ca.dal.comparify.utils.UUIDUtils;
 import org.bson.codecs.pojo.annotations.BsonId;
@@ -12,19 +11,13 @@ import java.util.Date;
 /**
  * @author Harsh Shah
  */
-public class AlertModel {
+public class AlertModel extends AlertRequestModel {
 
     @BsonId
     private String id;
 
     @BsonProperty("alert_identifier")
     private String alertIdentifier;
-
-    private EntityReference item;
-
-    private EntityReference brand;
-
-    private AlertTypeEnum type;
 
     @BsonProperty("price_range")
     private RangeModel<Integer> priceRange;
@@ -34,46 +27,36 @@ public class AlertModel {
 
     private AuditModel audit;
 
+    public AlertModel() {
+        super();
+    }
 
-    public AlertModel(@BsonId String id,
-                      @BsonProperty("alert_identifier") String alertIdentifier,
-                      @BsonProperty("item") EntityReference item,
-                      @BsonProperty("brand") EntityReference brand,
-                      @BsonProperty("type") AlertTypeEnum type,
-                      @BsonProperty("price_range") RangeModel<Integer> priceRange,
-                      @BsonProperty("expires_on") Date expiresOn,
-                      @BsonProperty("audit") AuditModel audit) {
-        this.id = id;
+    public AlertModel(String alertIdentifier,
+                      RangeModel<Integer> priceRange,
+                      Date expiresOn,
+                      AuditModel audit) {
+        super();
+        this.id = UUIDUtils.generate();
         this.alertIdentifier = alertIdentifier;
-        this.item = item;
-        this.brand = brand;
-        this.type = type;
         this.priceRange = priceRange;
         this.expiresOn = expiresOn;
         this.audit = audit;
     }
 
-    public AlertModel(String alertIdentifier,
-                      EntityReference item,
-                      EntityReference brand,
-                      AlertTypeEnum type,
-                      RangeModel<Integer> priceRange,
-                      Date expiresOn,
+    public AlertModel(AlertRequestModel request,
                       AuditModel audit) {
+
+        super(request.getItem(), request.getBrand(), request.getType());
+
         this.id = UUIDUtils.generate();
-        this.alertIdentifier = alertIdentifier;
-        this.item = item;
-        this.brand = brand;
-        this.type = type;
-        this.priceRange = priceRange;
-        this.expiresOn = expiresOn;
+        this.alertIdentifier = request.getAlertIdentifier();
+        this.priceRange = request.getPriceRange();
+        this.expiresOn = request.getExpiresOn();
         this.audit = audit;
     }
 
     public static AlertModel transform(AlertRequestModel model, String createBy) {
-        return new AlertModel(model.getAlertIdentifier(), model.getItem(), model.getBrand(),
-                model.getType(), model.getPriceRange(), model.getExpiresOn(),
-                AuditModel.create(createBy));
+        return new AlertModel(model, AuditModel.create(createBy));
 
     }
 
@@ -85,28 +68,14 @@ public class AlertModel {
         this.id = id;
     }
 
+    @Override
     public String getAlertIdentifier() {
         return alertIdentifier;
     }
 
+    @Override
     public void setAlertIdentifier(String alertIdentifier) {
         this.alertIdentifier = alertIdentifier;
-    }
-
-    public EntityReference getItem() {
-        return item;
-    }
-
-    public void setItem(EntityReference item) {
-        this.item = item;
-    }
-
-    public EntityReference getBrand() {
-        return brand;
-    }
-
-    public void setBrand(EntityReference brand) {
-        this.brand = brand;
     }
 
     public AuditModel getAudit() {
@@ -117,26 +86,22 @@ public class AlertModel {
         this.audit = audit;
     }
 
-    public AlertTypeEnum getType() {
-        return type;
-    }
-
-    public void setType(AlertTypeEnum type) {
-        this.type = type;
-    }
-
+    @Override
     public RangeModel<Integer> getPriceRange() {
         return priceRange;
     }
 
+    @Override
     public void setPriceRange(RangeModel<Integer> priceRange) {
         this.priceRange = priceRange;
     }
 
+    @Override
     public Date getExpiresOn() {
         return expiresOn;
     }
 
+    @Override
     public void setExpiresOn(Date expiresOn) {
         this.expiresOn = expiresOn;
     }

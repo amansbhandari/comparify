@@ -8,14 +8,10 @@ import org.bson.codecs.pojo.annotations.BsonProperty;
 /**
  * @author Harsh Shah
  */
-public class BrandModel {
+public class BrandModel extends BrandRequestModel {
 
     @BsonId
     private String id;
-
-    private String name;
-
-    private String description;
 
     private AuditModel audit;
 
@@ -23,16 +19,14 @@ public class BrandModel {
                       @BsonProperty("name") String name,
                       @BsonProperty("description")  String description,
                       @BsonProperty("audit")  AuditModel audit) {
+        super(name, description);
         this.id = id;
-        this.name = name;
-        this.description = description;
         this.audit = audit;
     }
 
     public BrandModel(String name, String description, AuditModel audit) {
+        super(name, description);
         this.id = UUIDUtils.generate();
-        this.name = name;
-        this.description = description;
         this.audit = audit;
     }
 
@@ -46,22 +40,6 @@ public class BrandModel {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public AuditModel getAudit() {
