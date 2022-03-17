@@ -4,6 +4,7 @@ import ca.dal.comparify.framework.exception.MissingRequiredFieldException;
 import ca.dal.comparify.user.model.iam.UserIAMRequestModel;
 import ca.dal.comparify.user.model.iam.UserIAMResponseModel;
 import ca.dal.comparify.user.service.UserService;
+import ca.dal.comparify.utils.ResponseEntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,19 +46,16 @@ public class UserController {
      * @author Harsh Shah
      */
     @PostMapping("/register")
-    public ResponseEntity<Map<String, Boolean>> register(@RequestBody UserIAMRequestModel userIAMRequestModel){
+    public ResponseEntity<Map<String, String>> register(@RequestBody UserIAMRequestModel userIAMRequestModel){
 
         if(userIAMRequestModel.isEmpty()){
             throw new MissingRequiredFieldException(400, 1000, userIAMRequestModel.getRequiredFields());
         }
 
-        boolean status = userService.createUserIAMInfo(userIAMRequestModel.getUserIdentifier(),
+        int status = userService.createUserIAMInfo(userIAMRequestModel.getUserIdentifier(),
                 userIAMRequestModel.getUserSecret());
 
-        HttpStatus httpStatus = status ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST;
-
-        return ResponseEntity.status(httpStatus).body(Collections.singletonMap("status", status));
-
+        return ResponseEntityUtils.returnStatus(status);
     }
 
 

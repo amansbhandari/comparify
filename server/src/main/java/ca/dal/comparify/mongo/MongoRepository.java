@@ -149,26 +149,26 @@ public class MongoRepository {
      * @return
      * @author Harsh Shah
      */
-    public <T> boolean insert(String collectionName, T object, Class<T> classOf) {
+    public <T> int insertOne(String collectionName, T object, Class<T> classOf) {
         MongoCollection<T> collection = getCollection(collectionName, classOf);
 
         InsertOneResult result = null;
 
         if (null == collection) {
-            return false;
+            return -1;
         }
 
         try {
             result = collection.insertOne(object);
         } catch (MongoException ex) {
-            result = null;
+            return -2;
         }
 
         if (null == result) {
-            return false;
+            return -1;
         }
 
-        return result.wasAcknowledged();
+        return result.wasAcknowledged() ? 0 : -1;
     }
 
     /**

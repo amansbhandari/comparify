@@ -2,7 +2,6 @@ package ca.dal.comparify.model;
 
 import ca.dal.comparify.utils.DateUtils;
 import org.bson.codecs.pojo.annotations.BsonProperty;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Date;
 
@@ -16,19 +15,20 @@ public class AuditModel {
     public static final String CREATED_ON = "created_on";
     public static final String UPDATED_ON = "updated_on";
 
-    @Field(CREATED_BY)
+    @BsonProperty(CREATED_BY)
     private String createdBy;
 
-    @Field(UPDATED_BY)
+    @BsonProperty(UPDATED_BY)
     private String updatedBy;
 
-    @Field(CREATED_ON)
+    @BsonProperty(CREATED_ON)
     private Date createdOn;
 
-    @Field(UPDATED_ON)
+    @BsonProperty(UPDATED_ON)
     private Date updatedOn;
 
-    private AuditModel(){}
+    private AuditModel() {
+    }
 
     public AuditModel(@BsonProperty(CREATED_BY) String createdBy,
                       @BsonProperty(UPDATED_BY) String updatedBy,

@@ -117,7 +117,7 @@ public class UserIAMService {
      *
      * @author Harsh Shah
      */
-    public boolean createUserIAMInfo(String userIdentifier, String secret) {
+    public int createUserIAMInfo(String userIdentifier, String secret) {
 
         if (isUserExists(userIdentifier)) {
             throw new EntityAlreadyExistsException("User already exists having " + userIdentifier + " User Identifier",

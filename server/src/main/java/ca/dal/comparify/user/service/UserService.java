@@ -42,7 +42,7 @@ public class UserService {
      *
      * @author Harsh Shah
      */
-    public boolean createUserIAMInfo(String userIdentifier, String secret){
+    public int createUserIAMInfo(String userIdentifier, String secret){
         return userIAMService.createUserIAMInfo(userIdentifier, secret);
     }
 }
