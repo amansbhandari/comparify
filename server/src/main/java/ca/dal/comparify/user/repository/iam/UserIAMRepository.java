@@ -2,7 +2,6 @@ package ca.dal.comparify.user.repository.iam;
 
 import ca.dal.comparify.mongo.MongoRepository;
 import ca.dal.comparify.user.model.iam.UserIAMModel;
-import com.mongodb.MongoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,13 +56,8 @@ public class UserIAMRepository {
      * @return
      * @author Harsh Shah
      */
-    public boolean save(UserIAMModel userIAMModel) {
-        try {
-            mongoRepository.insert(USER_IAM_COLLECTION, userIAMModel, UserIAMModel.class);
-            return true;
-        } catch (MongoException e) {
-            return false;
-        }
+    public int save(UserIAMModel userIAMModel) {
+        return mongoRepository.insertOne(USER_IAM_COLLECTION, userIAMModel, UserIAMModel.class);
     }
 
     /**

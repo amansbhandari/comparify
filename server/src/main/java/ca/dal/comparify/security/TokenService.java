@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static ca.dal.comparify.constant.ApplicationConstant.BLANK_SPACE;
 import static java.util.Collections.emptyList;
 
 @Service
@@ -63,7 +64,13 @@ public class TokenService implements AuthenticationProviders {
             return null;
         }
 
-        String user = getAuthenticationUser(token);
+        String[] parts = token.split(BLANK_SPACE);
+
+        if(parts.length != 2){
+            return null;
+        }
+
+        String user = getAuthenticationUser(parts[1]);
         return user != null ? new UsernamePasswordAuthenticationToken(user, null, emptyList()) : null;
     }
 
