@@ -1,16 +1,15 @@
 package ca.dal.comparify.user;
 
 import ca.dal.comparify.framework.exception.MissingRequiredFieldException;
+import ca.dal.comparify.user.model.iam.UserDetailsModel;
 import ca.dal.comparify.user.model.iam.UserIAMRequestModel;
 import ca.dal.comparify.user.model.iam.UserIAMResponseModel;
+import ca.dal.comparify.user.service.UserDetailsService;
 import ca.dal.comparify.user.service.UserService;
 import ca.dal.comparify.utils.ResponseEntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -23,6 +22,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     /**
      * @param userIAMRequestModel
@@ -55,6 +57,22 @@ public class UserController {
                 userIAMRequestModel.getUserSecret());
 
         return ResponseEntityUtils.returnStatus(status);
+    }
+
+
+    /**
+     * @param username
+     * @return
+     * @author Aman Singh Bhandari
+     */
+    @GetMapping("/details")
+    public UserDetailsModel getUserDetails(@RequestParam(name = "username") String username) {
+
+        if (username.isEmpty()) {
+            throw new MissingRequiredFieldException(400, 1000, UserDetailsModel.getRequiredFields());
+        }
+
+        return userDetailsService.fetchUser(username);
     }
 
 
