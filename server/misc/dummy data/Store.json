@@ -1,0 +1,26 @@
+[
+  {
+    "storeName": "Sobeys",
+    "streetName": "1120 Queen St",
+    "city": "Halifax",
+    "phone": "(902)-422-9884"
+  },
+  {
+    "storeName": "Atlantic Superstore",
+    "streetName": "1075 Barrington St",
+    "city": "Halifax",
+    "phone": "(902)-492-3240"
+  },
+  {
+    "storeName": "Yasmine Grocery",
+    "streetName": "2405 Agricola St",
+    "city": "Halifax",
+    "phone": "(902)-405-7070"
+  },
+  {
+    "storeName": "Indian Groceries",
+    "streetName": "2585 Robie St",
+    "city": "Halifax",
+    "phone": "(902)-423-6339"
+  }
+]

@@ -33,9 +33,7 @@ public class MongoConfig {
                 .writeConcern(writeConcern)
                 .build();
 
-        MongoClient mongoClient = MongoClients.create(options);
-
-        return mongoClient;
+        return MongoClients.create(options);
     }
 }
 

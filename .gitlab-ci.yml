@@ -1,21 +1,16 @@
-image: maven:latest
-
-cache:
-  paths:
-    - .m2/repository/
-    - target/
-
 stages:
-  - test-server
-  - build-server
-  - deploy-heroku-staging-server
+  - test
+  - build
+  - code-quality
+  - deploy-staging
+  - deploy-production
 
-# test stage will compile the code and run all the unit tests present in the
-# test folder.
+# -------------------------- Test -------------------------- #
 test:
-  stage: test-server
+  stage: test
+  image: maven:latest
   tags:
-    - ugrad
+    - dalfcs_docker_autoscale
   script:
     - cd server
     - mvn clean verify
@@ -23,26 +18,152 @@ test:
     when: always
     reports:
       junit:
-        - target/surefire-reports/TEST-*.xml
+        - server/target/surefire-reports/TEST-*.xml
+        - server/target/failsafe-reports/TEST-*.xml
     
-# build stage will just build the codebase without running
-# any tests or creating any jar file.
-build:
-  stage: build-server
+# -------------------------- Build Server for Dev -------------------------- #
+build_server_for_dev:
+  stage: build
+  image: maven:latest
   tags:
-    - ugrad
+    - dalfcs_docker_autoscale
   script:
     - cd server
     - mvn clean package -DskipTests=true
   artifacts:
     paths:
-       - target/*.jar
+       - server/target/*.jar
+  except:
+    - main
+    - tags
+
+# -------------------------- Build Server for Staging -------------------------- #
+build_server_for_staging:
+  stage: build
+  image: maven:latest
+  tags:
+    - dalfcs_docker_autoscale
+  script:
+    - cd server
+    - mvn clean package -DskipTests=true -Pstaging
+  artifacts:
+    paths:
+       - server/target/*.jar
+  only:
+    - main
+
+# -------------------------- Build Server for Production -------------------------- #
+build_server_for_prod:
+  stage: build
+  image: maven:latest
+  tags:
+    - dalfcs_docker_autoscale
+  script:
+    - cd server
+    - mvn clean package -DskipTests=true -Pprod
+  artifacts:
+    paths:
+       - server/target/*.jar
+  only:
+    - tags
+
+# -------------------------- Build Client -------------------------- #
+build_client:
+  stage: build
+  image: node:16
+  tags:
+    - dalfcs_docker_autoscale
+  script:
+    - cd client
+    - npm install
+    - npm run build
+    
+# -------------------------- Code Quality on Development -------------------------- #
+
+code_quality_for_dev_by_designite:
+  stage: code-quality
+  tags:
+    - ugrad
+  variables:
+    UPLOAD_QUALITY_REPORT: 'curl -X PUT 
+        -H "Authorization:Token $QSCORED_API_KEY_HARSH" 
+        -H "repository-link:$CI_PROJECT_URL" 
+        -H "username:$QSCORED_USERNAME_HARSH" 
+        -H "Content-Type:multipart/form-data" 
+        --url "https://qscored.com/api/upload/file.xml?is_open_access=off&version=$CI_PIPELINE_IID&project_name=$PROJECT_NAME_DEVELOPMENT" 
+        -F "file=$DESIGNITE_XML_OUTPUT"'
+  script:
+    - wget -O DesigniteJava.jar $DOWNLOAD_DESIGNITE_URL
+    - java -jar DesigniteJava.jar -ci -repo $CI_PROJECT_PATH -pat $PAT -host "git.cs.dal.ca"
+    - eval "$UPLOAD_QUALITY_REPORT"
+  except:
+    - main
+    - tags
+
+# -------------------------- Code Quality on Staging -------------------------- #
+
+code_quality_for_staging_by_designite:
+  stage: code-quality
+  tags:
+    - ugrad
+  variables:
+    UPLOAD_QUALITY_REPORT: 'curl -X PUT 
+        -H "Authorization:Token $QSCORED_API_KEY_HARSH" 
+        -H "repository-link:$CI_PROJECT_URL" 
+        -H "username:$QSCORED_USERNAME_HARSH" 
+        -H "Content-Type:multipart/form-data" 
+        --url "https://qscored.com/api/upload/file.xml?is_open_access=off&version=$CI_PIPELINE_IID&project_name=$PROJECT_NAME_STAGING" 
+        -F "file=$DESIGNITE_XML_OUTPUT"'
+  script:
+    - wget -O DesigniteJava.jar $DOWNLOAD_DESIGNITE_URL
+    - java -jar DesigniteJava.jar -ci -repo $CI_PROJECT_PATH -pat $PAT -host "git.cs.dal.ca"
+    - eval "$UPLOAD_QUALITY_REPORT"
+  only:
+    - main
 
 
-## deploy stage will create package the jar and keep it in the target folder.
-## The success of deploy stage will mark the pipeline as passed.
-deploy:
-  stage: deploy-heroku-staging-server
+# -------------------------- Code Quality on Production -------------------------- #
+
+code_quality_for_prod_by_designite:
+  stage: code-quality
+  tags:
+    - ugrad
+  variables:
+    UPLOAD_QUALITY_REPORT: 'curl -X PUT 
+        -H "Authorization:Token $QSCORED_API_KEY_HARSH" 
+        -H "repository-link:$CI_PROJECT_URL" 
+        -H "username:$QSCORED_USERNAME_HARSH" 
+        -H "Content-Type:multipart/form-data" 
+        --url "https://qscored.com/api/upload/file.xml?is_open_access=off&version=$CI_PIPELINE_IID&project_name=$PROJECT_NAME_PROD" 
+        -F "file=$DESIGNITE_XML_OUTPUT"'
+  script:
+    - wget -O DesigniteJava.jar $DOWNLOAD_DESIGNITE_URL
+    - java -jar DesigniteJava.jar -ci -repo $CI_PROJECT_PATH -pat $PAT -host "git.cs.dal.ca"
+    - eval "$UPLOAD_QUALITY_REPORT"
+  only:
+    - tags
+
+
+# -------------------------- Code Quality by Sonar -------------------------- #
+
+code_quality_by_sonar:
+  stage: code-quality
+  image: maven:latest
+  tags:
+    - dalfcs_docker_autoscale
+  script:
+    - cd server
+    - mvn clean verify sonar:sonar
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - server/target/surefire-reports/TEST-*.xml
+        - server/target/failsafe-reports/TEST-*.xml
+
+# -------------------------- Deploy on Staging -------------------------- #
+deploy_staging_client:
+  stage: deploy-staging
   image: ruby:latest
   tags:
     - dalfcs_docker_autoscale  
@@ -51,6 +172,69 @@ deploy:
     - apt-get install -y ruby-dev
     - gem install dpl
   script:
-    - cd server
-    - dpl --provider=heroku --app=$HARSH_HEROKU_APP_NAME_STAGING --api-key=$HARSH_HEROKU_API_KEY
+    - cd client
+    - dpl --provider=heroku --app=$STAGING_CLIENT_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY --cleanup
+  only:
+    - main
 
+deploy_staging_server:
+  stage: deploy-staging
+  image: ruby:latest
+  tags:
+    - dalfcs_docker_autoscale  
+  before_script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+  script:
+    - > 
+      curl --request PATCH "https://api.heroku.com/apps/$STAGING_SERVER_HEROKU_APP_NAME/config-vars"  
+      --data "{\"SPRING_PROFILES_ACTIVE\": \"staging\"}" 
+      --header "Content-Type: application/json" 
+      --header "Accept: application/vnd.heroku+json; version=3" 
+      --header "Authorization: Bearer $HARSH_HEROKU_API_KEY"
+    - cd server
+    - dpl --provider=heroku --app=$STAGING_SERVER_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY --cleanup
+  when: delayed
+  start_in: 5 minutes
+  only:
+    - main
+
+# -------------------------- Deploy on Prod -------------------------- #
+deploy_prod_client:
+  stage: deploy-production
+  image: ruby:latest
+  tags:
+    - dalfcs_docker_autoscale  
+  before_script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+  script:
+    - cd client
+    - dpl --provider=heroku --app=$PRODUCTION_CLIENT_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY --cleanup
+  only:
+    - tags
+
+deploy_prod_server:
+  stage: deploy-production
+  image: ruby:latest
+  tags:
+    - dalfcs_docker_autoscale  
+  before_script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+  script:
+    - > 
+      curl --request PATCH "https://api.heroku.com/apps/$PRODUCTION_SERVER_HEROKU_APP_NAME/config-vars"  
+      --data "{\"SPRING_PROFILES_ACTIVE\": \"prod\"}" 
+      --header "Content-Type: application/json" 
+      --header "Accept: application/vnd.heroku+json; version=3" 
+      --header "Authorization: Bearer $HARSH_HEROKU_API_KEY"
+    - cd server
+    - dpl --provider=heroku --app=$PRODUCTION_SERVER_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY --cleanup
+  when: delayed
+  start_in: 5 minutes
+  only:
+    - tags

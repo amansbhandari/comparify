@@ -1,7 +1,11 @@
-server/.idea/
-/client/node_modules/
-/server/.mvn/
-/server/mvnw
-/server/mvnw.cmd
-/server/target/
+client/node_modules/
 client/workspace.code-workspace
+client/.idea/
+client/client.code-workspace
+client/build/
+server/.idea/
+server/.mvn/
+server/mvnw
+server/mvnw.cmd
+server/target/
+.vscode/
