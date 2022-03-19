@@ -18,44 +18,52 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AddIcon from '@mui/icons-material/Add';
 import UserProfile from '../user-profile/UserProfile';
+import { useDispatch } from 'react-redux';
+import { Navigate, Outlet } from 'react-router-dom';
 
 const drawerWidth = 240;
 
 function Menus(props) {
   const { window } = props;
- 
-  
+
+
   //Titles stored for all the menus
-  var titles = ['Home','Menu2','Menu3','Menu4', 'User Profile', 'Log out'];
+  var titles = ['Home', 'Menu2', 'Menu3', 'Alerts', 'User Profile', 'Log out'];
+
+  const dispatch = useDispatch();
+
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [titlePage, setTitlePage] = React.useState(titles[0]);
-  const [detailPage, setDetailPage] = React.useState(<h1>Our home page !</h1>)
+  const [detailPage, setDetailPage] = React.useState(
+    <>
+      <h1>Our home page ! </h1>
+    </>
+  )
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
 
-  function getIcon(index)
-  {
-    if(index === 0)
-        return <HomeIcon />
-    else if(index === 4)
-        return <AccountCircleIcon/>
-    else if(index === 5)
-        return <LogoutIcon/>
+  function getIcon(index) {
+    if (index === 0)
+      return <HomeIcon />
+    else if (index === 4)
+      return <AccountCircleIcon />
+    else if (index === 5)
+      return <LogoutIcon />
     else
-        return <AddIcon/>
+      return <AddIcon />
   }
 
   const drawer = (
-    <div style={{height : '100%'}} >
-      <Toolbar  style = {{background : '#2e4670'}}/>
+    <div style={{ height: '100%' }} >
+      <Toolbar style={{ background: '#2e4670' }} />
       <Divider />
       <List>
         {titles.map((text, index) => (
-          <ListItem button key={text}  style= {{margin: '20px'}} onClick={() => {
+          <ListItem button key={text} style={{ margin: '20px' }} onClick={() => {
             menuClicked(index);
           }}>
             <ListItemIcon>
@@ -72,7 +80,7 @@ function Menus(props) {
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: 'flex'}} >
+    <Box sx={{ display: 'flex' }} >
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -80,8 +88,7 @@ function Menus(props) {
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
           background: '#2e4670'
-        }}
-      >
+        }}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -90,99 +97,61 @@ function Menus(props) {
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: 'none' } }}
           >
-            <MenuIcon/>
+            <MenuIcon />
           </IconButton>
-          <Typography variant="h5" noWrap component="div" style={{marginLeft : '20px', fontWeight: 'Bold'}}>
+          <Typography variant="h5" noWrap component="div" style={{ marginLeft: '20px', fontWeight: 'Bold' }}>
             {titlePage}
           </Typography>
         </Toolbar>
       </AppBar>
-      <Box  
+      <Box
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-        aria-label="mailbox folders"
-      >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-        <Drawer
-          container={container}
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
-          sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-          }}
-        >
-          {drawer}
-        </Drawer>
+        aria-label="mailbox folders">
         <Drawer
           variant="permanent"
           sx={{
             display: { xs: 'none', sm: 'block' },
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-          }}
-          open
-        >
+          }} open>
           {drawer}
         </Drawer>
       </Box>
       <Box
         component="main"
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
-        <Toolbar/>
-        {/* <Typography paragraph>
-          Lorem ipsum d
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris n
-        </Typography> */}
-        {detailPage}
-        {/* <UserProfile></UserProfile> */}
+        <Outlet />
       </Box>
     </Box>
   );
 
-function menuClicked(index)
-{
-  setTitlePage(titles[index]);
+  function menuClicked(index) {
+    setTitlePage(titles[index]);
 
-  if(index === 0)
-  {
-    setDetailPage(<h1>Our home page detail page can be added by replacing this!</h1>)
+    if (index === 0) {
+      setDetailPage(<h1>Our home page detail page can be added by replacing this!</h1>)
+    }
+    else if (index === 1) {
+
+      setDetailPage(<h1>Menu 1 detail page can be added by replacing this!</h1>)
+    }
+    else if (index === 2) {
+      setDetailPage(<h1>Menu 2 detail page can be added by replacing this!</h1>)
+    }
+    else if (index === 3) {
+      Navigate("/alert");
+    }
+    else if (index === 4) {
+      setDetailPage(<UserProfile></UserProfile>);
+    }
+    else {
+      setDetailPage(<h1>User will be logged out !</h1>);
+    }
   }
-  else if(index === 1)
-  {
-    
-    setDetailPage(<h1>Menu 1 detail page can be added by replacing this!</h1>)
-  }
-  else if(index === 2)
-  {
-    setDetailPage(<h1>Menu 2 detail page can be added by replacing this!</h1>)
-  }
-  else if(index === 3)
-  {
-    setDetailPage(<h1>Menu 3 detail page can be added by replacing this!</h1>)
-  }
-  else if(index === 4)
-  {
-    setDetailPage(<UserProfile></UserProfile>);
-  }
-  else 
-  {
-    setDetailPage(<h1>User will be logged out !</h1>);
-  }
-}
 }
 
 
 Menus.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
   window: PropTypes.func,
 };
 
