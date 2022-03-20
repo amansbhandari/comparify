@@ -1,7 +1,7 @@
 import React from "react";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Alert from "./components/alert/Alert";
+import Alerts from "./components/alert/Alerts";
 import Home from "./components/home/Home";
 import LandingPage from "./components/landing/LandingPage";
 import UserProfile from "./components/user-profile/UserProfile";
@@ -15,7 +15,7 @@ const AppRoutes = (props) => {
         <Route path="/" element={<LandingPage />} />
         <Route element={<AuthGuard/>}>
           <Route path="/home" element={<Home />} >
-            <Route path="alert" element={<Alert />}/>
+            <Route path="alert" element={<Alerts />}/>
             <Route path="profile" element={<UserProfile />}/>
           </Route>
         </Route>
