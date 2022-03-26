@@ -17,13 +17,15 @@ import Typography from '@mui/material/Typography';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AddIcon from '@mui/icons-material/Add';
-import UserProfile from '../user-profile/UserProfile';
-import Alerts from '../alert/Alerts';
+import AddAlertOutlinedIcon from '@mui/icons-material/AddAlertOutlined';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
 
 function Menus(props) {
   const { window } = props;
+
+  const navigate = useNavigate();
  
   
   //Titles stored for all the menus
@@ -42,6 +44,8 @@ function Menus(props) {
   {
     if(index === 0)
         return <HomeIcon />
+    else if(index === 3)
+        return <AddAlertOutlinedIcon/>
     else if(index === 4)
         return <AccountCircleIcon/>
     else if(index === 5)
@@ -140,7 +144,7 @@ function Menus(props) {
         <Typography paragraph>
           Consequat mauris n
         </Typography> */}
-        {detailPage}
+        <Outlet></Outlet>
         {/* <UserProfile></UserProfile> */}
       </Box>
     </Box>
@@ -163,13 +167,12 @@ function menuClicked(index)
   {
     setDetailPage(<h1>Menu 2 detail page can be added by replacing this!</h1>)
   }
-  else if(index === 3)
-  {
-    setDetailPage(<Alerts />)
+  else if(index === 3){
+    navigate("alert")
   }
   else if(index === 4)
   {
-    setDetailPage(<UserProfile></UserProfile>);
+    navigate("profile")
   }
   else 
   {

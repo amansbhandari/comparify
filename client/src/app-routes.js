@@ -2,7 +2,6 @@ import React from "react";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Alerts from "./components/alert/Alerts";
-import Home from "./components/home/Home";
 import Menus from "./components/side-navigation/Menus";
 import LandingPage from "./components/landing/LandingPage";
 import UserProfile from "./components/user-profile/UserProfile";
@@ -14,11 +13,6 @@ const AppRoutes = (props) => {
     <Router basename={process.env.REACT_APP_BASE_HREF}>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route element={<AuthGuard/>}>
-          <Route path="/home-temp" element={<Home />} >
-            <Route path="alert" element={<Alerts />}/>
-          </Route>
-        </Route>
         <Route element={<AuthGuard/>}>
           <Route path="/home" element={<Menus />} >
             <Route path="alert" element={<Alerts />}/>
