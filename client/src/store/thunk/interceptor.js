@@ -6,7 +6,7 @@ httpClient.interceptors.request.use(async function (config) {
     
     const token = localStorage.getItem("auth-token");
     if(token){
-        config.headers["Authorization"] = token;
+        config.headers["Authorization"] = "Bearer "+ token;
     }
     
     return config;
