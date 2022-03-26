@@ -6,6 +6,7 @@ import com.mongodb.MongoException;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.InsertOneResult;
 import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
@@ -224,6 +225,45 @@ public class MongoRepository {
         }
 
         UpdateResult result = collection.updateOne(query, combine(values));
+
+        return result.wasAcknowledged();
+    }
+
+
+    /**
+     * @param collectionName
+     * @param query
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    public boolean deleteOne(String collectionName, Bson query) {
+        MongoCollection<Document> collection = getCollection(collectionName);
+
+        if (collection == null) {
+            return false;
+        }
+
+        DeleteResult result = collection.deleteOne(query);
+
+        return result.wasAcknowledged();
+    }
+
+    /**
+     * @param collectionName
+     * @param query
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    public boolean deleteMany(String collectionName, Bson query) {
+        MongoCollection<Document> collection = getCollection(collectionName);
+
+        if (collection == null) {
+            return false;
+        }
+
+        DeleteResult result = collection.deleteMany(query);
 
         return result.wasAcknowledged();
     }
