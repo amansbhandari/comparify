@@ -33,7 +33,7 @@ function Menus(props) {
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [titlePage, setTitlePage] = React.useState(titles[0]);
-  const [detailPage, setDetailPage] = React.useState(<h1>Our home page !</h1>)
+  //const [detailPage, setDetailPage] = React.useState(<h1>Our home page !</h1>)
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -156,16 +156,16 @@ function menuClicked(index)
 
   if(index === 0)
   {
-    setDetailPage(<h1>Our home page detail page can be added by replacing this!</h1>)
+    //setDetailPage(<h1>Our home page detail page can be added by replacing this!</h1>)
   }
   else if(index === 1)
   {
     
-    setDetailPage(<h1>Menu 1 detail page can be added by replacing this!</h1>)
+    //setDetailPage(<h1>Menu 1 detail page can be added by replacing this!</h1>)
   }
   else if(index === 2)
   {
-    setDetailPage(<h1>Menu 2 detail page can be added by replacing this!</h1>)
+    //setDetailPage(<h1>Menu 2 detail page can be added by replacing this!</h1>)
   }
   else if(index === 3){
     navigate("alert")
@@ -176,7 +176,7 @@ function menuClicked(index)
   }
   else 
   {
-    setDetailPage(<h1>User will be logged out !</h1>);
+    //setDetailPage(<h1>User will be logged out !</h1>);
   }
 }
 }
