@@ -3,11 +3,14 @@ package ca.dal.comparify.user.repository.iam;
 
 import ca.dal.comparify.mongo.MongoRepository;
 import ca.dal.comparify.user.model.iam.UserDetailsModel;
-import ca.dal.comparify.user.model.iam.UserIAMModel;
+import ca.dal.comparify.user.model.iam.UserDetailsRequestModel;
+
+import org.bson.conversions.Bson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import static ca.dal.comparify.mongo.MongoUtils.and;
+import static ca.dal.comparify.mongo.MongoUtils.set;
 import static ca.dal.comparify.mongo.MongoUtils.eq;
 import static ca.dal.comparify.mongo.Tuple.tuple;
 
@@ -22,6 +25,13 @@ public class UserDetailsRepository {
 
     public static final String USER_DETAILS_COLLECTION = "user";
     public static final String USER_PASSWORD= "password";
+    private static final String USERNAME = "username";
+
+    private static final String EMAIL_ID = "email";
+
+    private static final String FIRST_NAME = "firstName";
+
+    private static final String LAST_NAME = "lastName";
 
     /**
      * @param username
@@ -36,5 +46,19 @@ public class UserDetailsRepository {
                 UserDetailsModel.class);
 
         return userDetailsModel;
+    }
+
+
+    /**
+     * @param userDetailsRequestModel
+     * @return
+     * @author Aman Singh Bhandari
+     */
+    public Boolean saveUserDetails(UserDetailsRequestModel userDetailsRequestModel) {
+        Bson query = eq(UserDetailsModel.USERNAME, userDetailsRequestModel.getUsername());
+        Bson[] values = {set(EMAIL_ID,userDetailsRequestModel.getEmail()), set(FIRST_NAME, userDetailsRequestModel.getFirstName()), set(LAST_NAME,userDetailsRequestModel.getLastName())};
+        Boolean result = mongoRepository.updateOne(USER_DETAILS_COLLECTION,query, values);
+
+        return result;
     }
 }
