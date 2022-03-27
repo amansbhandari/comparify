@@ -27,7 +27,7 @@ public class AuditModel {
     @BsonProperty(UPDATED_ON)
     private Date updatedOn;
 
-    private AuditModel() {
+    public AuditModel() {
     }
 
     public AuditModel(@BsonProperty(CREATED_BY) String createdBy,
