@@ -9,7 +9,6 @@ import ca.dal.comparify.securityQuestion.model.Question;
 import static ca.dal.comparify.mongo.MongoUtils.eq;
 import static ca.dal.comparify.mongo.MongoUtils.set;
 import static ca.dal.comparify.mongo.MongoUtils.and;
-import static ca.dal.comparify.mongo.MongoUtils.currentDate;
 import java.util.List;
 
 
