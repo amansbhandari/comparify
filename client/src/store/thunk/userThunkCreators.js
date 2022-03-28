@@ -31,3 +31,21 @@ export const logout = () => async (dispatch) => {
     dispatch(failedLogout(error));
   }
 };
+
+export const getDetails = (username) => {
+  return httpClient.get("/user/details?username=" + username).then((response) => {
+      let data = response.data
+      return data;
+  }, (error) => {
+    alert(error);
+  });
+};
+
+export const saveDetails = (details) => {
+return httpClient.post("/user/details", details).then((response) => {
+      return details
+  }, (error) => {
+    alert(error);
+  });
+
+};
