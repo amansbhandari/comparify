@@ -11,6 +11,7 @@ import org.bson.codecs.pojo.annotations.BsonProperty;
  */
 public class UserIAMModel {
 
+    public static final String ID = "_id";
     public static final String USER_IDENTIFIER = "user_identifier";
 
     @BsonId

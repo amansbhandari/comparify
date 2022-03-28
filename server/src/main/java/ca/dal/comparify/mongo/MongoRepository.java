@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static com.mongodb.client.model.Updates.combine;
@@ -49,6 +50,7 @@ public class MongoRepository {
     /**
      * @param collectionName
      * @return
+     *
      * @author Harsh Shah
      */
     private MongoCollection<Document> getCollection(String collectionName) {
@@ -64,6 +66,7 @@ public class MongoRepository {
      * @param classOf
      * @param <T>
      * @return
+     *
      * @author Harsh Shah
      */
     private <T> MongoCollection<T> getCollection(String collectionName, Class<T> classOf) {
@@ -81,6 +84,7 @@ public class MongoRepository {
      * @param classOf
      * @param <T>
      * @return
+     *
      * @author Harsh Shah
      */
     public <T> List<T> find(String collectionName, Bson query, Class<T> classOf) {
@@ -107,6 +111,7 @@ public class MongoRepository {
      * @param classOf
      * @param <T>
      * @return
+     *
      * @author Harsh Shah
      */
     public <T> T findOne(String collectionName, Bson query, Class<T> classOf) {
@@ -126,6 +131,7 @@ public class MongoRepository {
      * @param classOf
      * @param <T>
      * @return
+     *
      * @author Harsh Shah
      */
     public <T> T findOne(String collectionName, Bson query, Bson projection, Class<T> classOf) {
@@ -148,6 +154,7 @@ public class MongoRepository {
      * @param classOf
      * @param <T>
      * @return
+     *
      * @author Harsh Shah
      */
     public <T> int insertOne(String collectionName, T object, Class<T> classOf) {
@@ -171,6 +178,7 @@ public class MongoRepository {
     /**
      * @param collectionName
      * @return
+     *
      * @author Harsh Shah
      */
     public long count(String collectionName, Bson query) {
@@ -185,10 +193,11 @@ public class MongoRepository {
 
 
     /**
-     * @param <T>
      * @param collectionName
      * @param query
+     * @param update
      * @return
+     *
      * @author Harsh Shah
      */
     public boolean updateOne(String collectionName, Bson query, HashModel update) {
@@ -211,6 +220,7 @@ public class MongoRepository {
      * @param query
      * @param values
      * @return
+     *
      * @author Harsh Shah
      */
     public boolean updateOne(String collectionName, Bson query, Bson... values) {
@@ -268,4 +278,30 @@ public class MongoRepository {
         return result.wasAcknowledged();
     }
 
+    /**
+     * @param collectionName
+     * @param pipeline
+     * @param classOf
+     * @param <T>
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    public <T> List<T> aggregate(String collectionName, List<Bson> pipeline, Class<T> classOf) {
+
+        MongoCollection<T> collection = getCollection(collectionName, classOf);
+
+        List<T> output = new ArrayList<>();
+
+        if (collection == null) {
+            return Collections.emptyList();
+        }
+
+         collection.aggregate(pipeline)
+             .allowDiskUse(true)
+             .iterator()
+             .forEachRemaining(output::add);
+
+        return output;
+    }
 }

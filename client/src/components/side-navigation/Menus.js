@@ -1,4 +1,4 @@
-import * as React from 'react';
+import  React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -19,6 +19,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import AddIcon from '@mui/icons-material/Add';
 import AddAlertOutlinedIcon from '@mui/icons-material/AddAlertOutlined';
 import { Outlet, useNavigate } from 'react-router-dom';
+import { getUserRole, logout } from '../../store/thunk/userThunkCreators';
+import { useDispatch } from 'react-redux';
 
 const drawerWidth = 240;
 
@@ -26,7 +28,7 @@ function Menus(props) {
   const { window } = props;
 
   const navigate = useNavigate();
- 
+  const dispatch = useDispatch();
   
   //Titles stored for all the menus
   var titles = ['Home','Menu2','Menu3','Alerts', 'User Profile', 'Log out'];
@@ -34,6 +36,10 @@ function Menus(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [titlePage, setTitlePage] = React.useState(titles[0]);
   //const [detailPage, setDetailPage] = React.useState(<h1>Our home page !</h1>)
+
+  useEffect(() => {
+    dispatch(getUserRole());
+  }, [dispatch])
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -176,7 +182,7 @@ function menuClicked(index)
   }
   else 
   {
-    //setDetailPage(<h1>User will be logged out !</h1>);
+    dispatch(logout());
   }
 }
 }

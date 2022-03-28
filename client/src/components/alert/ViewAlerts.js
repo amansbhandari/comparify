@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -6,7 +6,6 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
@@ -16,6 +15,9 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import { TableHead } from '@mui/material';
+import { useDispatch, useSelector } from "react-redux";
+
+import { fetchAlerts } from "../../store/thunk/alertThunkCreators";
 
 function TablePaginationActions(props) {
     const theme = useTheme();
@@ -79,22 +81,37 @@ TablePaginationActions.propTypes = {
 };
 
 function createData(alertIdentifier, item, brand, type) {
-    return {alertIdentifier, item, brand, type };
+    return { alertIdentifier, item, brand, type };
 }
 
-const rows = [
-    createData('MilkAlert', 'Milk', "Farmers", "Price Drop"),
-    createData('DonutAlert', 'Donut', "Great Value", "Information Available"),
-    createData('EclairAlert', 'Eclair', "No name", "Price Range")
-]
+const columns = [
+    { id: 'alertIdentifier', label: 'Alert Identifier' },
+    { id: 'item', label: 'Item' },
+    { id: 'brand', label: 'Brand', },
+    { id: 'type', label: 'Type' }
+];
 
 export default function ViewAlerts() {
     const theme = useTheme();
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const dispatch = useDispatch();
+    const alerts = useSelector((state) => state.alert.alerts);
+
+    const [rows, setRows] = useState([])
+
+    useEffect(() => {
+        dispatch(fetchAlerts())
+    }, [dispatch])
+
+    useEffect(() => {
+
+        setRows(alerts.map(alert => createData(alert.alert_identifier, alert.item.name, alert.brand.name, alert.type)));
+
+    }, [alerts])
 
     const emptyRows =
-        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.currentlength) : 0;
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -106,66 +123,72 @@ export default function ViewAlerts() {
     };
 
     return (
-        <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
-                <TableHead>
-                    <TableRow sx={{
-                        background: theme.palette.primary.main
-                    }}>
-                        <TableCell sx={{color: "#fff"}}>Alert Identifer</TableCell>
-                        <TableCell sx={{color: "#fff"}}>Item</TableCell>
-                        <TableCell sx={{color: "#fff"}}>Brand</TableCell>
-                        <TableCell sx={{color: "#fff"}}>Type</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {(rowsPerPage > 0
-                        ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                        : rows
-                    ).map((row) => (
-                        <TableRow key={row.alertIdentifier}>
-                            <TableCell component="th" scope="row">
-                                {row.alertIdentifier}
-                            </TableCell>
-                            <TableCell>
-                                {row.item}
-                            </TableCell>
-                            <TableCell>
-                                {row.brand}
-                            </TableCell>
-                            <TableCell>
-                                {row.type}
-                            </TableCell>
-                        </TableRow>
-                    ))}
+        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+            <TableContainer sx={{ maxHeight: 500 }} >
+                <Table stickyHeader sx={{ minWidth: 500 }} aria-label="custom pagination table">
+                    <TableHead >
+                        <TableRow sx={{
+                            background: theme.palette.primary.main
+                        }}>
+                            {/* <TableCell padding="checkbox">
+                                <Checkbox
+                                    color="primary"
+                                    indeterminate={numSelected > 0 && numSelected < rowCount}
+                                    checked={rowCount > 0 && numSelected === rowCount}
+                                    onChange={onSelectAllClick}
+                                    inputProps={{
+                                        'aria-label': 'select all desserts',
+                                    }}
+                                />
+                            </TableCell> */}
 
-                    {emptyRows > 0 && (
-                        <TableRow style={{ height: 53 * emptyRows }}>
-                            <TableCell colSpan={6} />
+                            {columns.map(column => {
+                                return (<TableCell sx={{ color: "#fff", background: "#1976d2" }} key={column.id}>
+                                    {column.label}
+                                </TableCell>)
+                            })}
                         </TableRow>
-                    )}
-                </TableBody>
-                <TableFooter>
-                    <TableRow>
-                        <TablePagination
-                            rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-                            colSpan={3}
-                            count={rows.length}
-                            rowsPerPage={rowsPerPage}
-                            page={page}
-                            SelectProps={{
-                                inputProps: {
-                                    'aria-label': 'rows per page',
-                                },
-                                native: true,
-                            }}
-                            onPageChange={handleChangePage}
-                            onRowsPerPageChange={handleChangeRowsPerPage}
-                            ActionsComponent={TablePaginationActions}
-                        />
-                    </TableRow>
-                </TableFooter>
-            </Table>
-        </TableContainer>
+                    </TableHead>
+                    <TableBody>
+                        {(rowsPerPage > 0
+                            ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                            : rows
+                        ).map((row) => (
+                            <TableRow hover key={row.alertIdentifier}>
+                                {columns.map(column => {
+                                    return (<TableCell key={column.id}>
+                                        {row[column.id]}
+                                    </TableCell>)
+                                })}
+                            </TableRow>
+                        ))}
+
+                        {emptyRows > 0 && (
+                            <TableRow style={{ height: 53 * emptyRows }}>
+                                <TableCell colSpan={6} />
+                            </TableRow>
+                        )}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+
+            <TablePagination
+                component={"div"}
+                rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                colSpan={3}
+                count={rows.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                SelectProps={{
+                    inputProps: {
+                        'aria-label': 'rows per page',
+                    },
+                    native: true,
+                }}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                ActionsComponent={TablePaginationActions}
+            />
+        </Paper>
     );
 }
