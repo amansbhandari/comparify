@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { authenication } from "../../store/thunk/userThunkCreators";
 import useStyles from "../../hooks/use-styles";
 import { useNavigate } from "react-router-dom";
+import httpClient from "../../store/thunk/interceptor";
 
 const style = {
   root: {
@@ -38,6 +39,8 @@ const ForgetPassword = (props) => {
           secret,
         })
       );
+    //    await httpClient.post("/securityQuestion/add", );
+      
     },
   });
   const { resetForm } = formik;
@@ -48,20 +51,24 @@ const ForgetPassword = (props) => {
   }, [authentication, resetForm, props.values]);
   const questions = [
     {
-      id: "random",
-      value: "random value",
-      label: "random question",
+      id: "Question one",
+      value: "what is your name",
+      label: "what is your name",
+    },
+    {
+      id: "Question Two",
+      value: "what is your favorate color",
+      label: "what is your favorate color",
+    },
+    {
+      id: "Question one",
+      value: "when is your birthda",
+      label: "when is your birthday",
     },
   ];
   return (
     <Grid container className={classes.root}>
-      <Box
-        onClick={() => {
-          navigate("/forget");
-        }}
-      >
-        Forgot password?
-      </Box>
+      
       <Box>
         <form onSubmit={formik.handleSubmit}>
           <Grid>
