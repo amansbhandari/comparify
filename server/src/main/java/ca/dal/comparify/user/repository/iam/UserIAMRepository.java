@@ -81,4 +81,18 @@ public class UserIAMRepository {
                 eq(UserIAMModel.USER_IDENTIFIER, userIdentifier),
                 set(FIELD_NUMBER_OF_INCORRECT_ATTEMPTS, 0));
     }
+
+    /**
+     * @param userId
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    public UserIAMModel getUserRole(String userId) {
+
+        return mongoRepository.findOne(USER_IAM_COLLECTION,
+            eq(UserIAMModel.ID, userId),
+            and(tuple(USER_AUTHORIZATION_KEY, 1)),
+            UserIAMModel.class);
+    }
 }

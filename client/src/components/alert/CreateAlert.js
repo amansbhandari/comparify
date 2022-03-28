@@ -55,13 +55,13 @@ const CreateAlert = (props) => {
                 data["price_range"] = { min, max }
             }
 
-            dispatch(createAlert());
+            dispatch(createAlert(data));
         }
     });
 
     const items = [{
         id: {
-            entity_id: "sample-id-for-item",
+            entity_id: "588fa189-7ed1-41c0-8cc7-eac61304e7b9",
             entity_type: "item"
         },
         name: "Milk"
@@ -69,7 +69,7 @@ const CreateAlert = (props) => {
 
     const brands = [{
         id: {
-            entity_id: "sample-id-for-brand",
+            entity_id: "84e218d4-2c57-47a1-85b1-91f1b201a437",
             entity_type: "brand"
         },
         name: "Farmer"

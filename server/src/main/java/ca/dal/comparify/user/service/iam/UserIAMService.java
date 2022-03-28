@@ -11,6 +11,7 @@ import ca.dal.comparify.user.model.iam.UserIAMResponseModel;
 import ca.dal.comparify.user.model.iam.authentication.UserAuthenticationModel;
 import ca.dal.comparify.user.model.iam.authentication.UserPrincipal;
 import ca.dal.comparify.user.model.iam.authorization.UserAuthorizationModel;
+import ca.dal.comparify.user.model.iam.authorization.UserRoleModel;
 import ca.dal.comparify.user.repository.iam.UserIAMRepository;
 import ca.dal.comparify.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -146,5 +147,17 @@ public class UserIAMService {
      */
     private boolean isUserExists(String userIdentifier) {
         return userIAMRepository.isUserExists(userIdentifier);
+    }
+
+    /**
+     * @param userId
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    public UserRoleModel getUserRole(String userId) {
+        UserIAMModel userIAM = userIAMRepository.getUserRole(userId);
+
+        return new UserRoleModel(userIAM.getId(), userIAM.getAuthorization());
     }
 }
