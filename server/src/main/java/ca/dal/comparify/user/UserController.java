@@ -3,6 +3,7 @@ package ca.dal.comparify.user;
 import ca.dal.comparify.constant.ApplicationConstant;
 import ca.dal.comparify.framework.exception.MissingRequiredFieldException;
 import ca.dal.comparify.user.model.iam.UserDetailsModel;
+import ca.dal.comparify.user.model.iam.UserDetailsRequestModel;
 import ca.dal.comparify.user.model.iam.UserIAMRequestModel;
 import ca.dal.comparify.user.model.iam.UserIAMResponseModel;
 import ca.dal.comparify.user.model.iam.authorization.UserRoleModel;
@@ -100,4 +101,22 @@ public class UserController {
 
         return userDetailsService.fetchUser(username);
     }
+
+
+    /**
+     * @param UserDetailsRequestModel
+     * @return
+     * @author Aman Singh Bhandari
+     */
+    @PostMapping("/details")
+    public Boolean setUserDetails(@RequestBody UserDetailsRequestModel userDetailsRequestModel) {
+
+        if (userDetailsRequestModel.isEmpty()) {
+            throw new MissingRequiredFieldException(400, 1000, userDetailsRequestModel.getRequiredFields());
+        }
+
+        return userDetailsService.saveUserDetails(userDetailsRequestModel);
+    }
+
+
 }

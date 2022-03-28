@@ -16,6 +16,7 @@ public class BrandModel extends BrandRequestModel {
     private AuditModel audit;
 
     public BrandModel() {
+        super();
     }
 
     public BrandModel(@BsonId String id,
