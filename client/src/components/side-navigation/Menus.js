@@ -17,20 +17,23 @@ import Typography from '@mui/material/Typography';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AddIcon from '@mui/icons-material/Add';
-import UserProfile from '../user-profile/UserProfile';
+import AddAlertOutlinedIcon from '@mui/icons-material/AddAlertOutlined';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
 
 function Menus(props) {
   const { window } = props;
+
+  const navigate = useNavigate();
  
   
   //Titles stored for all the menus
-  var titles = ['Home','Menu2','Menu3','Menu4', 'User Profile', 'Log out'];
+  var titles = ['Home','Menu2','Menu3','Alerts', 'User Profile', 'Log out'];
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [titlePage, setTitlePage] = React.useState(titles[0]);
-  const [detailPage, setDetailPage] = React.useState(<h1>Our home page !</h1>)
+  //const [detailPage, setDetailPage] = React.useState(<h1>Our home page !</h1>)
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -41,6 +44,8 @@ function Menus(props) {
   {
     if(index === 0)
         return <HomeIcon />
+    else if(index === 3)
+        return <AddAlertOutlinedIcon/>
     else if(index === 4)
         return <AccountCircleIcon/>
     else if(index === 5)
@@ -139,7 +144,7 @@ function Menus(props) {
         <Typography paragraph>
           Consequat mauris n
         </Typography> */}
-        {detailPage}
+        <Outlet></Outlet>
         {/* <UserProfile></UserProfile> */}
       </Box>
     </Box>
@@ -151,28 +156,27 @@ function menuClicked(index)
 
   if(index === 0)
   {
-    setDetailPage(<h1>Our home page detail page can be added by replacing this!</h1>)
+    //setDetailPage(<h1>Our home page detail page can be added by replacing this!</h1>)
   }
   else if(index === 1)
   {
     
-    setDetailPage(<h1>Menu 1 detail page can be added by replacing this!</h1>)
+    //setDetailPage(<h1>Menu 1 detail page can be added by replacing this!</h1>)
   }
   else if(index === 2)
   {
-    setDetailPage(<h1>Menu 2 detail page can be added by replacing this!</h1>)
+    //setDetailPage(<h1>Menu 2 detail page can be added by replacing this!</h1>)
   }
-  else if(index === 3)
-  {
-    setDetailPage(<h1>Menu 3 detail page can be added by replacing this!</h1>)
+  else if(index === 3){
+    navigate("alert")
   }
   else if(index === 4)
   {
-    setDetailPage(<UserProfile></UserProfile>);
+    navigate("profile")
   }
   else 
   {
-    setDetailPage(<h1>User will be logged out !</h1>);
+    //setDetailPage(<h1>User will be logged out !</h1>);
   }
 }
 }
