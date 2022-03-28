@@ -1,6 +1,9 @@
 // ACTIONS
 const ALERT_CREATED = "ALERT_CREATED";
-const ALERT_CREATION_FAILED = "ALERT_CREATION_FAILEDw";
+const ALERTS_FETCHTED = "ALERTS_FETCHTED";
+
+const ALERT_CREATION_FAILED = "ALERT_CREATION_FAILED";
+const ALERTS_FETCHTED_FAILED = "ALERTS_FETCHTED_FAILED";
 
 // ACTION CREATORS
 export const alertCreated = (alert) => {
@@ -17,13 +20,33 @@ export const alertCreationFailed = (error) => {
   };
 };
 
+export const alertsFetched = (alerts) => {
+  return {
+    type: ALERTS_FETCHTED,
+    alerts
+  };
+};
+
+export const alertsFetchedFailed = (alerts) => {
+  return {
+    type: ALERTS_FETCHTED_FAILED,
+    alerts
+  };
+};
+
+const initState = { recent_alert_created: {}, alerts: []}
+
 // REDUCER
-const reducer = (state = {}, action) => {
+const reducer = (state = initState, action) => {
   switch (action.type) {
     case ALERT_CREATED:
-      return action.alert;
+      return {...state, recent_alert_created: action.alert} ;
     case ALERT_CREATION_FAILED:
-      return action.error
+      return {...state, recent_alert_created: action.alert} 
+    case ALERTS_FETCHTED:
+      return {...state, alerts: action.alerts} 
+    case ALERTS_FETCHTED_FAILED:
+      return {...state, alerts: []} 
     default:
       return state;
   }

@@ -3,6 +3,7 @@ package ca.dal.comparify.user.service;
 import ca.dal.comparify.user.model.iam.UserIAMRequestModel;
 import ca.dal.comparify.user.model.iam.UserIAMResponseModel;
 import ca.dal.comparify.user.model.iam.authentication.UserPrincipal;
+import ca.dal.comparify.user.model.iam.authorization.UserRoleModel;
 import ca.dal.comparify.user.service.iam.UserIAMService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,5 +45,9 @@ public class UserService {
      */
     public int createUserIAMInfo(String userIdentifier, String secret){
         return userIAMService.createUserIAMInfo(userIdentifier, secret);
+    }
+
+    public UserRoleModel getUserRole(String userId) {
+        return userIAMService.getUserRole(userId);
     }
 }

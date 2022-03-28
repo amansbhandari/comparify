@@ -16,6 +16,8 @@ public class UserAuthorizationModel {
 
     private AuditModel audit;
 
+    public UserAuthorizationModel() {}
+
     public UserAuthorizationModel(@BsonProperty("role_id") UserAuthorizationRoleEnum roleId,
                                   @BsonProperty("audit") AuditModel audit) {
         this.roleId = roleId;

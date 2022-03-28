@@ -3,12 +3,10 @@ package ca.dal.comparify.brand;
 import ca.dal.comparify.brand.model.BrandModel;
 import ca.dal.comparify.mongo.MongoRepository;
 import com.mongodb.client.model.Filters;
-import org.bson.conversions.Bson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import static ca.dal.comparify.mongo.MongoUtils.*;
 
 
 @Service
@@ -22,16 +20,15 @@ public class BrandRepository {
     /**
      * @param model
      * @return
-     *
      * @author Harsh Shah
      */
-    public int save(BrandModel model){
+    public int save(BrandModel model) {
         return mongoRepository.insertOne(BRAND_COLLECTION, model, BrandModel.class);
     }
 
     /**
      * @return
-     *
+     * 
      * @author Chanpreet Singh
      */
     public List<BrandModel> getAll(){

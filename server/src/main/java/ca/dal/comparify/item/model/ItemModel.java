@@ -18,6 +18,9 @@ public class ItemModel extends ItemRequestModel {
 
     private AuditModel audit;
 
+    public ItemModel() {
+    }
+
     public ItemModel(@BsonId String id,
                      @BsonProperty("name") String name,
                      @BsonProperty("description") String description,
@@ -47,10 +50,12 @@ public class ItemModel extends ItemRequestModel {
         this.id = id;
     }
 
+    @Override
     public String getDefaultImage() {
         return defaultImage;
     }
 
+    @Override
     public void setDefaultImage(String defaultImage) {
         this.defaultImage = defaultImage;
     }
