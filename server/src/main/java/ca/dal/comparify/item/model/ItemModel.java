@@ -50,10 +50,12 @@ public class ItemModel extends ItemRequestModel {
         this.id = id;
     }
 
+    @Override
     public String getDefaultImage() {
         return defaultImage;
     }
 
+    @Override
     public void setDefaultImage(String defaultImage) {
         this.defaultImage = defaultImage;
     }

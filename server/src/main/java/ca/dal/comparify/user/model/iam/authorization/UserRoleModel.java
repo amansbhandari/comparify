@@ -2,7 +2,6 @@ package ca.dal.comparify.user.model.iam.authorization;
 
 import ca.dal.comparify.model.AuditModel;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.bson.codecs.pojo.annotations.BsonProperty;
 
 /**
  * @author Harsh Shah

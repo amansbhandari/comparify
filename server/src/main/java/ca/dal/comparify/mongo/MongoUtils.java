@@ -6,7 +6,6 @@ import com.mongodb.client.model.Updates;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -23,7 +22,6 @@ public class MongoUtils {
      * @param key
      * @param value
      * @return
-     *
      * @author Harsh Shah
      */
     public static Document inc(String key, Integer value) {
@@ -33,7 +31,6 @@ public class MongoUtils {
     /**
      * @param values
      * @return
-     *
      * @author Harsh Shah
      */
     public static Bson and(Tuple... values) {
@@ -50,7 +47,6 @@ public class MongoUtils {
     /**
      * @param values
      * @return
-     *
      * @author Harsh Shah
      */
     public static Bson and(Bson... values) {
@@ -60,7 +56,6 @@ public class MongoUtils {
     /**
      * @param values
      * @return
-     *
      * @author Harsh Shah
      */
     public static Document inc(Bson... values) {
@@ -71,7 +66,6 @@ public class MongoUtils {
      * @param fieldName
      * @param value
      * @return
-     *
      * @author Harsh Shah
      */
     public static Bson set(final String fieldName, final Object value) {
@@ -82,7 +76,6 @@ public class MongoUtils {
      * @param fieldName
      * @param value
      * @return
-     *
      * @author Harsh Shah
      */
     public static Bson eq(final String fieldName, final Object value) {
@@ -92,7 +85,6 @@ public class MongoUtils {
     /**
      * @param value
      * @return
-     *
      * @author Harsh Shah
      */
     public static Bson match(final Document value) {
@@ -105,7 +97,6 @@ public class MongoUtils {
      * @param foreignField
      * @param as
      * @return
-     *
      * @author Harsh Shah
      */
     public static Bson lookup(final String from, final String localField,
@@ -125,7 +116,6 @@ public class MongoUtils {
      * @param pipeline
      * @param as
      * @return
-     *
      * @author Harsh Shah
      */
     public static Bson lookup(final String from, final String localField,
@@ -143,7 +133,6 @@ public class MongoUtils {
     /**
      * @param path
      * @return
-     *
      * @author Harsh Shah
      */
     public static Bson unwind(final String path) {

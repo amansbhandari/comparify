@@ -2,7 +2,6 @@ package ca.dal.comparify.alerts.model;
 
 import ca.dal.comparify.brand.model.BrandModel;
 import ca.dal.comparify.item.model.ItemModel;
-import ca.dal.comparify.model.EntityReference;
 import ca.dal.comparify.model.RangeModel;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bson.codecs.pojo.annotations.BsonProperty;
@@ -35,7 +34,7 @@ public class AlertResponseModel {
     }
 
     public AlertResponseModel(String alertIdentifier, ItemModel item, BrandModel brand,
-        AlertTypeEnum type, RangeModel<Integer> priceRange, Date expiresOn) {
+                              AlertTypeEnum type, RangeModel<Integer> priceRange, Date expiresOn) {
         this.alertIdentifier = alertIdentifier;
         this.item = item;
         this.brand = brand;
