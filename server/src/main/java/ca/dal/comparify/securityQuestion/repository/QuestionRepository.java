@@ -1,0 +1,55 @@
+package ca.dal.comparify.securityQuestion.repository;
+
+import org.bson.BsonDocument;
+import org.bson.conversions.Bson;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import ca.dal.comparify.mongo.MongoRepository;
+import ca.dal.comparify.securityQuestion.model.Question;
+import static ca.dal.comparify.mongo.MongoUtils.eq;
+import static ca.dal.comparify.mongo.MongoUtils.set;
+import static ca.dal.comparify.mongo.MongoUtils.and;
+import static ca.dal.comparify.mongo.MongoUtils.currentDate;
+import java.util.List;
+
+
+
+
+@Service
+public class QuestionRepository  {
+    @Autowired
+    private MongoRepository mongoRepository;
+
+    // public QuestionRepository(MongoRepository mongoRepository) {
+    //     this.mongoRepository = mongoRepository;
+    // }
+    
+    static final String COLLECTION_NAME = "securityQuestion";
+    static final String ID = "userIdentifier";
+    static final String QUESTION = "question";
+    static final String ANSWER = "answer";
+    Class<Question> classOf = Question.class;
+
+
+    public int addQuestion(Question question) {
+        return mongoRepository.insertOne(COLLECTION_NAME,question, classOf);
+    }
+    public Question getOneQuestionById(int userIdentifier ) {
+        return mongoRepository.findOne(COLLECTION_NAME,eq(ID, userIdentifier), classOf);
+    }
+    public List<Question> getAllQuestion() {
+        Bson query = new BsonDocument();
+        return mongoRepository.find(COLLECTION_NAME,query , classOf); 
+    }
+    public boolean updateAnswer(int userIdentifier, String question, String answer) {
+        Bson query = and(eq(ID, userIdentifier), eq(QUESTION, question));
+        Bson[] values = {set(ANSWER, answer)}; 
+        return mongoRepository.updateOne(COLLECTION_NAME, query,values);
+    }
+    public boolean deleteQuestion(int userIdentifier, String question) {
+        Bson query = and(eq(ID, userIdentifier), eq(QUESTION, question));
+        return mongoRepository.deleteOne(COLLECTION_NAME,query);
+    }
+
+ 
+}
