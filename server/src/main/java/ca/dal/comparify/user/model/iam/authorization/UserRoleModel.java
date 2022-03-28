@@ -1,32 +1,40 @@
 package ca.dal.comparify.user.model.iam.authorization;
 
 import ca.dal.comparify.model.AuditModel;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 
 /**
  * @author Harsh Shah
  */
-public class UserAuthorizationModel {
+public class UserRoleModel {
 
-    public static final String CREATE_ACTION = "create";
-    public static final String UPDATE_ACTION = "update";
 
-    @BsonProperty("role_id")
+    private String id;
+
+    @JsonProperty("role_id")
     private UserAuthorizationRoleEnum roleId;
 
     private AuditModel audit;
 
-    public UserAuthorizationModel() {}
-
-    public UserAuthorizationModel(@BsonProperty("role_id") UserAuthorizationRoleEnum roleId,
-                                  @BsonProperty("audit") AuditModel audit) {
+    public UserRoleModel(String id, UserAuthorizationRoleEnum roleId, AuditModel audit) {
+        this.id = id;
         this.roleId = roleId;
         this.audit = audit;
     }
 
-    public UserAuthorizationModel(UserAuthorizationRoleEnum roleId, String actionType, String by) {
-        this.roleId = roleId;
-        this.audit = CREATE_ACTION.equals(actionType) ? AuditModel.create(by) : AuditModel.update(by);
+    public UserRoleModel(String id, UserAuthorizationModel authorizationModel) {
+        this.id = id;
+        this.roleId = authorizationModel.getRoleId();
+        this.audit = authorizationModel.getAudit();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public UserAuthorizationRoleEnum getRoleId() {

@@ -15,6 +15,9 @@ public class BrandModel extends BrandRequestModel {
 
     private AuditModel audit;
 
+    public BrandModel() {
+    }
+
     public BrandModel(@BsonId String id,
                       @BsonProperty("name") String name,
                       @BsonProperty("description")  String description,

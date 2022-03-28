@@ -9,6 +9,9 @@ public class BrandRequestModel {
 
     private String description;
 
+    public BrandRequestModel() {
+    }
+
     public BrandRequestModel(String name, String description) {
         this.name = name;
         this.description = description;

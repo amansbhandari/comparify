@@ -16,6 +16,8 @@ public class EntityReference {
     @JsonProperty("entity_type")
     private String entityType;
 
+    public EntityReference(){}
+
     public EntityReference(@BsonProperty("entity_id") String entityId,
                            @BsonProperty("entity_type") String entityType) {
         this.entityId = entityId;
