@@ -6,6 +6,11 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import logo from '../../assets/logo/logo-512-trans.png';
+import goldBadge from '../../assets/images/goldbadge.png';
+import silverBadge from '../../assets/images/silverbadge.png';
+import notificationAllowed from '../../assets/images/notificationAllowed.png';
+import orderMore from '../../assets/images/orderMore.png';
+
 import { getDetails, saveDetails } from "../../store/thunk/userThunkCreators";
 
 
@@ -60,6 +65,21 @@ const style = {
     buttonContainer: {
         display: "flex",
         justifyContent: "end"
+    },
+    badgeStyle: {
+        
+        position: 'absolute', 
+        top: 80,
+        right: 120,
+        width: "110px"
+    },
+
+    cartoon: {
+        
+        position: 'absolute', 
+        top: 350,
+        right: 20,
+        width: "320px"
     }
 }
 
@@ -79,6 +99,9 @@ const UserProfile = (props) => {
             localStorage.setItem("firstName", data.firstName);
             localStorage.setItem("lastName", data.lastName);
             localStorage.setItem("username", data.username);
+            localStorage.setItem("points", data.points)
+            localStorage.setItem("member", data.type)
+
             if(isDataLoaded === false)
                 setDataLoaded(true);
          })
@@ -105,8 +128,44 @@ const UserProfile = (props) => {
         return localStorage.getItem("username");
     }
 
+    function userPoints()
+    {
+        return localStorage.getItem("points");
+    }
+
+    function userMember()
+    {
+        return localStorage.getItem("member");
+    }
+
+    function badgeImage()
+    {
+        if(localStorage.getItem("member")  === 'gold')
+        {
+            return goldBadge
+        }
+        else
+        {
+            return silverBadge
+        }
+    }
+
+    function cartoonImage()
+    {
+        if(localStorage.getItem("member")  === 'gold')
+        {
+            return notificationAllowed
+        }
+        else
+        {
+            return orderMore
+        }
+    }
+
     return(<>
                 <Box className={classes.root} >
+                    <img src = {badgeImage()} style = {style.badgeStyle}/>
+                    <img src = {cartoonImage()} style = {style.cartoon}/>
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                     </Avatar>
                     <Typography component="h1" variant="h5">
@@ -125,6 +184,16 @@ const UserProfile = (props) => {
                     <div style={style.field}>
                         <label style= {style.label}>Last Name</label>
                         {showLastName()}
+                    </div>
+
+                    <div style={style.field}>
+                        <label style= {style.label}>Points</label>
+                        {showPoints()}
+                    </div>
+
+                    <div style={style.field}>
+                        <label style= {style.label}>Member</label>
+                        {showMember()}
                     </div>
 
                     <Grid item className={classes.buttonContainer} >
@@ -221,6 +290,17 @@ function showLastName()
         return <label style= {style.editableField} disabled={isEditMode}>{userLastName()}</label>
     }
 }
+
+function showPoints()
+{
+        return <label style= {style.editableField}>{userPoints()}</label>
+}
+
+function showMember()
+{   
+    return <label style= {style.editableField}>{userMember()}</label>
+}
+
 }
 
 export default UserProfile;
