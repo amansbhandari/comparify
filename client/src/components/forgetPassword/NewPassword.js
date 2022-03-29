@@ -1,11 +1,10 @@
-import { Button, TextField, Box, Grid, MenuItem } from "@material-ui/core";
+import { Button, TextField, Box, Grid} from "@material-ui/core";
 import { useFormik } from "formik";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { authenication } from "../../store/thunk/userThunkCreators";
 import useStyles from "../../hooks/use-styles";
 import { useNavigate } from "react-router-dom";
-import httpClient from "../../store/thunk/interceptor";
 
 const style = {
   root: {
@@ -34,8 +33,9 @@ const NewPassword = (props) => {
         newPassword,
         confirmPassword
       } = values;
-      console.log(newPassword);
-      console.log(confirmPassword);
+      const user = {userIdentifier:userIdentifier};
+
+      
       if(newPassword !== confirmPassword){
         alert("Password does not match");
         return;
