@@ -105,8 +105,7 @@ const ResetPassword = (props) => {
           return;
       }
      
-      alert("reset password success");
-      dispatch(navigate("/home"));
+      dispatch(navigate("/newPassword"));
     },
   });
   const validate = (inputs,stored) => {

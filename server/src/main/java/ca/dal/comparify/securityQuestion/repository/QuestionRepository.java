@@ -17,12 +17,7 @@ import java.util.List;
 @Service
 public class QuestionRepository  {
     @Autowired
-    private MongoRepository mongoRepository;
-
-    // public QuestionRepository(MongoRepository mongoRepository) {
-    //     this.mongoRepository = mongoRepository;
-    // }
-    
+    private MongoRepository mongoRepository;    
     static final String COLLECTION_NAME = "securityQuestion";
     static final String ID = "userIdentifier";
     static final String QUESTION = "question";

@@ -8,6 +8,7 @@ import UserProfile from "./components/user-profile/UserProfile";
 import AuthGuard from "./guard/AuthGuard";
 import SetSecurityQuestion from "./components/forgetPassword/SetSecurityQuestion";
 import ResetPassword from "./components/forgetPassword/ResetPassword";
+import NewPassword from "./components/forgetPassword/NewPassword";
 
 
 const AppRoutes = (props) => {
@@ -24,6 +25,8 @@ const AppRoutes = (props) => {
         </Route>
         <Route path="/setSecurityQuestion" element={<SetSecurityQuestion />} />
         <Route path="/resetPassword" element={<ResetPassword />} />
+        <Route path="/newPassword" element={<NewPassword />} />
+
       </Routes>
     </Router>
   );
