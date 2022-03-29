@@ -164,8 +164,8 @@ const UserProfile = (props) => {
 
     return(<>
                 <Box className={classes.root} >
-                    <img src = {badgeImage()} style = {style.badgeStyle}/>
-                    <img src = {cartoonImage()} style = {style.cartoon}/>
+                    <img src = {badgeImage()} style = {style.badgeStyle} alt=""/>
+                    <img src = {cartoonImage()} style = {style.cartoon} alt=""/>
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                     </Avatar>
                     <Typography component="h1" variant="h5">
