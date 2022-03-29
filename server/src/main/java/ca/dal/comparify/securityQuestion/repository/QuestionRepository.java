@@ -1,6 +1,5 @@
 package ca.dal.comparify.securityQuestion.repository;
 
-import org.bson.BsonDocument;
 import org.bson.conversions.Bson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
