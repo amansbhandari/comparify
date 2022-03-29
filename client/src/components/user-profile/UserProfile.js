@@ -5,7 +5,7 @@ import useStyles from "../../hooks/use-styles";
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
-
+import logo from '../../assets/logo/logo-512-trans.png';
 import { getDetails, saveDetails } from "../../store/thunk/userThunkCreators";
 
 
@@ -14,9 +14,10 @@ const style = {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        margin: "64px 128px",
-        marginTop: "80px",
-        
+        marginTop: "30px",
+        backgroundImage : `url(${logo})`,
+        width: '100%',  
+        height: '100%',
     },
     imageContainer: {
         display: 'flex',
@@ -29,7 +30,7 @@ const style = {
     editableField: {
         width : '50%',
         float : 'right',
-        fontSize: 24,
+        fontSize: 18,
     },
     grid:{
         display: 'flex',
@@ -42,13 +43,13 @@ const style = {
     field:{
         alignItems: 'center',
         flexDirection: 'column',
-        marginTop: "50px",
-        marginBottom: "50px",
+        marginTop: "25px",
+        marginBottom: "25px",
         width: "70%",
     },
     label:{
         marginLeft: '30%',
-        fontSize: 22,
+        fontSize: 16,
         color: 'gray'
     },
 
@@ -105,7 +106,7 @@ const UserProfile = (props) => {
     }
 
     return(<>
-                <Box className={classes.root}>
+                <Box className={classes.root} >
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                     </Avatar>
                     <Typography component="h1" variant="h5">
@@ -126,7 +127,7 @@ const UserProfile = (props) => {
                         {showLastName()}
                     </div>
 
-                    <Grid item className={classes.buttonContainer}>
+                    <Grid item className={classes.buttonContainer} >
                         <Button color="primary" variant="contained" type="submit" className={classes.button} onClick={() => {
             editClicked()}}>
                             {getButtonLabel()}
