@@ -29,14 +29,12 @@ const NewPassword = (props) => {
     initialValues: {},
     onSubmit: async (values, actions) => {
       const {
-        userIdentifier,
+        // userIdentifier,
         newPassword,
         confirmPassword
       } = values;
-      const user = {userIdentifier:userIdentifier};
-      user;
+      // const user = {userIdentifier:userIdentifier};
 
-      
       if(newPassword !== confirmPassword){
         alert("Password does not match");
         return;
