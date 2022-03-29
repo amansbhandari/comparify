@@ -34,6 +34,7 @@ const NewPassword = (props) => {
         confirmPassword
       } = values;
       const user = {userIdentifier:userIdentifier};
+      user;
 
       
       if(newPassword !== confirmPassword){
