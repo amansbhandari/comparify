@@ -53,6 +53,14 @@ const SetSecurityQuestions = (props) => {
         question: securityQuestionThree,
         answer: securityAnswerThree,
       };
+       if (
+         question1.question === question2.question ||
+         question1.question === question3.question ||
+         question2.question === question3.question
+       ) {
+         alert("Please select different questions");
+         return;
+       }
 
       try {
         await httpClient.post("/securityQuestion/add", question1);

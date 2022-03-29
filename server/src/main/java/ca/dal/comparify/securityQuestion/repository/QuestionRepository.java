@@ -36,9 +36,9 @@ public class QuestionRepository  {
     public Question getOneQuestionById(String userIdentifier ) {
         return mongoRepository.findOne(COLLECTION_NAME,eq(ID, userIdentifier), classOf);
     }
-    public List<Question> getAllQuestion() {
-        Bson query = new BsonDocument();
-        return mongoRepository.find(COLLECTION_NAME,query , classOf); 
+    public List<Question> getAllQuestion(String userIdentifier) {
+      
+        return mongoRepository.find(COLLECTION_NAME,eq(ID,userIdentifier) , classOf); 
     }
     public boolean updateAnswer(String userIdentifier, String question, String answer) {
         Bson query = and(eq(ID, userIdentifier), eq(QUESTION, question));

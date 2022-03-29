@@ -30,9 +30,9 @@ public class QuestionController {
     }
 
     @GetMapping("/getAll")
-    public List<Question> getQuestion() {
+    public List<Question> getQuestion(@RequestParam String userIdentifier) {
         
-        return  questionRepository.getAllQuestion();
+        return  questionRepository.getAllQuestion(userIdentifier);
        
     }
     @GetMapping("/getOne")

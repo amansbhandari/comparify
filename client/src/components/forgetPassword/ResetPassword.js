@@ -53,31 +53,56 @@ const ResetPassword = (props) => {
         question: securityQuestionThree,
         answer: securityAnswerThree,
       };
-
+      // if (
+      //   question1.question === question2.question ||
+      //   question1.question === question3.question ||
+      //   question2.question === question3.question
+      // ) {
+      //   alert("Please select different questions");
+      //   return;
+      // }
+  
+      var questionsObject = [];
+      var questionArray =[];
+      const credential = { params: { userIdentifier: userIdentifier } };
+      
       try {
-        const questions = await httpClient.get("/securityQuestion/getAll", userIdentifier);
+       questionsObject = await httpClient.get("/securityQuestion/getAll",credential);
       } catch (error) {
         console.log(error);
+        alert("can not find user");
+        return;
       }
-
-      if(!validate(question1,)){
-        alert("question and answer can not match"); 
-        Location.reload();
+      
+      questionArray = questionsObject.data;
+     
+      if(!validate(questionArray[0],question1)&&
+        !validate(questionArray[1],question1)&&
+        !validate(questionArray[2],question1)){  
+          alert(question1.answer+" is not a valid answer for "+question1.question);
+          return;
       }
-
-      alert("add securityQuestion success");
+      if(!validate(questionArray[0],question2)&&
+        !validate(questionArray[1],question2)&&
+        !validate(questionArray[2],question2)){  
+          alert(question2.answer+" is not a valid answer for "+question2.question);
+          return;
+      }
+      if(!validate(questionArray[0],question3)&&
+        !validate(questionArray[1],question3)&&
+        !validate(questionArray[2],question3)){  
+          alert(question3.answer+" is not a valid answer for "+question3.question);
+          return;
+      }
+     
+      alert("reset password success");
       dispatch(navigate("/home"));
     },
   });
   const validate = (inputs,stored) => {
-    if(inputs.userIdentifier === stored.userIdentifier){
-      if(inputs.securityQuestionOne === stored.securityQuestionOne){
-        if(inputs.securityAnswerOne === stored.securityAnswerOne){
-            
-            return true;
-          }
-        }
-     }
+    if(inputs.question === stored.question && inputs.answer === stored.answer){
+        return true;
+    }
        return false;
     
   }
