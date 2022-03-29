@@ -53,19 +53,28 @@ const ResetPassword = (props) => {
         question: securityQuestionThree,
         answer: securityAnswerThree,
       };
-      // if (
-      //   question1.question === question2.question ||
-      //   question1.question === question3.question ||
-      //   question2.question === question3.question
-      // ) {
-      //   alert("Please select different questions");
-      //   return;
-      // }
+      if (userIdentifier === undefined) {
+        alert("Please enter user name");
+        return;
+      }
+      if(question1.question === undefined || question1.answer === undefined|| question2.question === undefined || question2.answer === undefined || question3.question === undefined || question3.answer === undefined|| question1.question === "" || question1.answer === "" || question2.question === "" || question2.answer === "" || question3.question === "" || question3.answer === "")
+      {
+        alert("Please enter all the fields");
+        return;
+      }
+      if (
+        question1.question === question2.question ||
+        question1.question === question3.question ||
+        question2.question === question3.question
+      ) {
+        alert("Please select different questions");
+        return;
+      }
   
       var questionsObject = [];
       var questionArray =[];
       const credential = { params: { userIdentifier: userIdentifier } };
-      
+     
       try {
        questionsObject = await httpClient.get("/securityQuestion/getAll",credential);
       } catch (error) {
@@ -73,6 +82,7 @@ const ResetPassword = (props) => {
         alert("can not find user");
         return;
       }
+      console.log(questionsObject);
       
       questionArray = questionsObject.data;
      
