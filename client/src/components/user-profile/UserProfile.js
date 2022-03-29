@@ -67,13 +67,13 @@ const UserProfile = (props) => {
     const classes = useStyles(style);
     const [isEditMode, setEditMode] = React.useState(false);
     const [isDataLoaded, setDataLoaded] = React.useState(false);
-    
     var email = ""
     var firstName = ""
     var lastName = ""
 
     useEffect(() => {
-        getDetails(localStorage.getItem('user_identifier')).then((data) => {
+        
+        getDetails(localStorage.getItem('user-id')).then((data) => {
             localStorage.setItem("email", data.email);
             localStorage.setItem("firstName", data.firstName);
             localStorage.setItem("lastName", data.lastName);
@@ -148,7 +148,7 @@ function editClicked()
     else                            //Save the user details
     {
         saveDetails({
-            "username": localStorage.getItem('user_identifier'), email, firstName,lastName
+            "username": localStorage.getItem('user-id'), email, firstName,lastName
         }).then((data) => {
             localStorage.setItem("email", data.email);
             localStorage.setItem("firstName", data.firstName);
