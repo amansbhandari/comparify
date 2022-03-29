@@ -141,8 +141,7 @@ const LandingPage = (props) => {
                 <Authentication values={initialValues}></Authentication>
                 <Grid container>
                   <Grid item xs>
-                     
-                    <Link  href="/forgetpassword" variant="body2">
+                    <Link href="/setSecurityQuestion" variant="body2">
                       Forgot password?
                     </Link>
                   </Grid>

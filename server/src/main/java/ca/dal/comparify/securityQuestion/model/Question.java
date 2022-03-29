@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 
 @Entity
 public class Question {
-    private int userIdentifier;
+    private String userIdentifier;
     private String question;
     private String answer;
     
@@ -12,7 +12,7 @@ public class Question {
         // Create this constructor for Mongo Codec to create object
     }
 
-    public Question(String question, String answer, int userIdentifier) {
+    public Question(String question, String answer, String userIdentifier) {
         this.userIdentifier = userIdentifier;
         this.question = question;
         this.answer = answer;
@@ -21,7 +21,7 @@ public class Question {
     public String getAnswer() {
         return answer;
     }
-   public int getUserIdentifier() {
+   public String getUserIdentifier() {
        return userIdentifier;
    }
     public String getQuestion() {
@@ -33,7 +33,7 @@ public class Question {
     public void setQuestion(String question) {
         this.question = question;
     }
-    public void setUserIdentifier(int userIdentifier) {
+    public void setUserIdentifier(String userIdentifier) {
         this.userIdentifier = userIdentifier;
     }
     

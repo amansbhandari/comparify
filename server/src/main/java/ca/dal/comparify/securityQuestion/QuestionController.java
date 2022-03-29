@@ -36,19 +36,19 @@ public class QuestionController {
        
     }
     @GetMapping("/getOne")
-    public Question getOneQuestion(@RequestParam int userIdentifier) {
+    public Question getOneQuestion(@RequestParam String userIdentifier) {
         
         return  questionRepository.getOneQuestionById(userIdentifier);
        
     }
 
     @PutMapping("/update")
-    public boolean updateAnswer(@RequestParam int userIdentifier,@RequestParam String question,@RequestParam String answer) {
+    public boolean updateAnswer(@RequestParam String userIdentifier,@RequestParam String question,@RequestParam String answer) {
         return questionRepository.updateAnswer(userIdentifier, question, answer);
     }
 
     @DeleteMapping("/delete")
-    public boolean deleteQuestion(@RequestParam int userIdentifier,@RequestParam String question) {   
+    public boolean deleteQuestion(@RequestParam String userIdentifier,@RequestParam String question) {   
         return questionRepository.deleteQuestion(userIdentifier, question);
     }
     

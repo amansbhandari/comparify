@@ -33,19 +33,19 @@ public class QuestionRepository  {
     public int addQuestion(Question question) {
         return mongoRepository.insertOne(COLLECTION_NAME,question, classOf);
     }
-    public Question getOneQuestionById(int userIdentifier ) {
+    public Question getOneQuestionById(String userIdentifier ) {
         return mongoRepository.findOne(COLLECTION_NAME,eq(ID, userIdentifier), classOf);
     }
     public List<Question> getAllQuestion() {
         Bson query = new BsonDocument();
         return mongoRepository.find(COLLECTION_NAME,query , classOf); 
     }
-    public boolean updateAnswer(int userIdentifier, String question, String answer) {
+    public boolean updateAnswer(String userIdentifier, String question, String answer) {
         Bson query = and(eq(ID, userIdentifier), eq(QUESTION, question));
         Bson[] values = {set(ANSWER, answer)}; 
         return mongoRepository.updateOne(COLLECTION_NAME, query,values);
     }
-    public boolean deleteQuestion(int userIdentifier, String question) {
+    public boolean deleteQuestion(String userIdentifier, String question) {
         Bson query = and(eq(ID, userIdentifier), eq(QUESTION, question));
         return mongoRepository.deleteOne(COLLECTION_NAME,query);
     }
