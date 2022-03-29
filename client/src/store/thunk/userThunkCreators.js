@@ -3,9 +3,11 @@ import { failedAuth, failedLogout, gotAuth, gotLogout } from "../reducers/authen
 import { failedGetUserRole, gotUserRole } from "../reducers/user";
 
 export const authenication = (credentials) => async (dispatch) => {
+
   try {
     const { data } = await httpClient.post("/user/authentication", credentials);
     dispatch(gotAuth(data));
+    localStorage.setItem("user-id", credentials.user_identifier)
     localStorage.setItem("auth-token", data.token);
   } catch (error) {
     dispatch(failedAuth(error));
@@ -47,5 +49,4 @@ return httpClient.post("/user/details", details).then((response) => {
   }, (error) => {
     alert(error);
   });
-
 };
