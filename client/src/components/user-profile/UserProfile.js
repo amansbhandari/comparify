@@ -77,6 +77,7 @@ const UserProfile = (props) => {
             localStorage.setItem("email", data.email);
             localStorage.setItem("firstName", data.firstName);
             localStorage.setItem("lastName", data.lastName);
+            localStorage.setItem("username", data.username);
             if(isDataLoaded === false)
                 setDataLoaded(true);
          })
@@ -98,12 +99,17 @@ const UserProfile = (props) => {
         return localStorage.getItem("lastName");
     }
 
+    function username()
+    {
+        return localStorage.getItem("username");
+    }
+
     return(<>
                 <Box className={classes.root}>
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        User Profile
+                        {username()}
                     </Typography>
                     <div style={style.field}>
                         <label style= {style.label}>Email Id</label>
