@@ -18,7 +18,7 @@ public class UserDetailsModel {
 
     @BsonProperty("_id")
     @BsonId
-    private ObjectId id;
+    private String id;
 
     @BsonProperty(USERNAME)
     private String username;
@@ -35,7 +35,7 @@ public class UserDetailsModel {
         // Create this constructor for Mongo Codec to create object
     }
 
-    public UserDetailsModel(@BsonId ObjectId id,
+    public UserDetailsModel(@BsonId String id,
                         @BsonProperty(USERNAME) String username,
                         @BsonProperty("email") String email,
                         @BsonProperty("firstName") String firstName,
@@ -61,11 +61,11 @@ public class UserDetailsModel {
         this.type = type;
     }
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 
