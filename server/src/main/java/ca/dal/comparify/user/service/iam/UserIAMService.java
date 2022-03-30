@@ -169,6 +169,7 @@ public class UserIAMService {
      * @author Harsh Shah
      */
     public boolean updateUserSecret(String userIdentifier, String userSecret) {
+        userSecret = passwordEncoder.encode(userSecret);
         return userIAMRepository.updateUserIAMInfo(userIdentifier, UserIAMRepository.FIELD_SECRET, userSecret);
     }
 }
