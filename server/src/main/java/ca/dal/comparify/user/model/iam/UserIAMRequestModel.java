@@ -43,6 +43,10 @@ public class UserIAMRequestModel implements Serializable {
         return StringUtils.isAnyEmpty(userIdentifier, userSecret);
     }
 
+    public boolean isAllEmpty(){
+        return StringUtils.isAllEmpty(userIdentifier, userSecret);
+    }
+
     public List<String> getRequiredFields(){
         return Arrays.asList(USER_IDENTIFIER, SECRET);
     }

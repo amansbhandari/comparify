@@ -1,6 +1,7 @@
 // ACTIONS
 const ALERT_CREATED = "ALERT_CREATED";
 const ALERTS_FETCHTED = "ALERTS_FETCHTED";
+const NEW_ALERT = "NEW_ALERT";
 
 const ALERT_CREATION_FAILED = "ALERT_CREATION_FAILED";
 const ALERTS_FETCHTED_FAILED = "ALERTS_FETCHTED_FAILED";
@@ -34,6 +35,13 @@ export const alertsFetchedFailed = (alerts) => {
   };
 };
 
+export const newAlert = (alert) => {
+  return {
+    NEW_ALERT,
+    alert
+  };
+};
+
 const initState = { recent_alert_created: {}, alerts: []}
 
 // REDUCER
@@ -46,7 +54,9 @@ const reducer = (state = initState, action) => {
     case ALERTS_FETCHTED:
       return {...state, alerts: action.alerts} 
     case ALERTS_FETCHTED_FAILED:
-      return {...state, alerts: []} 
+      return {...state, alerts: []}
+    case NEW_ALERT:
+      return {...state }
     default:
       return state;
   }

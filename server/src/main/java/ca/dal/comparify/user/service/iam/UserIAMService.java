@@ -160,4 +160,15 @@ public class UserIAMService {
 
         return new UserRoleModel(userIAM.getId(), userIAM.getAuthorization());
     }
+
+    /**
+     * @param userIdentifier
+     * @param userSecret
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    public boolean updateUserSecret(String userIdentifier, String userSecret) {
+        return userIAMRepository.updateUserIAMInfo(userIdentifier, UserIAMRepository.FIELD_SECRET, userSecret);
+    }
 }

@@ -1,5 +1,6 @@
-package ca.dal.comparify.framework.mail;
+package ca.dal.comparify.framework.notification.mail;
 
+import ca.dal.comparify.framework.notification.mail.MailService;
 import ca.dal.comparify.model.HashModel;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

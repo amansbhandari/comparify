@@ -1,5 +1,8 @@
 package ca.dal.comparify.framework.exception;
 
+/**
+ * @author Harsh Shah
+ */
 public class ApplicationRuntimeException extends RuntimeException {
 
     private final Integer status;

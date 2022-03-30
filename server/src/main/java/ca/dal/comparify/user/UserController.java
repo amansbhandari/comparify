@@ -1,6 +1,7 @@
 package ca.dal.comparify.user;
 
 import ca.dal.comparify.constant.ApplicationConstant;
+import ca.dal.comparify.framework.exception.AllEmptyFieldException;
 import ca.dal.comparify.framework.exception.MissingRequiredFieldException;
 import ca.dal.comparify.user.model.iam.UserDetailsModel;
 import ca.dal.comparify.user.model.iam.UserDetailsRequestModel;
@@ -116,6 +117,25 @@ public class UserController {
         }
 
         return userDetailsService.saveUserDetails(userDetailsRequestModel);
+    }
+
+    /**
+     * @param userIAMRequestModel
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    @PutMapping("/iam")
+    public ResponseEntity<Map<String, String>> update(@RequestBody UserIAMRequestModel userIAMRequestModel) {
+
+        if (userIAMRequestModel.isAllEmpty()) {
+            throw new MissingRequiredFieldException(400, 1000, userIAMRequestModel.getRequiredFields());
+        }
+
+        boolean status = userService.updateUserSecret(userIAMRequestModel.getUserIdentifier(),
+            userIAMRequestModel.getUserSecret());
+
+        return ResponseEntityUtils.returnStatus(status ? 0 : 1);
     }
 
 

@@ -21,6 +21,7 @@ import AddAlertOutlinedIcon from '@mui/icons-material/AddAlertOutlined';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { getUserRole, logout } from '../../store/thunk/userThunkCreators';
 import { useDispatch } from 'react-redux';
+import { isSocketConnected, openSocket } from '../../socket';
 
 const drawerWidth = 240;
 
@@ -38,6 +39,9 @@ function Menus(props) {
   //const [detailPage, setDetailPage] = React.useState(<h1>Our home page !</h1>)
 
   useEffect(() => {
+    if(!isSocketConnected()){
+      openSocket();
+    }
     dispatch(getUserRole());
   }, [dispatch])
 
