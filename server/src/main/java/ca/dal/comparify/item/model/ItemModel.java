@@ -6,7 +6,7 @@ import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 
 /**
- * @author Harsh Shah
+ * @author Chanpreet Singh
  */
 public class ItemModel extends ItemRequestModel {
 
