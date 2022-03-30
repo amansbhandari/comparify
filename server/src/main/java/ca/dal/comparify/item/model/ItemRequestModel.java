@@ -3,7 +3,7 @@ package ca.dal.comparify.item.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * @author Harsh Shah
+ * @author Chanpreet Singh
  */
 public class ItemRequestModel {
 
