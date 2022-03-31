@@ -25,6 +25,8 @@ public class AlertModel extends AlertRequestModel {
     @BsonProperty("expires_on")
     private Date expiresOn;
 
+    private boolean status;
+
     private AuditModel audit;
 
     public AlertModel() {
@@ -34,12 +36,14 @@ public class AlertModel extends AlertRequestModel {
     public AlertModel(String alertIdentifier,
                       RangeModel<Integer> priceRange,
                       Date expiresOn,
+                      boolean status,
                       AuditModel audit) {
         super();
         this.id = UUIDUtils.generate();
         this.alertIdentifier = alertIdentifier;
         this.priceRange = priceRange;
         this.expiresOn = expiresOn;
+        this.status = status;
         this.audit = audit;
     }
 
@@ -52,6 +56,7 @@ public class AlertModel extends AlertRequestModel {
         this.alertIdentifier = request.getAlertIdentifier();
         this.priceRange = request.getPriceRange();
         this.expiresOn = request.getExpiresOn();
+        this.status = true;
         this.audit = audit;
     }
 
@@ -76,6 +81,14 @@ public class AlertModel extends AlertRequestModel {
     @Override
     public void setAlertIdentifier(String alertIdentifier) {
         this.alertIdentifier = alertIdentifier;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public AuditModel getAudit() {

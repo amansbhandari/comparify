@@ -1,4 +1,4 @@
-import  React, { useEffect } from 'react';
+import  React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -10,21 +10,35 @@ import HomeIcon from '@mui/icons-material/Home';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
+import AddAlertOutlinedIcon from '@mui/icons-material/AddAlertOutlined';
+import AddIcon from '@mui/icons-material/Add';
 import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
-import AddIcon from '@mui/icons-material/Add';
-import AddAlertOutlinedIcon from '@mui/icons-material/AddAlertOutlined';
+import AddAlertIcon from '@mui/icons-material/AddAlert';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { getUserRole, logout } from '../../store/thunk/userThunkCreators';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { isSocketConnected, openSocket } from '../../socket';
-import { useSelector } from "react-redux";
+import { initServiceWorker } from '../../store/utils/serviceWorkerUtils';
+import useStyles from '../../hooks/use-styles';
+import Fab from '@mui/material/Fab';
+import NotificationTray from "./../notification/NotificationTray";
 import CategoryIcon from '@mui/icons-material/Category';
 import FeedbackIcon from '@mui/icons-material/Feedback';
+
+const style = {
+  root: {},
+  fabContainer: {
+    "position": "absolute !important",
+    "bottom": "50px",
+    "right": "50px"
+  }
+};
+
 
 const drawerWidth = 240;
 
@@ -47,7 +61,15 @@ function Menus(props) {
       openSocket();
     }
     dispatch(getUserRole());
+
+    initServiceWorker()
   }, [dispatch])
+
+  
+  const classes = useStyles(style);
+  const notificationRef = useRef();
+
+  const authentication = useSelector((state) => state.authentication);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -196,6 +218,13 @@ function Menus(props) {
         <Outlet></Outlet>
         {/* <UserProfile></UserProfile> */}
       </Box>
+      {authentication && authentication.token && <>
+          <NotificationTray ref={notificationRef}></NotificationTray>
+          <Fab color="primary" aria-label="add" className={classes.fabContainer}>
+            <AddAlertIcon onClick={() => notificationRef.current.openNotificationTray()} />
+          </Fab>
+          </>
+      }
     </Box>
   );
 
