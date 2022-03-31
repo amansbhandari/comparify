@@ -3,6 +3,8 @@ package ca.dal.comparify.compareitems.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.codecs.pojo.annotations.BsonProperty;
+import org.bson.types.ObjectId;
+
 import java.util.Date;
 import java.util.UUID;
 
@@ -12,7 +14,7 @@ import java.util.UUID;
 public class CompareItemsModel {
 
     @BsonId
-    private String id;
+    private ObjectId id;
 
     @JsonProperty
     private String imageText, userId, productId, storeId, brandId;
@@ -24,7 +26,7 @@ public class CompareItemsModel {
     public CompareItemsModel() {
     }
 
-    public CompareItemsModel(@BsonId String id,
+    public CompareItemsModel(@BsonId ObjectId id,
                              @BsonProperty("image_text") String imageText,
                              @BsonProperty("user_id") String userId,
                              @BsonProperty("product_id") String productId,
@@ -63,11 +65,11 @@ public class CompareItemsModel {
         return new CompareItemsModel(model.getImageText(), model.getUserId(), model.getProductId(), model.getPrice(), model.getPriceAfterDiscount(), model.getStoreId(), model.getDateOfPurchase(), model.getUnit(), model.getBrandId());
     }
 
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
