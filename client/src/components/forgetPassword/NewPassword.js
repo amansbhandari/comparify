@@ -1,7 +1,7 @@
 import { Button, TextField, Box, Grid } from "@material-ui/core";
 import { useFormik } from "formik";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { authenication } from "../../store/thunk/userThunkCreators";
 import useStyles from "../../hooks/use-styles";
 import { useNavigate } from "react-router-dom";
@@ -24,7 +24,6 @@ const style = {
 const NewPassword = (props) => {
   const navigate = useNavigate();
   const classes = useStyles(style);
-  const dispatch = useDispatch();
   const authentication = useSelector((state) => state.authentication);
   const formik = useFormik({
     initialValues: {},
@@ -42,9 +41,7 @@ const NewPassword = (props) => {
       } catch (error) {
         console.log(error);
       }
-      
-
-      dispatch(navigate("/home"));
+      navigate("/home");
     },
   });
 
