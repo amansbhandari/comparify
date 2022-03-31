@@ -145,8 +145,7 @@ const ResetPassword = (props) => {
           <Grid>
             <Grid item>
               <TextField
-                fullWidth
-                margin="normal"
+                fullWidth margin="normal"
                 variant="outlined"
                 id="userIdentifier"
                 name="userIdentifier"
@@ -168,8 +167,7 @@ const ResetPassword = (props) => {
             </Grid>
             <Grid item>
               <TextField
-                fullWidth
-                margin="normal"
+                fullWidth margin="normal"
                 select
                 variant="outlined"
                 id="securityQuestionOne"
@@ -199,8 +197,7 @@ const ResetPassword = (props) => {
             </Grid>
             <Grid item>
               <TextField
-                fullWidth
-                margin="normal"
+                fullWidth margin="normal"
                 variant="outlined"
                 id="securityAnswerOne"
                 name="securityAnswerOne"
@@ -224,8 +221,7 @@ const ResetPassword = (props) => {
 
             <Grid item>
               <TextField
-                fullWidth
-                margin="normal"
+                fullWidth margin="normal"
                 select
                 variant="outlined"
                 id="securityQuestionTwo"
@@ -255,8 +251,7 @@ const ResetPassword = (props) => {
             </Grid>
             <Grid item>
               <TextField
-                fullWidth
-                margin="normal"
+                fullWidth margin="normal"
                 variant="outlined"
                 id="securityAnswerTwo"
                 name="securityAnswerTwo"
@@ -280,8 +275,7 @@ const ResetPassword = (props) => {
 
             <Grid item>
               <TextField
-                fullWidth
-                margin="normal"
+                fullWidth margin="normal"
                 select
                 variant="outlined"
                 id="securityQuestionThree"
@@ -311,8 +305,7 @@ const ResetPassword = (props) => {
             </Grid>
             <Grid item>
               <TextField
-                fullWidth
-                margin="normal"
+                fullWidth margin="normal"
                 variant="outlined"
                 id="securityAnswerThree"
                 name="securityAnswerThree"
