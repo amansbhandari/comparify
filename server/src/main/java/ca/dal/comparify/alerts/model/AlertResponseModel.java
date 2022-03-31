@@ -28,6 +28,7 @@ public class AlertResponseModel {
     private RangeModel<Integer> priceRange;
 
     @JsonProperty("expires_on")
+    @BsonProperty("expires_on")
     private Date expiresOn;
 
     public AlertResponseModel() {

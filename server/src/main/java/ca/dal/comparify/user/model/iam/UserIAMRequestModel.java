@@ -11,12 +11,25 @@ public class UserIAMRequestModel implements Serializable {
 
     private static final String USER_IDENTIFIER = "user_identifier";
 
-    private static final String SECRET = "secret";
+    private static final String USER_SECRET = "user_secret";
+
+    private String id;
 
     @JsonProperty(USER_IDENTIFIER)
     private String userIdentifier;
 
+    @JsonProperty(USER_SECRET)
     private String userSecret;
+
+
+    public UserIAMRequestModel() {
+    }
+
+    public UserIAMRequestModel(String id, String userIdentifier, String userSecret) {
+        this.id = id;
+        this.userIdentifier = userIdentifier;
+        this.userSecret = userSecret;
+    }
 
     public UserIAMRequestModel(String userIdentifier, String secret) {
         this.userIdentifier = userIdentifier;
@@ -39,6 +52,14 @@ public class UserIAMRequestModel implements Serializable {
         this.userSecret = userSecret;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public boolean isEmpty(){
         return StringUtils.isAnyEmpty(userIdentifier, userSecret);
     }
@@ -48,6 +69,6 @@ public class UserIAMRequestModel implements Serializable {
     }
 
     public List<String> getRequiredFields(){
-        return Arrays.asList(USER_IDENTIFIER, SECRET);
+        return Arrays.asList(USER_IDENTIFIER, USER_SECRET);
     }
 }

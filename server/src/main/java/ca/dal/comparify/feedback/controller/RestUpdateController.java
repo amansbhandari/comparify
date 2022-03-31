@@ -1,8 +1,9 @@
 package ca.dal.comparify.feedback.controller;
 
-import ca.dal.comparify.emailService.EmailSenderService;
 import ca.dal.comparify.feedback.model.Feedback;
 import ca.dal.comparify.feedback.services.FeedbackService;
+import ca.dal.comparify.framework.notification.mail.MailService;
+import ca.dal.comparify.model.HashModel;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,9 @@ public class RestUpdateController {
     @Autowired
     FeedbackService feedbackService;
 
+    @Autowired
+    private MailService mailService;
+
     @PostMapping("/feedback")
     @ResponseBody
     public String userFeedback(@ModelAttribute Feedback fb) {
@@ -36,12 +40,16 @@ public class RestUpdateController {
         }
     }
 
-    @Autowired
-    EmailSenderService emailService;
-
     public void sendEmail(Feedback feedback) {
 
-        emailService.sendEmail(feedback.getEmail(), "Your Feedback:" + feedback.getUsersfeedback()+"\n"+"Your Suggestion:" + feedback.getSuggestions(),"Thank you for your feedback!!");
+        String subject = "Thank you for your feedback!!";
+
+        HashModel model = new HashModel();
+
+        model.put("feedback", feedback.getUsersfeedback());
+        model.put("suggestion", feedback.getSuggestions());
+
+        mailService.send(feedback.getEmail(), subject, "feedback-template.html",model);
     }
 
 }

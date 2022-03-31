@@ -29,7 +29,9 @@ const Authentication = (props) => {
     const authentication = useSelector((state) => state.authentication);
 
     const formik = useFormik({
-        initialValues: props.values,
+        initialValues: {
+            userIdentifier: '', secret: ''
+        },
         onSubmit: (values, actions) => {
 
             const { userIdentifier, secret } = values;
@@ -39,7 +41,7 @@ const Authentication = (props) => {
             }
 
             dispatch(authenication({
-                "user_identifier": userIdentifier, secret
+                "user_identifier": userIdentifier, "user_secret": secret
             }));
         }
     });

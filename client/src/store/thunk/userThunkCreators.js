@@ -51,5 +51,10 @@ return httpClient.post("/user/details", details).then((response) => {
   }, (error) => {
     alert(error);
   });
+};
 
+export const signup = (credentials) => async (dispatch) => {
+  try {
+    await httpClient.post("/user/register", credentials);
+  } catch (error) {}
 };

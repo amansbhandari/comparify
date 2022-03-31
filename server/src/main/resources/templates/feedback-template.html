@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:remove="all">Alert Notification</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<p>
+    Hello, <span th:text="${name}">User</span>!
+</p>
+<p>
+    Thank you for your feedback!!
+</p>
+<p>
+    Your Feedback:
+    <b th:text="${feedback}"></b> on
+</p>
+<p>
+    Your Suggestion:
+    <b th:text="${suggestion}"></b> on
+</p>
+<p>
+    <span>Regards,</span>
+    <br/>
+    <span>Comparify Team</span>
+</p>
+</body>
+</html>

@@ -22,6 +22,7 @@ export const theme = createTheme({
       light: '#757ce8',
       main: '#3f50b5',
       dark: '#002884',
+      link: '#1976d2',
       contrastText: '#fff',
     },
     secondary: {
