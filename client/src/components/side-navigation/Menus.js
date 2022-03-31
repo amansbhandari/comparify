@@ -245,14 +245,14 @@ function menuClicked(index)
     else if(index === 1)
     {
       
-      //setDetailPage(<h1>Menu 1 detail page can be added by replacing this!</h1>)
+      navigate('addproduct')
     }
     else if(index === 2)
     {
       navigate("alert")
     }
     else if(index === 3){
-            //setDetailPage(<h1>Menu 2 detail page can be added by replacing this!</h1>)
+      navigate('feedback')
     }
     else if(index === 4)
     {
