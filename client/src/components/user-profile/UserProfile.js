@@ -5,6 +5,11 @@ import useStyles from "../../hooks/use-styles";
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
+import logo from '../../assets/logo/logo-512-trans.png';
+import goldBadge from '../../assets/images/goldbadge.png';
+import silverBadge from '../../assets/images/silverbadge.png';
+import notificationAllowed from '../../assets/images/notificationAllowed.png';
+import orderMore from '../../assets/images/orderMore.png';
 
 import { getDetails, saveDetails } from "../../store/thunk/userThunkCreators";
 
@@ -14,9 +19,10 @@ const style = {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        margin: "64px 128px",
-        marginTop: "80px",
-        
+        marginTop: "30px",
+        backgroundImage : `url(${logo})`,
+        width: '100%',  
+        height: '100%',
     },
     imageContainer: {
         display: 'flex',
@@ -29,7 +35,7 @@ const style = {
     editableField: {
         width : '50%',
         float : 'right',
-        fontSize: 24,
+        fontSize: 18,
     },
     grid:{
         display: 'flex',
@@ -42,13 +48,13 @@ const style = {
     field:{
         alignItems: 'center',
         flexDirection: 'column',
-        marginTop: "50px",
-        marginBottom: "50px",
+        marginTop: "25px",
+        marginBottom: "25px",
         width: "70%",
     },
     label:{
         marginLeft: '30%',
-        fontSize: 22,
+        fontSize: 16,
         color: 'gray'
     },
 
@@ -59,6 +65,21 @@ const style = {
     buttonContainer: {
         display: "flex",
         justifyContent: "end"
+    },
+    badgeStyle: {
+        
+        position: 'absolute', 
+        top: 80,
+        right: 120,
+        width: "110px"
+    },
+
+    cartoon: {
+        
+        position: 'absolute', 
+        top: 350,
+        right: 20,
+        width: "320px"
     }
 }
 
@@ -77,6 +98,10 @@ const UserProfile = (props) => {
             localStorage.setItem("email", data.email);
             localStorage.setItem("firstName", data.firstName);
             localStorage.setItem("lastName", data.lastName);
+            localStorage.setItem("username", data.username);
+            localStorage.setItem("points", data.points)
+            localStorage.setItem("member", data.type)
+
             if(isDataLoaded === false)
                 setDataLoaded(true);
          })
@@ -98,12 +123,53 @@ const UserProfile = (props) => {
         return localStorage.getItem("lastName");
     }
 
+    function username()
+    {
+        return localStorage.getItem("username");
+    }
+
+    function userPoints()
+    {
+        return localStorage.getItem("points");
+    }
+
+    function userMember()
+    {
+        return localStorage.getItem("member");
+    }
+
+    function badgeImage()
+    {
+        if(localStorage.getItem("member")  === 'gold')
+        {
+            return goldBadge
+        }
+        else
+        {
+            return silverBadge
+        }
+    }
+
+    function cartoonImage()
+    {
+        if(localStorage.getItem("member")  === 'gold')
+        {
+            return notificationAllowed
+        }
+        else
+        {
+            return orderMore
+        }
+    }
+
     return(<>
-                <Box className={classes.root}>
+                <Box className={classes.root} >
+                    <img src = {badgeImage()} style = {style.badgeStyle} alt=""/>
+                    <img src = {cartoonImage()} style = {style.cartoon} alt=""/>
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        User Profile
+                        {username()}
                     </Typography>
                     <div style={style.field}>
                         <label style= {style.label}>Email Id</label>
@@ -120,7 +186,17 @@ const UserProfile = (props) => {
                         {showLastName()}
                     </div>
 
-                    <Grid item className={classes.buttonContainer}>
+                    <div style={style.field}>
+                        <label style= {style.label}>Points</label>
+                        {showPoints()}
+                    </div>
+
+                    <div style={style.field}>
+                        <label style= {style.label}>Member</label>
+                        {showMember()}
+                    </div>
+
+                    <Grid item className={classes.buttonContainer} >
                         <Button color="primary" variant="contained" type="submit" className={classes.button} onClick={() => {
             editClicked()}}>
                             {getButtonLabel()}
@@ -214,6 +290,17 @@ function showLastName()
         return <label style= {style.editableField} disabled={isEditMode}>{userLastName()}</label>
     }
 }
+
+function showPoints()
+{
+        return <label style= {style.editableField}>{userPoints()}</label>
+}
+
+function showMember()
+{   
+    return <label style= {style.editableField}>{userMember()}</label>
+}
+
 }
 
 export default UserProfile;

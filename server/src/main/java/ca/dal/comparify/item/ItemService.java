@@ -5,8 +5,13 @@ import ca.dal.comparify.item.model.ItemRequestModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
- * @author Harsh Shah
+ * @author Chanpreet Singh
  */
 @Service
 public class ItemService {
@@ -18,9 +23,27 @@ public class ItemService {
      * @param model
      * @return
      *
-     * @author Harsh Shah
+     * @author Chanpreet Singh
      */
     public int create(ItemRequestModel model, String createdBy){
         return itemRepository.save(ItemModel.create(model, createdBy));
     }
+
+    /**
+     * @author Chanpreet Singh
+     */
+    public ArrayList<Map> getAllItems(){
+        List<ItemModel> mongoResult = itemRepository.getAll();
+        ArrayList<Map> result = new ArrayList<>();
+        for(ItemModel each:mongoResult) {
+            Map<String, String> eachObj = new HashMap<String, String>(){{
+                put("id", each.getId());
+                put("itemName", each.getName());
+                put("itemDescription", each.getDescription());
+            }};
+            result.add(eachObj);
+        }
+        return result;
+    }
+
 }
