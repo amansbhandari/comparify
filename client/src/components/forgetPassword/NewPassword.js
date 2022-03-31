@@ -1,10 +1,11 @@
-import { Button, TextField, Box, Grid} from "@material-ui/core";
+import { Button, TextField, Box, Grid } from "@material-ui/core";
 import { useFormik } from "formik";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { authenication } from "../../store/thunk/userThunkCreators";
 import useStyles from "../../hooks/use-styles";
 import { useNavigate } from "react-router-dom";
+import httpClient from "../../store/thunk/interceptor";
 
 const style = {
   root: {
@@ -28,24 +29,20 @@ const NewPassword = (props) => {
   const formik = useFormik({
     initialValues: {},
     onSubmit: async (values, actions) => {
-      const {
-        userIdentifier,
-        newPassword,
-        confirmPassword
-      } = values;
-      const user = {userIdentifier:userIdentifier,newPassword:newPassword}; 
+      const { userIdentifier, newPassword, confirmPassword } = values;
+      const user = { userIdentifier: userIdentifier, newPassword: newPassword };
 
-      if(newPassword !== confirmPassword){
+      if (newPassword !== confirmPassword) {
         alert("Password does not match");
         return;
       }
-      try{
-          await httpClient.post("/authentication",user);
-           alert("password reset successfully");
+      try {
+         await httpClient.post("/authentication", user);
+         alert("password reset successfully");
+      } catch (error) {
+        console.log(error);
       }
-      catch(err){
-        alert("password reset failed");
-      }
+      
 
       dispatch(navigate("/home"));
     },
@@ -57,7 +54,7 @@ const NewPassword = (props) => {
       resetForm(props.values);
     }
   }, [authentication, resetForm, props.values]);
-  
+
   return (
     <Grid container className={classes.root}>
       <Box>
@@ -96,8 +93,12 @@ const NewPassword = (props) => {
               autoComplete="off"
               value={formik.values.newPassword}
               onChange={formik.handleChange}
-              error={formik.touched.newPassword && Boolean(formik.errors.newPassword)}
-              helperText={formik.touched.newPassword && formik.errors.newPassword}
+              error={
+                formik.touched.newPassword && Boolean(formik.errors.newPassword)
+              }
+              helperText={
+                formik.touched.newPassword && formik.errors.newPassword
+              }
               inputProps={{
                 autoComplete: "off",
               }}
