@@ -1,6 +1,7 @@
 package ca.dal.comparify.user.service.iam;
 
 import ca.dal.comparify.constant.ApplicationConstant;
+import ca.dal.comparify.framework.app.ApplicationScope;
 import ca.dal.comparify.framework.exception.EntityAlreadyExistsException;
 import ca.dal.comparify.security.TokenService;
 import ca.dal.comparify.user.enumeration.UserErrorCode;
@@ -42,6 +43,9 @@ public class UserIAMService {
     @Autowired
     private UserIAMRepository userIAMRepository;
 
+    @Autowired
+    private ApplicationScope applicationScope;
+
     /**
      * @param userIdentifier
      * @return
@@ -57,7 +61,11 @@ public class UserIAMService {
             throw new UsernameNotFoundException(ApplicationConstant.CANNOT_FIND_USERNAME);
         }
 
-        return UserPrincipal.create(userIAMModel);
+        UserPrincipal principal = UserPrincipal.create(userIAMModel);
+
+        applicationScope.setActiveUsers(principal.getId());
+
+        return principal;
     }
 
     /**
@@ -86,6 +94,8 @@ public class UserIAMService {
             throw new UserAuthenticationException(e.getMessage(), 401, UserErrorCode.E2002.getCode());
         } catch (CredentialsExpiredException e) {
             throw new UserAuthenticationException(e.getMessage(), 401, UserErrorCode.E2003.getCode());
+        } catch (Exception e){
+            throw new UserAuthenticationException(e.getMessage(), 401, UserErrorCode.E2006.getCode());
         }
 
         validAuthenticationAttempt(requestModel.getUserIdentifier());

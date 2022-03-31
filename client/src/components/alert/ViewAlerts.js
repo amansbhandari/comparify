@@ -17,7 +17,7 @@ import LastPageIcon from '@mui/icons-material/LastPage';
 import { TableHead } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux";
 
-import { fetchAlerts } from "../../store/thunk/alertThunkCreators";
+import { deleteAlert, fetchAlerts } from "../../store/thunk/alertThunkCreators";
 
 function TablePaginationActions(props) {
     const theme = useTheme();
@@ -80,8 +80,8 @@ TablePaginationActions.propTypes = {
     rowsPerPage: PropTypes.number.isRequired,
 };
 
-function createData(alertIdentifier, item, brand, type) {
-    return { alertIdentifier, item, brand, type };
+function createData(id, alertIdentifier, item, brand, type) {
+    return { id, alertIdentifier, item, brand, type };
 }
 
 const columns = [
@@ -94,7 +94,7 @@ const columns = [
 export default function ViewAlerts() {
     const theme = useTheme();
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
     const dispatch = useDispatch();
     const alerts = useSelector((state) => state.alert.alerts);
 
@@ -106,7 +106,7 @@ export default function ViewAlerts() {
 
     useEffect(() => {
 
-        setRows(alerts.map(alert => createData(alert.alert_identifier, alert.item.name, alert.brand.name, alert.type)));
+        setRows(alerts.map(alert => createData(alert.id, alert.alert_identifier, alert.item.name, alert.brand.name, alert.type)));
 
     }, [alerts])
 
@@ -121,6 +121,10 @@ export default function ViewAlerts() {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
+
+    const handleDeleteAlert = (alertId, alertIdentifier) => {
+        dispatch(deleteAlert(alertIdentifier, {id: alertId}))
+    }
 
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
@@ -154,7 +158,9 @@ export default function ViewAlerts() {
                             ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             : rows
                         ).map((row) => (
-                            <TableRow hover key={row.alertIdentifier}>
+                            <TableRow hover key={row.id} 
+                                onClick={() => handleDeleteAlert(row.id, row.alertIdentifier)}
+                                sx={{cursor: "pointer"}}>
                                 {columns.map(column => {
                                     return (<TableCell key={column.id}>
                                         {row[column.id]}
@@ -174,7 +180,7 @@ export default function ViewAlerts() {
 
             <TablePagination
                 component={"div"}
-                rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                rowsPerPageOptions={[10, 20, 30, { label: 'All', value: -1 }]}
                 colSpan={3}
                 count={rows.length}
                 rowsPerPage={rowsPerPage}

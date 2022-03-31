@@ -13,6 +13,9 @@ import java.util.Date;
  */
 public class AlertResponseModel {
 
+    @BsonProperty("_id")
+    private String id;
+
     @JsonProperty("alert_identifier")
     @BsonProperty("alert_identifier")
     private String alertIdentifier;
@@ -34,8 +37,10 @@ public class AlertResponseModel {
     public AlertResponseModel() {
     }
 
-    public AlertResponseModel(String alertIdentifier, ItemModel item, BrandModel brand,
-                              AlertTypeEnum type, RangeModel<Integer> priceRange, Date expiresOn) {
+    public AlertResponseModel(String id, String alertIdentifier, ItemModel item,
+                              BrandModel brand, AlertTypeEnum type,
+                              RangeModel<Integer> priceRange, Date expiresOn) {
+        this.id = id;
         this.alertIdentifier = alertIdentifier;
         this.item = item;
         this.brand = brand;
@@ -48,6 +53,14 @@ public class AlertResponseModel {
         this.item = item;
         this.brand = brand;
         this.type = type;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getAlertIdentifier() {

@@ -9,7 +9,7 @@ import { createAlert } from "../../store/thunk/alertThunkCreators";
 const style = {
     root: {
         "display": "flex",
-        "justify-content": "center" 
+        "justify-content": "center"
     },
     titleContainer: {
         "display": "flex",

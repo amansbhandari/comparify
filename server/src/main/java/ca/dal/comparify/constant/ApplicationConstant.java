@@ -14,4 +14,5 @@ public class ApplicationConstant {
     public static final String DOT = ".";
 
     public static final String STATUS = "status";
+
 }

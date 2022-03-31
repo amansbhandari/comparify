@@ -53,6 +53,10 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                 StompHeaderAccessor accessor =
                     MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
 
+                if(accessor == null){
+                    return message;
+                }
+
                 String token = accessor.getFirstNativeHeader(AUTHENTICATE_HEADER_STRING);
                 Authentication authentication = token == null ? null : tokenService.getAuthentication(token);
 
