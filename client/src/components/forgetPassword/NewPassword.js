@@ -29,18 +29,24 @@ const NewPassword = (props) => {
     initialValues: {},
     onSubmit: async (values, actions) => {
       const {
-        // userIdentifier,
+        userIdentifier,
         newPassword,
         confirmPassword
       } = values;
-      // const user = {userIdentifier:userIdentifier};
+      const user = {userIdentifier:userIdentifier,newPassword:newPassword}; 
 
       if(newPassword !== confirmPassword){
         alert("Password does not match");
         return;
       }
-      //calling reset password api
-      alert("password reset successfully");
+      try{
+          await httpClient.post("/authentication",user);
+           alert("password reset successfully");
+      }
+      catch(err){
+        alert("password reset failed");
+      }
+
       dispatch(navigate("/home"));
     },
   });
