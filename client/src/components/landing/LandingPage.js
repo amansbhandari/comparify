@@ -12,11 +12,15 @@ import Avatar from '@mui/material/Avatar';
 import Paper from '@mui/material/Paper';
 
 
+
+
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 import logo from '../../assets/logo/logo-256.png';
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+
+
 
 const style = {
     root: {
@@ -79,59 +83,80 @@ const LandingPage = (props) => {
         }
 
     },[authentication, navigate])
+  
 
 
-    return(<>
-        { (authentication.token != null) ? <></> : 
-        <Grid container component="main" sx={{ height: '100vh' }}>
-            <Grid item xs={false} sm={5} md={6} className={classes.imageContainer}>
-                <Grid container direction="column" className={classes.imageGrid}>
-                    <Grid>     
-                        <Box className={classes.titleContainer}>
-                            <Typography component="h1" variant="h5" className={classes.title}>
-                                Comparify
-                            </Typography>
-                        </Box>
-                    </Grid>
-                    <Grid>                    
-                        <section className={classes.imageBox}>
-                            <Box className={classes.imageFrame}>
-                                <img src={logo} alt="Logo" className={classes.image}/>
-                            </Box>
-                        </section>
-                    </Grid>
-                </Grid>
-            </Grid>  
-                
-            <Grid item xs={12} sm={7} md={6} component={Paper} elevation={6} square>
-                <Box className={classes.root}>
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
-                        Sign in
+    return (
+      <>
+        {authentication.token != null ? (
+          <></>
+        ) : (
+          <Grid container component="main" sx={{ height: "100vh" }}>
+            <Grid
+              item
+              xs={false}
+              sm={5}
+              md={6}
+              className={classes.imageContainer}
+            >
+              <Grid container direction="column" className={classes.imageGrid}>
+                <Grid>
+                  <Box className={classes.titleContainer}>
+                    <Typography
+                      component="h1"
+                      variant="h5"
+                      className={classes.title}
+                    >
+                      Comparify
                     </Typography>
-
-                    <Authentication values={initialValues}>
-                            
-                    </Authentication>
-                    <Grid container>
-                        <Grid item xs>
-                            <Link href="#" variant="body2">
-                            Forgot password?
-                            </Link>
-                        </Grid>
-                        <Grid item>
-                            <Link href="#" variant="body2">
-                            {"Don't have an account? Sign Up"}
-                            </Link>
-                        </Grid>
-                    </Grid>
-                </Box>
+                  </Box>
+                </Grid>
+                <Grid>
+                  <section className={classes.imageBox}>
+                    <Box className={classes.imageFrame}>
+                      <img src={logo} alt="Logo" className={classes.image} />
+                    </Box>
+                  </section>
+                </Grid>
+              </Grid>
             </Grid>
-        </Grid>
-        }
-    </>)
+
+            <Grid
+              item
+              xs={12}
+              sm={7}
+              md={6}
+              component={Paper}
+              elevation={6}
+              square
+            >
+              <Box className={classes.root}>
+                <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+                  <LockOutlinedIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                  Sign in
+                </Typography>
+
+                <Authentication values={initialValues}></Authentication>
+                <Grid container>
+                  <Grid item xs>
+                    <Link href="/resetPassword" variant="body2">
+                      Forgot password?
+                    </Link>
+                  </Grid>
+                  <Grid item>
+                    <Link href="#" variant="body2">
+                      {"Don't have an account? Sign Up"}
+                    </Link>
+                  </Grid>
+                </Grid>
+              </Box>
+            </Grid>
+          </Grid>
+        )}
+      </>
+    );
 }
 
 export default LandingPage;
