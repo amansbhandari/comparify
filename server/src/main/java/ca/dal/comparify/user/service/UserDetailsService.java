@@ -1,4 +1,7 @@
 package ca.dal.comparify.user.service;
+/**
+ * @author aman singh bhandari
+ */
 
 import ca.dal.comparify.constant.ApplicationConstant;
 import ca.dal.comparify.user.model.iam.UserDetailsModel;

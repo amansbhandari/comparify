@@ -18,7 +18,7 @@ public class UserDetailsModel {
 
     @BsonProperty("_id")
     @BsonId
-    private ObjectId id;
+    private String id;
 
     @BsonProperty(USERNAME)
     private String username;
@@ -26,37 +26,46 @@ public class UserDetailsModel {
     private String email;
     private String firstName;
     private String lastName;
+    //---Issue #53 and 54
+    private Double points;
+    private String type;
 
 
     public UserDetailsModel() {
         // Create this constructor for Mongo Codec to create object
     }
 
-    public UserDetailsModel(@BsonId ObjectId id,
+    public UserDetailsModel(@BsonId String id,
                         @BsonProperty(USERNAME) String username,
                         @BsonProperty("email") String email,
                         @BsonProperty("firstName") String firstName,
-                            @BsonProperty("lastName") String lastName   ) {
+                            @BsonProperty("lastName") String lastName,
+                            @BsonProperty("point") Double points,
+                            @BsonProperty("type") String type) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.firstName  = firstName;
         this.lastName = lastName;
+        this.points = points;
+        this.type = type;
     }
 
-    public UserDetailsModel(String username, String email, String firstName, String lastName) {
+    public UserDetailsModel(String username, String email, String firstName, String lastName, Double point, String types) {
         //this.id = UUIDUtils.generate();
         this.username = username;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.points = points;
+        this.type = type;
     }
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -88,6 +97,18 @@ public class UserDetailsModel {
     }
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Double getPoints() {return points;}
+
+    public void setPoints(Double points) {
+        this.points = points;
+    }
+
+    public String getType() {return type;}
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public static List<String> getRequiredFields(){

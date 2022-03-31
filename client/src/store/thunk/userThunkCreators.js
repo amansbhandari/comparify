@@ -7,8 +7,8 @@ export const authenication = (credentials) => async (dispatch) => {
   try {
     const { data } = await httpClient.post("/user/authentication", credentials);
     dispatch(gotAuth(data));
+    localStorage.setItem("user-id", credentials.user_identifier)
     localStorage.setItem("auth-token", data.token);
-    openSocket()
   } catch (error) {
     dispatch(failedAuth(error));
     localStorage.removeItem("auth-token")

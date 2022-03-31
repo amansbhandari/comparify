@@ -1,7 +1,6 @@
 package ca.dal.comparify.user;
 
 import ca.dal.comparify.constant.ApplicationConstant;
-import ca.dal.comparify.framework.exception.AllEmptyFieldException;
 import ca.dal.comparify.framework.exception.MissingRequiredFieldException;
 import ca.dal.comparify.user.model.iam.UserDetailsModel;
 import ca.dal.comparify.user.model.iam.UserDetailsRequestModel;
