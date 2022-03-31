@@ -16,9 +16,17 @@ public class ResponseEntityUtils {
 
     public static ResponseEntity<Map<String, String>> returnStatus(int status){
         HttpStatus httpStatus = null;
+        int customStatus = HttpStatus.BAD_REQUEST.value();
         String message = null;
 
+
+
         switch (status){
+            case 1:
+                customStatus = 512;
+                message = "Request Failed! Something went wrong...";
+                break;
+
             case 0:
                 httpStatus = HttpStatus.CREATED;
                 message = "Created";
@@ -33,7 +41,9 @@ public class ResponseEntityUtils {
                 message = "Invalid Request";
         }
 
-        return ResponseEntity.status(httpStatus).body(Collections.singletonMap(ApplicationConstant.STATUS, message));
+        int responseStatus = httpStatus == null ? customStatus : httpStatus.value();
+
+        return ResponseEntity.status(responseStatus).body(Collections.singletonMap(ApplicationConstant.STATUS, message));
     }
 
 }

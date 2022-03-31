@@ -58,8 +58,47 @@ public class TokenService implements AuthenticationProviders {
      */
     @Override
     public Authentication getAuthentication(HttpServletRequest request) {
-        String token = request.getHeader(AUTHENTICATE_HEADER_STRING);
+        String token = getTokenFromRequest(request);
 
+        return getAuthentication(token);
+    }
+
+    /**
+     * @param token
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    public Authentication getAuthentication(String token) {
+
+        String jwt = extractJWT(token);
+
+        if(StringUtils.isEmpty(jwt)){
+            return null;
+        }
+
+        String user = getAuthenticationUser(jwt);
+        return user != null ? new UsernamePasswordAuthenticationToken(user, null, emptyList()) : null;
+    }
+
+
+    /**
+     * @param request
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    private String getTokenFromRequest(HttpServletRequest request){
+        return request.getHeader(AUTHENTICATE_HEADER_STRING);
+    }
+
+    /**
+     * @param token
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    private String extractJWT(String token){
         if(StringUtils.isEmpty(token)){
             return null;
         }
@@ -70,8 +109,7 @@ public class TokenService implements AuthenticationProviders {
             return null;
         }
 
-        String user = getAuthenticationUser(parts[1]);
-        return user != null ? new UsernamePasswordAuthenticationToken(user, null, emptyList()) : null;
+        return parts[1];
     }
 
     /**

@@ -23,6 +23,8 @@ public class UserIAMRepository {
     public static final String FIELD_NUMBER_OF_INCORRECT_ATTEMPTS = USER_AUTHENTICATION_KEY + DOT +
             "number_of_incorrect_attempts";
 
+    public static final String FIELD_SECRET = USER_AUTHORIZATION_KEY + DOT + "secret";
+
     @Autowired
     private MongoRepository mongoRepository;
 
@@ -94,5 +96,19 @@ public class UserIAMRepository {
             eq(UserIAMModel.ID, userId),
             and(tuple(USER_AUTHORIZATION_KEY, 1)),
             UserIAMModel.class);
+    }
+
+    /**
+     * @param userIdentifier
+     * @param key
+     * @param value
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    public boolean updateUserIAMInfo(String userIdentifier, String key, String value) {
+        return mongoRepository.updateOne(USER_IAM_COLLECTION,
+            eq(UserIAMModel.USER_IDENTIFIER, userIdentifier),
+            set(key, value));
     }
 }

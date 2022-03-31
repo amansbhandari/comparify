@@ -21,6 +21,7 @@ import AddAlertOutlinedIcon from '@mui/icons-material/AddAlertOutlined';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { getUserRole, logout } from '../../store/thunk/userThunkCreators';
 import { useDispatch } from 'react-redux';
+import { isSocketConnected, openSocket } from '../../socket';
 import { useSelector } from "react-redux";
 import CategoryIcon from '@mui/icons-material/Category';
 import FeedbackIcon from '@mui/icons-material/Feedback';
@@ -34,7 +35,6 @@ function Menus(props) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user)
 
-  
   //Titles stored for all the menus
   var titles = ['Home','Menu2','Menu3','Alerts', 'User Profile', 'Log out'];
   var titlesAdmin = ['Home','Add Product', 'User Feedback', 'Log out'];
@@ -45,6 +45,13 @@ function Menus(props) {
   useEffect(() => {
     dispatch(getUserRole());
     
+  }, [dispatch])
+
+  useEffect(() => {
+    if(!isSocketConnected()){
+      openSocket();
+    }
+    dispatch(getUserRole());
   }, [dispatch])
 
   const handleDrawerToggle = () => {

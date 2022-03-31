@@ -1,14 +1,15 @@
 import httpClient from "./interceptor";
 import { failedAuth, failedLogout, gotAuth, gotLogout } from "../reducers/authentication";
 import { failedGetUserRole, gotUserRole } from "../reducers/user";
+import { closeSocket, openSocket } from "../../socket";
 
 export const authenication = (credentials) => async (dispatch) => {
-
   try {
     const { data } = await httpClient.post("/user/authentication", credentials);
     dispatch(gotAuth(data));
     localStorage.setItem("user-id", credentials.user_identifier)
     localStorage.setItem("auth-token", data.token);
+    openSocket();
   } catch (error) {
     dispatch(failedAuth(error));
     localStorage.removeItem("auth-token")
@@ -29,6 +30,7 @@ export const logout = () => async (dispatch) => {
     await httpClient.get("/user/logout");
     dispatch(gotLogout());
     localStorage.removeItem("auth-token")
+    closeSocket()
   } catch (error) {
     dispatch(failedLogout(error));
   }
@@ -49,4 +51,5 @@ return httpClient.post("/user/details", details).then((response) => {
   }, (error) => {
     alert(error);
   });
+
 };

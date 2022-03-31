@@ -118,5 +118,24 @@ public class UserController {
         return userDetailsService.saveUserDetails(userDetailsRequestModel);
     }
 
+    /**
+     * @param userIAMRequestModel
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    @PutMapping("/iam")
+    public ResponseEntity<Map<String, String>> update(@RequestBody UserIAMRequestModel userIAMRequestModel) {
+
+        if (userIAMRequestModel.isAllEmpty()) {
+            throw new MissingRequiredFieldException(400, 1000, userIAMRequestModel.getRequiredFields());
+        }
+
+        boolean status = userService.updateUserSecret(userIAMRequestModel.getUserIdentifier(),
+            userIAMRequestModel.getUserSecret());
+
+        return ResponseEntityUtils.returnStatus(status ? 0 : 1);
+    }
+
 
 }
