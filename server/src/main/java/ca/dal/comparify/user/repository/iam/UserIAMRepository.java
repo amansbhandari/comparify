@@ -1,13 +1,21 @@
 package ca.dal.comparify.user.repository.iam;
 
+import ca.dal.comparify.model.HashModel;
 import ca.dal.comparify.mongo.MongoRepository;
 import ca.dal.comparify.user.model.iam.UserIAMModel;
+import ca.dal.comparify.utils.DateUtils;
+import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.List;
 
 import static ca.dal.comparify.constant.ApplicationConstant.DOT;
 import static ca.dal.comparify.mongo.MongoUtils.*;
 import static ca.dal.comparify.mongo.Tuple.tuple;
+import static java.util.Arrays.asList;
 
 /**
  * @author Harsh Shah
@@ -110,5 +118,23 @@ public class UserIAMRepository {
         return mongoRepository.updateOne(USER_IAM_COLLECTION,
             eq(UserIAMModel.USER_IDENTIFIER, userIdentifier),
             set(key, value));
+    }
+
+    public List<HashModel> checkUserSecretValidity(LocalDate alertBeforeSecretExpirationDays) {
+
+        List<Bson> pipeline = asList(
+            match(lte("authentication.secret_expires_on", alertBeforeSecretExpirationDays)),
+            project(new Document("days_remaining", dateDiffWithNow("$authentication.secret_expires_on", "day"))
+                .append("secret_expires_on", "$authentication.secret_expires_on")),
+            lookup("user", "_id",  "_id", "details"),
+            unwind( "$details"),
+            project(new Document("days_remaining", 1)
+                    .append("secret_expires_on", 1)
+                    .append("email_id", "$details.email")
+                    .append("name",
+                        new Document("$concat", asList("$details.firstName", " ", "$details.lastName")))));
+
+        return mongoRepository.aggregate(USER_IAM_COLLECTION, pipeline, HashModel.class);
+
     }
 }

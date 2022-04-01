@@ -9,7 +9,8 @@ import ca.dal.comparify.framework.notification.model.WebPushNotificationModel;
 import ca.dal.comparify.framework.notification.model.WebSocketNotificationModel;
 import ca.dal.comparify.model.HashModel;
 import ca.dal.comparify.notification.NotificationService;
-import ca.dal.comparify.notification.model.*;
+import ca.dal.comparify.notification.model.IconType;
+import ca.dal.comparify.notification.model.NotificationTypeEnum;
 import ca.dal.comparify.user.model.iam.UserDetailsModel;
 import ca.dal.comparify.user.service.UserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,13 +44,13 @@ public class AlertService {
      * @param alert
      * @param createdBy
      * @return
-     *
+     * 
      * @author Harsh Shah
      */
     public int create(AlertRequestModel alert, String createdBy) {
         int status = alertRepository.save(AlertModel.transform(alert, createdBy));
 
-        if(status == 0){
+        if (status == 0) {
 
             String title = String.format("Successful Creation of Alert - %s", alert.getAlertIdentifier());
             HashModel model = createMailModel(createdBy, alert.getAlertIdentifier());
@@ -66,7 +67,7 @@ public class AlertService {
     /**
      * @param userIdentifier
      * @return
-     *
+     * 
      * @author Harsh Shah
      */
     public List<AlertResponseModel> fetch(String userIdentifier) {
@@ -77,19 +78,19 @@ public class AlertService {
      * @param userId
      * @param id
      * @return
-     *
+     * 
      * @author Harsh Shah
      */
     public boolean delete(String userId, String id) {
 
         AlertModel alert = fetchAlertById(id);
-        if(alert == null){
+        if (alert == null) {
             return false;
         }
 
         boolean status = alertRepository.delete(userId, id);
 
-        if(status){
+        if (status) {
 
             String title = String.format("Successful Deletion of Alert - %s", alert.getAlertIdentifier());
             HashModel model = createMailModel(userId, alert.getAlertIdentifier());
@@ -106,7 +107,7 @@ public class AlertService {
     /**
      * @param brandId
      * @param productId
-     *
+     * 
      * @author Harsh Shah
      */
     public void trigger(String brandId, String productId) {
@@ -114,7 +115,7 @@ public class AlertService {
         HashModel alerts = checkForAlerts(brandId, productId);
 
         List<AlertModel> alertsOnInformationAvailable =
-             convert((List<Object>) alerts.get(PRODUCT_INFORMATION_AVAILABLE.getValueLowerCase()), AlertModel.class);
+            convert((List<Object>) alerts.get(PRODUCT_INFORMATION_AVAILABLE.getValueLowerCase()), AlertModel.class);
 
         List<AlertModel> alertsOnPriceDrop =
             convert((List<Object>) alerts.get(PRODUCT_INFORMATION_AVAILABLE.getValueLowerCase()), AlertModel.class);
@@ -141,7 +142,7 @@ public class AlertService {
     /**
      * @param alerts
      * @param message
-     *
+     * 
      * @author Harsh Shah
      */
     private void triggerWebPush(List<AlertModel> alerts, String message) {
@@ -162,7 +163,7 @@ public class AlertService {
     /**
      * @param alerts
      * @param message
-     *
+     * 
      * @author Harsh Shah
      */
     private void triggerSocket(List<AlertModel> alerts, String message) {
@@ -194,7 +195,6 @@ public class AlertService {
      * @param brandId
      * @param itemId
      * @return
-     *
      * @author Harsh Shah
      */
     private HashModel checkForAlerts(String brandId, String itemId) {
