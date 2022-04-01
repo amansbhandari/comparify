@@ -2,6 +2,7 @@ import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 import { toast } from "react-toastify";
 import store from "./store"
+import AlertNotification from './components/alert/AlertNotification';
 
 
 let stompClient = null;
@@ -16,9 +17,17 @@ export const openSocket = () => {
   const headers = { "Authorization": "Bearer " + localStorage.getItem("auth-token") }
 
   stompClient.connect(headers, (frame) => {
-    stompClient.subscribe('/topic/new-alert', function (alert) {
-      if(new Set(alert.receiverIds).has(store.getState().user.role.id)){
-        toast.success(alert.body);
+    stompClient.subscribe('/topic/new-alert', function (payload) {
+
+      const data = JSON.parse(payload.body);
+
+      if(new Set(data.receiverIds).has(store.getState().user.role.id)){
+
+        const MyMsg = ({ closeToast }) => (
+          <AlertNotification data={data} closeToast={closeToast}></AlertNotification>
+        )
+
+        toast(MyMsg);
       }
     });
   }, (error) => {

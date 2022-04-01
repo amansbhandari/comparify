@@ -6,6 +6,7 @@ stages:
   - deploy-production
 
 # -------------------------- Test -------------------------- #
+
 test:
   stage: test
   image: maven:latest
@@ -20,8 +21,12 @@ test:
       junit:
         - server/target/surefire-reports/TEST-*.xml
         - server/target/failsafe-reports/TEST-*.xml
-    
+  only:
+    changes:
+      - server/**/*
+
 # -------------------------- Build Server for Dev -------------------------- #
+
 build_server_for_dev:
   stage: build
   image: maven:latest
@@ -36,8 +41,12 @@ build_server_for_dev:
   except:
     - main
     - tags
+  only:
+    changes:
+      - server/**/*
 
 # -------------------------- Build Server for Staging -------------------------- #
+
 build_server_for_staging:
   stage: build
   image: maven:latest
@@ -50,9 +59,13 @@ build_server_for_staging:
     paths:
        - server/target/*.jar
   only:
-    - main
+    refs:
+      - main
+    changes:
+      - server/**/*
 
 # -------------------------- Build Server for Production -------------------------- #
+
 build_server_for_prod:
   stage: build
   image: maven:latest
@@ -65,9 +78,13 @@ build_server_for_prod:
     paths:
        - server/target/*.jar
   only:
-    - tags
+    refs:
+      - tags
+    changes:
+      - server/**/*
 
 # -------------------------- Build Client -------------------------- #
+
 build_client:
   stage: build
   image: node:16
@@ -77,7 +94,10 @@ build_client:
     - cd client
     - npm install
     - npm run build
-    
+  only:
+    changes:
+      - client/**/*
+
 # -------------------------- Code Quality on Development -------------------------- #
 
 code_quality_for_dev_by_designite:
@@ -99,6 +119,9 @@ code_quality_for_dev_by_designite:
   except:
     - main
     - tags
+  only:
+    changes:
+      - server/**/*
 
 # -------------------------- Code Quality on Staging -------------------------- #
 
@@ -119,8 +142,10 @@ code_quality_for_staging_by_designite:
     - java -jar DesigniteJava.jar -ci -repo $CI_PROJECT_PATH -pat $PAT -host "git.cs.dal.ca"
     - eval "$UPLOAD_QUALITY_REPORT"
   only:
-    - main
-
+    refs:
+      - main
+    changes:
+      - server/**/*
 
 # -------------------------- Code Quality on Production -------------------------- #
 
@@ -141,8 +166,10 @@ code_quality_for_prod_by_designite:
     - java -jar DesigniteJava.jar -ci -repo $CI_PROJECT_PATH -pat $PAT -host "git.cs.dal.ca"
     - eval "$UPLOAD_QUALITY_REPORT"
   only:
-    - tags
-
+    refs:
+      - tags
+    changes:
+      - server/**/*
 
 # -------------------------- Code Quality by Sonar -------------------------- #
 
@@ -160,6 +187,9 @@ code_quality_by_sonar:
       junit:
         - server/target/surefire-reports/TEST-*.xml
         - server/target/failsafe-reports/TEST-*.xml
+  only:
+    changes:
+      - server/**/*
 
 # -------------------------- Deploy on Staging -------------------------- #
 deploy_staging_client:
@@ -175,7 +205,10 @@ deploy_staging_client:
     - cd client
     - dpl --provider=heroku --app=$STAGING_CLIENT_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY --cleanup
   only:
-    - main
+    refs:
+      - main
+    changes:
+      - client/**/*
 
 deploy_staging_server:
   stage: deploy-staging
@@ -198,7 +231,10 @@ deploy_staging_server:
   when: delayed
   start_in: 5 minutes
   only:
-    - main
+    refs:
+      - main
+    changes:
+      - server/**/*
 
 # -------------------------- Deploy on Prod -------------------------- #
 deploy_prod_client:
@@ -214,7 +250,10 @@ deploy_prod_client:
     - cd client
     - dpl --provider=heroku --app=$PRODUCTION_CLIENT_HEROKU_APP_NAME --api-key=$HARSH_HEROKU_API_KEY --cleanup
   only:
-    - tags
+    refs:
+      - tags
+    changes:
+      - client/**/*
 
 deploy_prod_server:
   stage: deploy-production
@@ -237,4 +276,7 @@ deploy_prod_server:
   when: delayed
   start_in: 5 minutes
   only:
-    - tags
+    refs:
+      - tags
+    changes:
+      - server/**/*

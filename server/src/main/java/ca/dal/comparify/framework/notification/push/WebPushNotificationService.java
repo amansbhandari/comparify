@@ -2,7 +2,7 @@ package ca.dal.comparify.framework.notification.push;
 
 import ca.dal.comparify.framework.app.ApplicationScope;
 import ca.dal.comparify.framework.properties.PushNotificationConfigurationProperties;
-import ca.dal.comparify.notification.model.WebPushNotificationModel;
+import ca.dal.comparify.framework.notification.model.WebPushNotificationModel;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
@@ -55,11 +55,15 @@ public class WebPushNotificationService {
      * @param userId
      * @param model
      * @return
+     *
+     * @author Harsh Shah
      */
     public boolean send(String userId, WebPushNotificationModel model) {
 
+        String token = applicationScope.getUserToReceiverToken(userId);
+
         Message message = Message.builder()
-            .setToken(applicationScope.getUserToReceiverToken(userId))
+            .setToken(token)
             .setWebpushConfig(WebpushConfig.builder().putHeader("ttl", TTL)
                 .setNotification(new WebpushNotification(model.getTitle(),
                     model.getMessage(),
