@@ -244,14 +244,15 @@ function menuClicked(index)
     }
     else if(index === 1)
     {
-      navigate("addproduct")
+      
+      navigate('addproduct')
     }
     else if(index === 2)
     {
       navigate("alert")
     }
     else if(index === 3){
-       navigate("feedback")
+      navigate('feedback')
     }
     else if(index === 4)
     {
