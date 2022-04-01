@@ -2,6 +2,7 @@ package ca.dal.comparify.user.model.iam;
 
 import ca.dal.comparify.utils.UUIDUtils;
 import org.bson.codecs.pojo.annotations.BsonId;
+import org.bson.codecs.pojo.annotations.BsonIgnore;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.bson.types.ObjectId;
 
@@ -97,6 +98,11 @@ public class UserDetailsModel {
     }
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    @BsonIgnore
+    public String getFullName(){
+        return firstName + " " + lastName;
     }
 
     public Double getPoints() {return points;}

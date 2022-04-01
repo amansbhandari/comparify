@@ -1,10 +1,12 @@
 import { Box, Button, Grid, MenuItem, TextField } from "@mui/material";
 import { useFormik } from "formik";
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import useStyles from "../../hooks/use-styles";
 import { createAlert } from "../../store/thunk/alertThunkCreators";
+import { getBrands } from "../../store/thunk/brandThunkCreator";
+import { getItems } from "../../store/thunk/itemThunkCreator";
 
 const style = {
     root: {
@@ -25,6 +27,35 @@ const CreateAlert = (props) => {
 
     const classes = useStyles(style);
     const dispatch = useDispatch();
+    const [formSubmit, handleFormSubmit] = useState(false)
+
+    useEffect(() => {
+        dispatch(getItems())
+        dispatch(getBrands())
+    }, [dispatch])
+
+
+    const recentAlertCreated = useSelector((state) => state.alert.recent_alert_created)
+
+    const items = useSelector((state) => state.item.list).map(item => {
+        return {
+            id: {
+                entity_id: item.id,
+                entity_type: "item"
+            },
+            name: item.itemName
+        }
+    });
+    const brands = useSelector((state) => state.brand.list).map(brand => {
+        return {
+            id: {
+                entity_id: brand.id,
+                entity_type: "brand"
+            },
+            name: brand.name
+        }
+    })
+
 
     const formik = useFormik({
         initialValues: {
@@ -56,24 +87,29 @@ const CreateAlert = (props) => {
             }
 
             dispatch(createAlert(data));
+            handleFormSubmit(true);
         }
     });
 
-    const items = [{
-        id: {
-            entity_id: "588fa189-7ed1-41c0-8cc7-eac61304e7b9",
-            entity_type: "item"
-        },
-        name: "Milk"
-    }]
+    const { resetForm } = formik;
 
-    const brands = [{
-        id: {
-            entity_id: "84e218d4-2c57-47a1-85b1-91f1b201a437",
-            entity_type: "brand"
-        },
-        name: "Farmer"
-    }]
+    useEffect(() => {
+
+        if (formSubmit && recentAlertCreated.status === "Created") {
+            resetForm({
+                alertIdentifier: "",
+                item: "",
+                brand: "",
+                alertType: "",
+                min: 0,
+                max: 0
+            })
+
+            handleFormSubmit(false);
+        }
+
+
+    }, [formSubmit, recentAlertCreated, resetForm, handleFormSubmit])
 
     const types = [{
         id: "PRICE_DROP",

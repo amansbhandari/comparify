@@ -8,6 +8,8 @@ import ca.dal.comparify.framework.notification.model.WebSocketNotificationModel;
 import ca.dal.comparify.framework.notification.push.WebPushNotificationService;
 import ca.dal.comparify.framework.notification.websocket.WebSocketService;
 import ca.dal.comparify.notification.model.*;
+import ca.dal.comparify.user.model.iam.UserDetailsModel;
+import ca.dal.comparify.user.service.UserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,9 @@ public class NotificationService {
 
     @Autowired
     private ApplicationScope applicationScope;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     @Autowired
     private WebPushNotificationService webPushNotificationService;
@@ -59,17 +64,20 @@ public class NotificationService {
      * @author Harsh Shah
      */
     public boolean send(String userId, WebSocketNotificationModel model){
-        return webSocketService.send(userId, (WebSocketNotificationModel) model);
+        return webSocketService.send(userId, model);
     }
 
     /**
-     * @param model
+     * @param notification
      * @return
      *
      * @author Harsh Shah
      */
-    public boolean send(String userId, MailNotificationModel model){
-        return mailService.send(null, null, null, null);
+    public boolean send(String userId, MailNotificationModel notification){
+
+        UserDetailsModel user = userDetailsService.findUserById(userId);
+
+        return mailService.send(user.getEmail(), notification.getTitle(), notification.getMessage(), notification.getModel());
     }
 
 
