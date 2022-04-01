@@ -6,7 +6,11 @@ import com.mongodb.client.model.Updates;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Harsh Shah
@@ -22,6 +26,7 @@ public class MongoUtils {
      * @param key
      * @param value
      * @return
+     *
      * @author Harsh Shah
      */
     public static Document inc(String key, Integer value) {
@@ -31,6 +36,7 @@ public class MongoUtils {
     /**
      * @param values
      * @return
+     *
      * @author Harsh Shah
      */
     public static Bson and(Tuple... values) {
@@ -47,6 +53,7 @@ public class MongoUtils {
     /**
      * @param values
      * @return
+     *
      * @author Harsh Shah
      */
     public static Bson and(Bson... values) {
@@ -56,6 +63,7 @@ public class MongoUtils {
     /**
      * @param values
      * @return
+     *
      * @author Harsh Shah
      */
     public static Document inc(Bson... values) {
@@ -66,6 +74,7 @@ public class MongoUtils {
      * @param fieldName
      * @param value
      * @return
+     *
      * @author Harsh Shah
      */
     public static Bson set(final String fieldName, final Object value) {
@@ -76,6 +85,7 @@ public class MongoUtils {
      * @param fieldName
      * @param value
      * @return
+     *
      * @author Harsh Shah
      */
     public static Bson eq(final String fieldName, final Object value) {
@@ -85,9 +95,10 @@ public class MongoUtils {
     /**
      * @param value
      * @return
+     *
      * @author Harsh Shah
      */
-    public static Bson match(final Document value) {
+    public static Bson match(final Bson value) {
         return new Document("$match", value);
     }
 
@@ -97,6 +108,7 @@ public class MongoUtils {
      * @param foreignField
      * @param as
      * @return
+     *
      * @author Harsh Shah
      */
     public static Bson lookup(final String from, final String localField,
@@ -116,6 +128,7 @@ public class MongoUtils {
      * @param pipeline
      * @param as
      * @return
+     *
      * @author Harsh Shah
      */
     public static Bson lookup(final String from, final String localField,
@@ -133,14 +146,69 @@ public class MongoUtils {
     /**
      * @param path
      * @return
+     *
      * @author Harsh Shah
      */
     public static Bson unwind(final String path) {
         return Aggregates.unwind(path);
     }
 
+    /**
+     * @param value
+     * @return
+     *
+     * @author Harsh Shah
+     */
     public static Bson facet(final Document value){
         return new Document("$facet", value);
     }
 
+    /**
+     * @param field
+     * @param value
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    public static Bson lte(final String field, final Object value){
+        return Filters.lte(field, value);
+    }
+
+    /**
+     * @param fields
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    public static Bson project(final String... fields){
+        return Aggregates.project(new Document(Arrays.stream(fields).collect(Collectors.toMap(field -> field, field -> 1))));
+    }
+
+
+    /**
+     * @param projection
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    public static Bson project(final Bson projection){
+        return Aggregates.project(projection);
+    }
+
+
+    /**
+     * @param endDate
+     * @param unit
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    public static Bson dateDiffWithNow(final String endDate, final String unit){
+
+        return new Document("$dateDiff",
+            new Document("startDate", "$$NOW")
+                .append("endDate",endDate)
+                .append("unit", unit));
+
+    }
 }
