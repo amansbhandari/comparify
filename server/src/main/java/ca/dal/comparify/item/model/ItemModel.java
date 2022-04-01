@@ -25,21 +25,22 @@ public class ItemModel extends ItemRequestModel {
                      @BsonProperty("name") String name,
                      @BsonProperty("description") String description,
                      @BsonProperty("default_image") String defaultImage,
+                     @BsonProperty("itemCategoryId") String itemCategoryId,
                      @BsonProperty("audit") AuditModel audit) {
-        super(name, description, defaultImage);
+        super(name, description, defaultImage, itemCategoryId);
         this.id = id;
         this.audit = audit;
     }
 
-    public ItemModel(String name, String description, String defaultImage, AuditModel audit) {
-        super(name, description, defaultImage);
+    public ItemModel(String name, String description, String defaultImage, String itemCategoryId, AuditModel audit) {
+        super(name, description, defaultImage, itemCategoryId);
         this.id = UUIDUtils.generate();
         this.defaultImage = defaultImage;
         this.audit = audit;
     }
 
     public static ItemModel create(ItemRequestModel model, String createdBy){
-        return new ItemModel(model.getName(), model.getDescription(), model.getDefaultImage(), AuditModel.create(createdBy));
+        return new ItemModel(model.getName(), model.getDescription(), model.getDefaultImage(), model.getItemCategoryId(), AuditModel.create(createdBy));
     }
 
     public String getId() {

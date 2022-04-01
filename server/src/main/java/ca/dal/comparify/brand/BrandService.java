@@ -44,4 +44,21 @@ public class BrandService {
         }
         return result;
     }
+
+    /**
+     * @return
+     *
+     * @author Chanpreet Singh
+     */
+    public Map<String, Object> getSpecificBrandDetails(ArrayList<String> brandList){
+        Map<String, Object> result = new HashMap<String, Object>();
+        List<BrandModel> mongoResult = brandRepository.getSpecificBrands(brandList);
+        for(BrandModel each: mongoResult){
+            Map values = new HashMap<String, String>();
+            values.put("name", each.getName());
+            values.put("description", each.getDescription());
+            result.put(each.getId(), values);
+        }
+        return result;
+    }
 }

@@ -6,7 +6,9 @@ import com.mongodb.client.model.Filters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -33,6 +35,17 @@ public class BrandRepository {
      */
     public List<BrandModel> getAll(){
         List<BrandModel> result = mongoRepository.find(BRAND_COLLECTION, Filters.empty(), BrandModel.class);
+        return result;
+    }
+
+    /**
+     * @return
+     *
+     * @author Chanpreet Singh
+     */
+    public List<BrandModel> getSpecificBrands(ArrayList<String> brandList){
+        List<String> brandListUnique = (List<String>) brandList.stream().distinct().collect(Collectors.toList());
+        List<BrandModel> result = mongoRepository.find(BRAND_COLLECTION, Filters.in("_id", brandListUnique), BrandModel.class);
         return result;
     }
 }

@@ -37,4 +37,11 @@ public class ItemRepository {
         return result;
     }
 
+    /**
+     * @author Chanpreet Singh
+     */
+    public ItemModel searchItemName(String ItemName){
+        ItemModel result = mongoRepository.findOne(ITEM_COLLECTION, Filters.regex("name", "/^" + ItemName + "$/i"), ItemModel.class);
+        return result;
+    }
 }
