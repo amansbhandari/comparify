@@ -2,16 +2,19 @@ package ca.dal.comparify.alerts;
 
 import ca.dal.comparify.alerts.model.AlertModel;
 import ca.dal.comparify.alerts.model.AlertResponseModel;
+import ca.dal.comparify.alerts.model.AlertTypeEnum;
+import ca.dal.comparify.model.HashModel;
 import ca.dal.comparify.mongo.MongoRepository;
+import ca.dal.comparify.utils.ObjectUtils;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static ca.dal.comparify.mongo.MongoUtils.*;
+import static java.util.Arrays.asList;
 
 /**
  * @author Harsh Shah
@@ -23,6 +26,7 @@ public class AlertRepository {
 
     public static final String FIELD_BRAND = "brand.entity_id";
     public static final String FIELD_ITEM = "item.entity_id";
+    public static final String TYPE = "type";
 
     @Autowired
     private MongoRepository mongoRepository;
@@ -43,19 +47,19 @@ public class AlertRepository {
      * @author Harsh Shah
      */
     public List<AlertResponseModel> getAlerts(String userIdentifier) {
-        List<Bson> pipeline = Arrays.asList(
+        List<Bson> pipeline = asList(
 
             match(new Document("audit.created_by", userIdentifier)),
 
             lookup("item", FIELD_ITEM, "_id",
-                Arrays.asList(new Document("$project",
+                asList(new Document("$project",
                     new Document("audit", 0L)
                         .append("_id", 0L))), "item"),
 
             unwind("$item"),
 
             lookup("brand", FIELD_BRAND, "_id",
-                Arrays.asList(new Document("$project",
+                asList(new Document("$project",
                     new Document("audit", 0L)
                         .append("_id", 0L))), "brand"),
 
@@ -78,14 +82,28 @@ public class AlertRepository {
     }
 
     /**
+     * @param itemId
      * @param brandId
-     * @param productId
      * @return
      *
      * @author Harsh Shah
      */
-    public List<AlertModel> checkForAlerts(String brandId, String productId) {
-        return mongoRepository.find(ALERT_COLLECTION, and(eq(FIELD_BRAND, brandId),
-            eq(FIELD_ITEM, productId)), AlertModel.class);
+    public HashModel checkForAlerts(String brandId, String itemId) {
+
+        String productInformationAvailable = AlertTypeEnum.PRODUCT_INFORMATION_AVAILABLE.getValue();
+        String priceRange = AlertTypeEnum.PRICE_RANGE.getValue();
+        String priceDrop = AlertTypeEnum.PRICE_DROP.getValue();
+
+        List<Bson> pipeline = asList(match(new Document(FIELD_BRAND, brandId)
+                .append(FIELD_ITEM, itemId)),
+            facet(new Document(priceDrop.toLowerCase(),
+                asList(match(new Document(TYPE, priceDrop))))
+                .append(priceRange.toLowerCase(),
+                    asList(match(new Document(TYPE, priceRange))))
+                .append(productInformationAvailable.toLowerCase(),
+                    asList(match(new Document(TYPE, productInformationAvailable)))
+                )));
+
+        return mongoRepository.aggregateOne(ALERT_COLLECTION, pipeline, HashModel.class);
     }
 }

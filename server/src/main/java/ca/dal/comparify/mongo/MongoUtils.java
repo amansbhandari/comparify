@@ -139,5 +139,8 @@ public class MongoUtils {
         return Aggregates.unwind(path);
     }
 
+    public static Bson facet(final Document value){
+        return new Document("$facet", value);
+    }
 
 }

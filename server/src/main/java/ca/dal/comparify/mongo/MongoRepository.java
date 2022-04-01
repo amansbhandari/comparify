@@ -1,6 +1,7 @@
 package ca.dal.comparify.mongo;
 
 import ca.dal.comparify.model.HashModel;
+import ca.dal.comparify.utils.ObjectUtils;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.MongoException;
 import com.mongodb.client.MongoClient;
@@ -303,5 +304,28 @@ public class MongoRepository {
              .forEachRemaining(output::add);
 
         return output;
+    }
+
+
+    /**
+     * @param collectionName
+     * @param pipeline
+     * @param classOf
+     * @param <T>
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    public <T> T aggregateOne(String collectionName, List<Bson> pipeline, Class<T> classOf) {
+
+        MongoCollection<Document> collection = getCollection(collectionName);
+
+        if (collection == null) {
+            return null;
+        }
+
+        return ObjectUtils.convert(collection.aggregate(pipeline)
+            .allowDiskUse(true).first(), classOf);
+
     }
 }
