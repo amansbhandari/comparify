@@ -5,7 +5,6 @@ import ca.dal.comparify.alerts.model.AlertResponseModel;
 import ca.dal.comparify.alerts.model.AlertTypeEnum;
 import ca.dal.comparify.model.HashModel;
 import ca.dal.comparify.mongo.MongoRepository;
-import ca.dal.comparify.utils.ObjectUtils;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,7 +84,6 @@ public class AlertRepository {
      * @param itemId
      * @param brandId
      * @return
-     *
      * @author Harsh Shah
      */
     public HashModel checkForAlerts(String brandId, String itemId) {
@@ -105,5 +103,14 @@ public class AlertRepository {
                 )));
 
         return mongoRepository.aggregateOne(ALERT_COLLECTION, pipeline, HashModel.class);
+    }
+
+    /**
+     * @param alertId
+     * @return
+     * @author Harsh Shah
+     */
+    public AlertModel fetchAlertById(String alertId) {
+        return mongoRepository.findOne(ALERT_COLLECTION, eq("_id", alertId), AlertModel.class);
     }
 }

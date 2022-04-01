@@ -61,4 +61,18 @@ public class UserDetailsRepository {
 
         return result;
     }
+
+    /**
+     * @param id
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    public UserDetailsModel findUserById(String id) {
+
+        return mongoRepository.findOne(USER_DETAILS_COLLECTION,
+            eq("_id", id),
+            and(tuple(USER_PASSWORD, 0)),
+            UserDetailsModel.class);
+    }
 }
