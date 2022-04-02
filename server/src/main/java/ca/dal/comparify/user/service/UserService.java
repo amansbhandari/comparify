@@ -1,5 +1,6 @@
 package ca.dal.comparify.user.service;
 
+import ca.dal.comparify.model.HashModel;
 import ca.dal.comparify.user.model.SignupRequest;
 import ca.dal.comparify.user.model.iam.UserIAMRequestModel;
 import ca.dal.comparify.user.model.iam.UserIAMResponseModel;
@@ -8,6 +9,8 @@ import ca.dal.comparify.user.model.iam.authorization.UserRoleModel;
 import ca.dal.comparify.user.service.iam.UserIAMService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserService {
@@ -77,5 +80,15 @@ public class UserService {
      */
     public boolean updateUserSecret(String userIdentifier, String userSecret) {
         return userIAMService.updateUserSecret(userIdentifier, userSecret);
+    }
+
+    /**
+     * @param userId
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    public List<HashModel> getAllUsers(String userId) {
+        return userIAMService.getAllUsers(userId);
     }
 }

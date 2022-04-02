@@ -203,4 +203,13 @@ public class UserIAMService {
     }
 
 
+    /**
+     * @param userId
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    public List<HashModel> getAllUsers(String userId) {
+        return userIAMRepository.getAllUsers();
+    }
 }

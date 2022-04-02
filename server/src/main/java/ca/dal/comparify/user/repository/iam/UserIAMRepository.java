@@ -3,7 +3,6 @@ package ca.dal.comparify.user.repository.iam;
 import ca.dal.comparify.model.HashModel;
 import ca.dal.comparify.mongo.MongoRepository;
 import ca.dal.comparify.user.model.iam.UserIAMModel;
-import ca.dal.comparify.utils.DateUtils;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -136,5 +135,26 @@ public class UserIAMRepository {
 
         return mongoRepository.aggregate(USER_IAM_COLLECTION, pipeline, HashModel.class);
 
+    }
+
+    /**
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    public List<HashModel> getAllUsers() {
+
+        List<Bson> pipeline = asList(
+            lookup("user", "_id", "_id", "details"),
+            unwind("$details"),
+            project(new Document("is_active", "$authentication.is_active")
+                    .append("username", "$details.username")
+                    .append("role", "$authorization.role_id")
+                    .append("first_name", "$details.firstName")
+                    .append("last_name", "$details.lastName")
+                    .append("membership", "$details.type")
+                    .append("points", "$details.points")));
+
+        return mongoRepository.aggregate(USER_IAM_COLLECTION, pipeline, HashModel.class);
     }
 }
