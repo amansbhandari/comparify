@@ -21,7 +21,7 @@ import java.time.format.FormatStyle;
 import java.util.Collections;
 import java.util.List;
 
-import static ca.dal.comparify.alerts.model.AlertTypeEnum.PRODUCT_INFORMATION_AVAILABLE;
+import static ca.dal.comparify.alerts.model.AlertTypeEnum.*;
 import static ca.dal.comparify.utils.DateUtils.zoneNow;
 import static ca.dal.comparify.utils.ObjectUtils.convert;
 
@@ -118,20 +118,40 @@ public class AlertService {
             convert((List<Object>) alerts.get(PRODUCT_INFORMATION_AVAILABLE.getValueLowerCase()), AlertModel.class);
 
         List<AlertModel> alertsOnPriceDrop =
-            convert((List<Object>) alerts.get(PRODUCT_INFORMATION_AVAILABLE.getValueLowerCase()), AlertModel.class);
+            convert((List<Object>) alerts.get(PRICE_DROP.getValueLowerCase()), AlertModel.class);
 
         List<AlertModel> alertsOnPriceRange =
-            convert((List<Object>) alerts.get(PRODUCT_INFORMATION_AVAILABLE.getValueLowerCase()), AlertModel.class);
+            convert((List<Object>) alerts.get(PRICE_RANGE.getValueLowerCase()), AlertModel.class);
 
-
-        triggerSocket(alertsOnInformationAvailable, "Product Information Available");
+        String message = "Product Information Available";
+        for(AlertModel alert: alertsOnInformationAvailable){
+            notificationService.create(alert.getAudit().getCreatedBy(),
+                alert.getAlertIdentifier(), message, NotificationTypeEnum.ALERT);
+        }
+        triggerSocket(alertsOnInformationAvailable, message);
         triggerWebPush(alertsOnInformationAvailable, "Product Information Available");
 
-        triggerSocket(alertsOnPriceDrop, "Price Dropped");
-        triggerWebPush(alertsOnPriceDrop, "Price Dropped");
 
-        triggerSocket(alertsOnPriceRange, "Available in Range");
-        triggerWebPush(alertsOnPriceRange, "Available in Range");
+
+        message = "Price Dropped";
+        for(AlertModel alert: alertsOnPriceDrop){
+            notificationService.create(alert.getAudit().getCreatedBy(),
+                alert.getAlertIdentifier(), message, NotificationTypeEnum.ALERT);
+        }
+        triggerSocket(alertsOnPriceDrop, message);
+        triggerWebPush(alertsOnPriceDrop, message);
+
+
+
+        message = "Available in Range";
+        for(AlertModel alert: alertsOnPriceRange){
+            notificationService.create(alert.getAudit().getCreatedBy(),
+                alert.getAlertIdentifier(), message, NotificationTypeEnum.ALERT);
+        }
+        triggerSocket(alertsOnPriceRange, message);
+        triggerWebPush(alertsOnPriceRange, message);
+
+
 
         //triggerMail(activeAlerts);
     }
@@ -151,11 +171,14 @@ public class AlertService {
         }
 
         for (AlertModel alert : alerts) {
+
+            String userId = alert.getAudit().getCreatedBy();
+
             WebPushNotificationModel model = new WebPushNotificationModel(
                 alert.getAudit().getCreatedBy(), alert.getAlertIdentifier(),
                 message, IconType.ALERT, NotificationTypeEnum.ALERT);
 
-            notificationService.send(alert.getAudit().getCreatedBy(), model);
+            notificationService.send(userId, model);
         }
     }
 

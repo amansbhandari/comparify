@@ -3,6 +3,7 @@ import Stomp from 'stompjs';
 import { toast } from "react-toastify";
 import store from "./store"
 import AlertNotification from './components/alert/AlertNotification';
+import { fetchNotifications } from './store/thunk/notificationThunkCreators';
 
 
 let stompClient = null;
@@ -28,6 +29,8 @@ export const openSocket = () => {
         )
 
         toast(MyMsg);
+
+        store.dispatch(fetchNotifications())
       }
     });
   }, (error) => {

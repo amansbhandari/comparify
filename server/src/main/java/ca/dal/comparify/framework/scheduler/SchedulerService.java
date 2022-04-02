@@ -1,7 +1,5 @@
 package ca.dal.comparify.framework.scheduler;
 
-import ca.dal.comparify.compareitems.CompareItemRepository;
-import ca.dal.comparify.compareitems.model.CompareItemsModel;
 import ca.dal.comparify.constant.MailTemplateConstant;
 import ca.dal.comparify.framework.notification.model.MailNotificationModel;
 import ca.dal.comparify.model.HashModel;
@@ -53,8 +51,7 @@ public class SchedulerService {
                 MailTemplateConstant.ACCOUNT_SECRET_EXPIRES,
                 IconType.ALERT, NotificationTypeEnum.ALERT, id, model);
 
-            notificationService.sendMail(email, notification);
-
+            notificationService.sendMail(id, email, notification);
         }
     }
 }
