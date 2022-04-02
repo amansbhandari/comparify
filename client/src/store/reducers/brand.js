@@ -1,21 +1,21 @@
 // ACTIONS
 const GOT_BRAND = "GOT_BRAND";
-const FAILED_GET_BRAND = "FAILED_GET_BRAND"
+const FAILED_GET_BRAND = "FAILED_GET_BRAND";
 
 // ACTION CREATORS
 export const gotBrands = (brands) => {
   return {
     type: GOT_BRAND,
-    brands
+    brands,
   };
 };
 
 export const failedGetBrands = (error) => {
   return {
     type: FAILED_GET_BRAND,
-    error
+    error,
   };
-}
+};
 
 // REDUCER
 const reducer = (state = { list: [] }, action) => {
@@ -23,13 +23,13 @@ const reducer = (state = { list: [] }, action) => {
     case GOT_BRAND:
       return {
         ...state,
-        list: action.brands
-      }
+        list: action.brands,
+      };
 
     case FAILED_GET_BRAND:
       return {
         ...state,
-        list: []
+        list: [],
       };
 
     default:
