@@ -3,17 +3,13 @@ package ca.dal.comparify.Appreciation;
 import ca.dal.comparify.compareitems.model.CompareItemsModel;
 import ca.dal.comparify.model.AppreciationModel;
 import ca.dal.comparify.mongo.MongoRepository;
-import ca.dal.comparify.user.model.iam.UserDetailsModel;
-import ca.dal.comparify.user.model.iam.UserDetailsRequestModel;
 import org.bson.conversions.Bson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static ca.dal.comparify.mongo.MongoUtils.*;
-import static ca.dal.comparify.mongo.Tuple.tuple;
 
 /**
  * @author amansinghbhandari
