@@ -8,24 +8,28 @@ import alert from "./reducers/alert";
 import item from "./reducers/item";
 import brand from "./reducers/brand";
 import notification from "./reducers/notification";
+import store from "./reducers/store";
+import saveBrand from "./reducers/saveBrand";
 import analytics from "./reducers/analytics";
 
 const CLEAR_ON_LOGOUT = "CLEAR_ON_LOGOUT";
 
 export const clearOnLogout = () => {
   return {
-    type: CLEAR_ON_LOGOUT
+    type: CLEAR_ON_LOGOUT,
   };
 };
 
 const appReducer = combineReducers({
-  authentication, 
+  authentication,
   user,
   alert,
   item,
   brand,
   notification,
-  analytics
+  store,
+  saveBrand,
+  analytics,
 });
 
 const rootReducer = (state, action) => {
@@ -35,4 +39,7 @@ const rootReducer = (state, action) => {
   return appReducer(state, action);
 };
 
-export default createStore(rootReducer, applyMiddleware(thunkMiddleware, loggerMiddleware));
+export default createStore(
+  rootReducer,
+  applyMiddleware(thunkMiddleware, loggerMiddleware)
+);

@@ -16,37 +16,41 @@ import Feedback from "./components/feedback/Feedback";
 import Analytics from "./components/analytics/Analytics";
 import UserManagement from "./components/user_management/UserManagement";
 import AddStore from "./components/store/AddStore";
-
+import AddBrand from "./components/brand/AddBrand";
+import AddAdminproduct from "./components/products/addAdminproduct";
 
 const AppRoutes = (props) => {
-
   return (
     <Router basename={process.env.REACT_APP_BASE_HREF}>
       <Routes>
-        <Route path="/" element={<LandingPage />} >
+        <Route path="/" element={<LandingPage />}>
           <Route index element={<Login />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/setSecurityQuestion" element={<SetSecurityQuestion />} />
+          <Route
+            path="/setSecurityQuestion"
+            element={<SetSecurityQuestion />}
+          />
           <Route path="/resetPassword" element={<ResetPassword />} />
           <Route path="/newPassword" element={<NewPassword />} />
         </Route>
         <Route element={<AuthGuard />}>
-          <Route path="/home" element={<Menus />} >
+          <Route path="/home" element={<Menus />}>
             <Route index element={<Analytics />} />
             <Route path="analytics" element={<Analytics />} />
             <Route path="alert" element={<Alerts />} />
             <Route path="profile" element={<UserProfile />} />
             <Route path="addproduct" element={<Addproduct />} />
             <Route path="feedback" element={<Feedback />} />
+            <Route path="addstore" element={<AddStore />} />
+            <Route path="addbrand" element={<AddBrand />} />
+            <Route path="addproductadmin" element={<AddAdminproduct />} />
             <Route path="users" element={<UserManagement />} />
-            <Route path="addstore" element={<AddStore/>}/>
           </Route>
         </Route>
       </Routes>
     </Router>
   );
-
 };
 
 export default AppRoutes;
