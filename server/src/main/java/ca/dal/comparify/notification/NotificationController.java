@@ -1,16 +1,15 @@
 package ca.dal.comparify.notification;
 
 import ca.dal.comparify.constant.ApplicationConstant;
+import ca.dal.comparify.notification.model.NotificationModel;
 import ca.dal.comparify.notification.model.NotificationReceiverModel;
 import ca.dal.comparify.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,6 +31,17 @@ public class NotificationController {
     public Map<String, Boolean> registerReceiver(@RequestBody NotificationReceiverModel receiverModel) {
         return Collections.singletonMap(ApplicationConstant.STATUS,
             notificationService.registerReceiver(SecurityUtils.getPrincipal(SecurityContextHolder.getContext()), receiverModel));
+    }
+
+
+    /**
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    @GetMapping("")
+    public List<NotificationModel> fetch() {
+        return notificationService.fetch(SecurityUtils.getPrincipal(SecurityContextHolder.getContext()));
     }
 
     /**
