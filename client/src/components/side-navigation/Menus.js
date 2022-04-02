@@ -29,6 +29,9 @@ import Fab from '@mui/material/Fab';
 import NotificationTray from "./../notification/NotificationTray";
 import CategoryIcon from '@mui/icons-material/Category';
 import FeedbackIcon from '@mui/icons-material/Feedback';
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import AddBusinessIcon from '@mui/icons-material/AddBusiness';
+import BrandingWatermarkIcon from '@mui/icons-material/BrandingWatermark';
 
 const style = {
   root: {},
@@ -51,7 +54,7 @@ function Menus(props) {
 
   //Titles stored for all the menus
   var titles = ['Home','Add Item','Alerts','Feedback', 'User Profile', 'Log out'];
-  var titlesAdmin = ['Home','Add Product', 'User Feedback', 'Log out'];
+  var titlesAdmin = ['Home','Add Brand', 'Add Store','Add Product', 'User Feedback', 'Log out'];
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [titlePage, setTitlePage] = React.useState(titles[0]);
@@ -83,27 +86,31 @@ function Menus(props) {
       if(index === 0)
        return <HomeIcon />
       else if(index === 1)
-       return <AddIcon/>
+       return <BrandingWatermarkIcon/>
       else if(index === 2)
       return <AddAlertOutlinedIcon/>
       else if(index === 3)
         return <FeedbackIcon/>
       else if(index === 4)
          return <AccountCircleIcon/>
-       else if(index === 5)
-          return <LogoutIcon/>
-       else
-          return <AddIcon/>
+      else if(index === 5)
+        return <LogoutIcon/>
+      else
+        return <AddIcon/>
     }
     else
     {
       if(index === 0)
        return <HomeIcon />
-      if(index === 1)
-        return <CategoryIcon />
+      else if(index === 1)
+        return <AddBoxIcon/>    //Add brand
       else if(index === 2)
+        return <AddBusinessIcon/>   //Add Store
+      if(index === 3)
+        return <CategoryIcon />
+      else if(index ===4)
         return <FeedbackIcon/>
-      else if(index === 3)
+      else if(index === 5)
          return <LogoutIcon/>
     }
     
@@ -244,7 +251,6 @@ function menuClicked(index)
     }
     else if(index === 1)
     {
-      
       navigate('addproduct')
     }
     else if(index === 2)
@@ -275,7 +281,21 @@ function menuClicked(index)
       
       //setDetailPage(<h1>Menu 1 detail page can be added by replacing this!</h1>)
     }
+    else if(index === 2)
+    {
+      navigate("addstore");
+    }
     else if(index === 3)
+    {
+      
+      //setDetailPage(<h1>Menu 1 detail page can be added by replacing this!</h1>)
+    }
+    else if(index === 4)
+    {
+      
+      //setDetailPage(<h1>Menu 1 detail page can be added by replacing this!</h1>)
+    }
+    else if(index === 5)
     {
       dispatch(logout());
     }

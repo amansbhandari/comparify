@@ -13,6 +13,7 @@ import ResetPassword from "./components/forgetPassword/ResetPassword";
 import NewPassword from "./components/forgetPassword/NewPassword";
 import Addproduct from "./components/products/addproduct";
 import Feedback from "./components/feedback/Feedback";
+import AddStore from "./components/store/AddStore";
 
 
 const AppRoutes = (props) => {
@@ -34,6 +35,7 @@ const AppRoutes = (props) => {
             <Route path="profile" element={<UserProfile />} />
             <Route path="addproduct" element={<Addproduct />} />
             <Route path="feedback" element={<Feedback />} />
+            <Route path="addstore" element={<AddStore/>}/>
           </Route>
         </Route>
       </Routes>
