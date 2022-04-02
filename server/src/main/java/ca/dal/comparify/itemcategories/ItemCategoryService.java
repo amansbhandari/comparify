@@ -30,4 +30,10 @@ public class ItemCategoryService {
         }
         return result;
     }
+
+    public Map<String, String> getItemCategory(String itemCategoryId){
+        ItemCategoryModel mongoResult = itemCategoryRepository.getCategoryName(itemCategoryId);
+        Map result = new HashMap(){{put("categoryName", mongoResult.getCategoryName());}};
+        return result;
+    }
 }

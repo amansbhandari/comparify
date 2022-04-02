@@ -4,6 +4,7 @@ import ca.dal.comparify.framework.exception.InvalidFormatException;
 import ca.dal.comparify.constant.ApplicationConstant;
 import ca.dal.comparify.framework.exception.MissingRequiredFieldException;
 import ca.dal.comparify.framework.notification.push.WebPushNotificationService;
+import ca.dal.comparify.model.HashModel;
 import ca.dal.comparify.user.model.SignupRequest;
 import ca.dal.comparify.user.model.iam.UserDetailsModel;
 import ca.dal.comparify.user.model.iam.UserDetailsRequestModel;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -159,6 +161,7 @@ public class UserController {
     /**
      * @param userIAMRequestModel
      * @return
+     *
      * @author Harsh Shah
      */
     @PutMapping("/iam")
@@ -174,5 +177,14 @@ public class UserController {
         return ResponseEntityUtils.returnStatus(status ? 0 : -3);
     }
 
-
+    /**
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    @GetMapping("/all")
+    public List<HashModel> getAllUsers() {
+        String userId = SecurityUtils.getPrincipal(SecurityContextHolder.getContext());
+        return userService.getAllUsers(userId);
+    }
 }

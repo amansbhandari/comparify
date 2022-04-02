@@ -143,6 +143,27 @@ public class MongoUtils {
                 .append("as", as));
     }
 
+
+    /**
+     * @param from
+     * @param let
+     * @param pipeline
+     * @param as
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    public static Bson lookup(final String from, final Bson let,
+                              final List<Bson> pipeline,
+                              final String as) {
+
+        return new Document("$lookup",
+            new Document("from", from)
+                .append("let", let)
+                .append("pipeline", pipeline)
+                .append("as", as));
+    }
+
     /**
      * @param path
      * @return
@@ -210,5 +231,52 @@ public class MongoUtils {
                 .append("endDate",endDate)
                 .append("unit", unit));
 
+    }
+
+    /**
+     * @param fields
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    public static Bson sortAscending(final String... fields){
+        return new Document("$sort",
+            new Document(Arrays.stream(fields).collect(Collectors.toMap(field -> field, field -> 1))));
+    }
+
+
+    /**
+     * @param document
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    public static Bson group(final Bson document){
+        return new Document("$group", document);
+    }
+
+    /**
+     * @param input
+     * @param as
+     * @param in
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    public static Bson map(final String input, final String as, final Bson in ){
+        return new Document("$map",
+            new Document("input", input)
+                .append("as", as)
+                .append("in", in));
+    }
+
+    /**
+     * @param value
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    public static Bson first(final String value){
+        return new Document("$first", value);
     }
 }

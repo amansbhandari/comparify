@@ -23,6 +23,9 @@ public class CompareItemController {
     @Autowired
     private AppreciationService appreciationService;
 
+    private final String STATUS_VERIFIED = "verified";
+    private final String STATUS_NOT_VERIFIED = "not verified";
+
     /**
      * @param model
      * @return
@@ -32,12 +35,22 @@ public class CompareItemController {
     public ResponseEntity<Map<String, String>> create(@RequestBody CompareItemsModel model) {
         appreciationService.addAppreciation(model);
 
+        Boolean result = compareItemService.verifyItem(model);
+        if(result == false)
+        {
+            model.setStatus(STATUS_NOT_VERIFIED);
+        }
+        else
+        {
+            model.setStatus(STATUS_VERIFIED);
+        }
+
         int status = compareItemService.create(model);
         return ResponseEntityUtils.returnStatus(status);
     }
 
     @GetMapping("/")
-    public ArrayList<Map<String, Object>> getComparisions(@RequestParam(name = "itemId") String ItemId, @RequestParam(name = "date", required = false) String date){
+    public Map<String, Object> getComparisions(@RequestParam(name = "itemId") String ItemId, @RequestParam(name = "date", required = false) String date){
         return compareItemService.fetchComparisions(ItemId, date);
     }
 }

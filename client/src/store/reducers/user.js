@@ -2,6 +2,9 @@
 const GET_USER_ROLE = "GET_USER_ROLE";
 const FAILED_GET_USER_ROLE = "FAILED_GET_USER_ROLE"
 
+const GET_ALL_USERS = "GET_ALL_USERS";
+const FAILED_GET_USERS = "FAILED_GET_USERS"
+
 // ACTION CREATORS
 export const gotUserRole = (role) => {
   return {
@@ -17,8 +20,22 @@ export const failedGetUserRole = (error) => {
   };
 }
 
+export const gotAllUsers = (list) => {
+  return {
+    type: GET_ALL_USERS,
+    list
+  };
+};
+
+export const failedGetUsers = (error) => {
+  return {
+    type: FAILED_GET_USERS,
+    error
+  };
+}
+
 // REDUCER
-const reducer = (state = { role: {}, logout: {} }, action) => {
+const reducer = (state = { role: {}, list: [] }, action) => {
   switch (action.type) {
     case GET_USER_ROLE:
       return {
@@ -30,6 +47,18 @@ const reducer = (state = { role: {}, logout: {} }, action) => {
       return {
         ...state,
         role: action.error
+      };
+
+    case GET_ALL_USERS:
+      return {
+        ...state,
+        list: action.list
+      }
+
+    case FAILED_GET_USERS:
+      return {
+        ...state,
+        list: []
       };
 
     default:

@@ -13,6 +13,9 @@ import java.util.UUID;
  */
 public class CompareItemsModel {
 
+    public final static String _ID = "_id";
+    public final static String STATUS = "status";
+
     @BsonId
     private ObjectId id;
 
@@ -22,6 +25,9 @@ public class CompareItemsModel {
     private Double price, priceAfterDiscount, unit;
     @JsonProperty
     private Date dateOfPurchase;
+
+    @JsonProperty
+    private String status;
 
     public CompareItemsModel() {
     }
@@ -35,7 +41,8 @@ public class CompareItemsModel {
                              @BsonProperty("store_id") String storeId,
                              @BsonProperty("date_of_purchase") Date dateOfPurchase,
                              @BsonProperty("unit") Double unit,
-                             @BsonProperty("brand_id") String brandId) {
+                             @BsonProperty("brand_id") String brandId,
+                             @BsonProperty("status") String status) {
         this.id = id;
         this.imageText = imageText;
         this.userId = userId;
@@ -46,9 +53,10 @@ public class CompareItemsModel {
         this.price = price;
         this.priceAfterDiscount = priceAfterDiscount;
         this.dateOfPurchase = dateOfPurchase;
+        this.status = status;
     }
 
-    public CompareItemsModel(String imageText, String userId, String productId, Double price, Double priceAfterDiscount, String storeId, Date dateOfPurchase, Double unit, String brandId){
+    public CompareItemsModel(String imageText, String userId, String productId, Double price, Double priceAfterDiscount, String storeId, Date dateOfPurchase, Double unit, String brandId, String status){
         this.setBrandId(UUID.randomUUID().toString());
         this.setImageText(imageText);
         this.setUserId(userId);
@@ -59,10 +67,11 @@ public class CompareItemsModel {
         this.setPrice(price);
         this.setPriceAfterDiscount(priceAfterDiscount);
         this.setDateOfPurchase(dateOfPurchase);
+        this.status = status;
     }
 
     public static CompareItemsModel create(CompareItemsModel model){
-        return new CompareItemsModel(model.getImageText(), model.getUserId(), model.getProductId(), model.getPrice(), model.getPriceAfterDiscount(), model.getStoreId(), model.getDateOfPurchase(), model.getUnit(), model.getBrandId());
+        return new CompareItemsModel(model.getImageText(), model.getUserId(), model.getProductId(), model.getPrice(), model.getPriceAfterDiscount(), model.getStoreId(), model.getDateOfPurchase(), model.getUnit(), model.getBrandId(),model.getStatus());
     }
 
     public ObjectId getId() {
@@ -140,4 +149,15 @@ public class CompareItemsModel {
     public Date getDateOfPurchase() { return dateOfPurchase; }
 
     public void setDateOfPurchase(Date dateOfPurchase) { this.dateOfPurchase = dateOfPurchase;}
+
+
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
 }

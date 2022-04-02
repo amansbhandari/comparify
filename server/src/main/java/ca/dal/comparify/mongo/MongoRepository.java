@@ -106,6 +106,39 @@ public class MongoRepository {
         return output;
     }
 
+
+    /**
+     * @param collectionName
+     * @param query
+     * @param projection
+     * @param classOf
+     * @param <T>
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    public <T> List<T> find(String collectionName, Bson query, Bson projection, Class<T> classOf) {
+        MongoCollection<T> collection = getCollection(collectionName, classOf);
+
+        List<T> output = new ArrayList<>();
+
+        if (collection == null) {
+            return output;
+        }
+
+        if (projection == null) {
+            projection = new Document();
+        }
+
+        collection.find(query)
+            .allowDiskUse(true)
+            .iterator()
+            .forEachRemaining(output::add);
+
+
+        return output;
+    }
+
     /**
      * @param collectionName
      * @param query

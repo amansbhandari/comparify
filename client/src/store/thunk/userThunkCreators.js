@@ -1,6 +1,6 @@
 import httpClient from "./interceptor";
 import { failedAuth, failedLogout, gotAuth, gotLogout } from "../reducers/authentication";
-import { failedGetUserRole, gotUserRole } from "../reducers/user";
+import { failedGetUserRole, failedGetUsers, gotAllUsers, gotUserRole } from "../reducers/user";
 import { closeSocket, openSocket } from "../../socket";
 
 
@@ -125,4 +125,14 @@ export const addAdminproducts = (item) => {
 }, (error) => {
   alert(error);
 });
+};
+
+
+export const getAllUser = () => async (dispatch) => {
+  try {
+    const { data } = await httpClient.get("/user/all");
+    dispatch(gotAllUsers(data));
+  } catch (error) {
+    dispatch(failedGetUsers(error)); 
+  }
 };
