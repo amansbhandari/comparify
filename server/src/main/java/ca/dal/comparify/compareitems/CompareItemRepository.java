@@ -2,6 +2,7 @@ package ca.dal.comparify.compareitems;
 
 import ca.dal.comparify.compareitems.model.CompareItemsModel;
 import ca.dal.comparify.mongo.MongoRepository;
+import ca.dal.comparify.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
@@ -36,25 +37,10 @@ public class CompareItemRepository {
     public List<CompareItemsModel> fetchCompare(String ItemId, String date){
         Bson query;
         if(date==null)
-            query = eq("productId", ItemId);
+            query = and(eq("productId", ItemId), eq("status", "verified"));
         else
-            query = and(eq("productId", ItemId), eq("dateOfPurchase", parseDate(date)));
-
+            query = and(eq("productId", ItemId), eq("dateOfPurchase", DateUtils.parse(date)), eq("status", "verified"));
         List<CompareItemsModel> result = mongoRepository.find(ITEM_COLLECTION, query, CompareItemsModel.class);
         return result;
-    }
-
-    /**
-     * @author Chanpreet Singh
-     */
-    public Date parseDate(String date){
-        Date parsedDate = null;
-        try{
-            parsedDate = new SimpleDateFormat("yyyy-MM-dd").parse(date);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-        return parsedDate;
     }
 }

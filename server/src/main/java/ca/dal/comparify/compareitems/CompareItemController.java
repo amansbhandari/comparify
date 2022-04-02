@@ -37,7 +37,7 @@ public class CompareItemController {
     }
 
     @GetMapping("/")
-    public ArrayList<Map<String, Object>> getComparisions(@RequestParam(name = "itemId") String ItemId, @RequestParam(name = "date", required = false) String date){
+    public Map<String, Object> getComparisions(@RequestParam(name = "itemId") String ItemId, @RequestParam(name = "date", required = false) String date){
         return compareItemService.fetchComparisions(ItemId, date);
     }
 }

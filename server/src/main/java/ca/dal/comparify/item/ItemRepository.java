@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static ca.dal.comparify.mongo.MongoUtils.eq;
+
 /**
  * @author Chanpreet Singh
  */
@@ -42,6 +44,14 @@ public class ItemRepository {
      */
     public ItemModel searchItemName(String ItemName){
         ItemModel result = mongoRepository.findOne(ITEM_COLLECTION, Filters.regex("name", "/^" + ItemName + "$/i"), ItemModel.class);
+        return result;
+    }
+
+    /**
+     * @author Chanpreet Singh
+     */
+    public ItemModel findOneItem(String itemId){
+        ItemModel result = mongoRepository.findOne(ITEM_COLLECTION, eq("_id", itemId), ItemModel.class);
         return result;
     }
 }
