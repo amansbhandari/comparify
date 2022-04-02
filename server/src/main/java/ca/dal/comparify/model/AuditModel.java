@@ -1,6 +1,7 @@
 package ca.dal.comparify.model;
 
 import ca.dal.comparify.utils.DateUtils;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 
 import java.util.Date;
@@ -16,15 +17,19 @@ public class AuditModel {
     public static final String UPDATED_ON = "updated_on";
 
     @BsonProperty(CREATED_BY)
+    @JsonProperty(CREATED_BY)
     private String createdBy;
 
     @BsonProperty(UPDATED_BY)
+    @JsonProperty(UPDATED_BY)
     private String updatedBy;
 
     @BsonProperty(CREATED_ON)
+    @JsonProperty(CREATED_ON)
     private Date createdOn;
 
     @BsonProperty(UPDATED_ON)
+    @JsonProperty(UPDATED_ON)
     private Date updatedOn;
 
     public AuditModel() {

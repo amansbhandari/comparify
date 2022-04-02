@@ -47,4 +47,23 @@ public class UserDetailsService {
         return result;
     }
 
+
+
+    /**
+     * @param id
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    public UserDetailsModel findUserById(String id){
+
+        UserDetailsModel userDetailsModel = userDetailsRepository.findUserById(id);
+
+        if (userDetailsModel == null) {
+            throw new UsernameNotFoundException(ApplicationConstant.CANNOT_FIND_USER);
+        }
+
+        return userDetailsModel;
+    }
+
 }

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:remove="all">Alert Notification</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<p>
+    Hello, <span th:text="${name}">User</span>
+</p>
+<p>
+    You have been successfully unsubscribed for alert name -
+    <b th:text="${alertName}"></b> on
+    <span th:text="${subscriptionDate}"></span>
+</p>
+<p>
+    <span>Regards,</span>
+    <br/>
+    <span>Comparify Team</span>
+</p>
+</body>
+</html>

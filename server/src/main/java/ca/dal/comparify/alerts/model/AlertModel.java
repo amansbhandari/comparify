@@ -3,6 +3,7 @@ package ca.dal.comparify.alerts.model;
 import ca.dal.comparify.model.AuditModel;
 import ca.dal.comparify.model.RangeModel;
 import ca.dal.comparify.utils.UUIDUtils;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 
@@ -14,15 +15,19 @@ import java.util.Date;
 public class AlertModel extends AlertRequestModel {
 
     @BsonId
+    @JsonProperty("_id")
     private String id;
 
     @BsonProperty("alert_identifier")
+    @JsonProperty("alert_identifier")
     private String alertIdentifier;
 
     @BsonProperty("price_range")
+    @JsonProperty("price_range")
     private RangeModel<Integer> priceRange;
 
     @BsonProperty("expires_on")
+    @JsonProperty("expires_on")
     private Date expiresOn;
 
     private boolean status;

@@ -59,7 +59,6 @@ public class AlertController {
     public ResponseEntity<Map<String, String>> delete(@RequestParam("id") final String id){
         String userId = SecurityUtils.getPrincipal(SecurityContextHolder.getContext());
         boolean status = alertService.delete(userId, id);
-
         return ResponseEntityUtils.returnStatus(status ? 1 : -3);
     }
 

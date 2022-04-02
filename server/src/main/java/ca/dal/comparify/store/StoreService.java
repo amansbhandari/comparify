@@ -1,5 +1,6 @@
 package ca.dal.comparify.store;
 
+import ca.dal.comparify.brand.model.BrandModel;
 import ca.dal.comparify.store.model.StoreModel;
 import ca.dal.comparify.store.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,23 @@ public class StoreService {
                 put("phone", each.getPhone());
             }};
             result.add(eachObj);
+        }
+        return result;
+    }
+
+    /**
+     * @author Chanpreet Singh
+     */
+    public Map<String, Object> getSpecificStoreDetails(ArrayList<String> storeList){
+        Map<String, Object> result = new HashMap<String, Object>();
+        List<StoreModel> mongoResult = storeRepository.getSpecificStores(storeList);
+        for(StoreModel each: mongoResult){
+            result.put(each.getId().toString(), new HashMap<String, Object>(){{
+                put("storeName", each.getStoreName());
+                put("streetName", each.getStreetName());
+                put("city", each.getCity());
+                put("phone", each.getPhone());
+            }});
         }
         return result;
     }

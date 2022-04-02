@@ -11,6 +11,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import FirstPageIcon from '@mui/icons-material/FirstPage';
+import DeleteIcon from '@mui/icons-material/Delete';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
@@ -88,7 +89,8 @@ const columns = [
     { id: 'alertIdentifier', label: 'Alert Identifier' },
     { id: 'item', label: 'Item' },
     { id: 'brand', label: 'Brand', },
-    { id: 'type', label: 'Type' }
+    { id: 'type', label: 'Type' },
+    { id: 'id', label: 'Actions', actions: true }
 ];
 
 export default function ViewAlerts() {
@@ -123,7 +125,7 @@ export default function ViewAlerts() {
     };
 
     const handleDeleteAlert = (alertId, alertIdentifier) => {
-        dispatch(deleteAlert(alertIdentifier, {id: alertId}))
+        dispatch(deleteAlert(alertIdentifier, { id: alertId }))
     }
 
     return (
@@ -134,17 +136,6 @@ export default function ViewAlerts() {
                         <TableRow sx={{
                             background: theme.palette.primary.main
                         }}>
-                            {/* <TableCell padding="checkbox">
-                                <Checkbox
-                                    color="primary"
-                                    indeterminate={numSelected > 0 && numSelected < rowCount}
-                                    checked={rowCount > 0 && numSelected === rowCount}
-                                    onChange={onSelectAllClick}
-                                    inputProps={{
-                                        'aria-label': 'select all desserts',
-                                    }}
-                                />
-                            </TableCell> */}
 
                             {columns.map(column => {
                                 return (<TableCell sx={{ color: "#fff", background: "#1976d2" }} key={column.id}>
@@ -158,10 +149,15 @@ export default function ViewAlerts() {
                             ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             : rows
                         ).map((row) => (
-                            <TableRow hover key={row.id} 
-                                onClick={() => handleDeleteAlert(row.id, row.alertIdentifier)}
-                                sx={{cursor: "pointer"}}>
+                            <TableRow hover key={row.id}
+                                sx={{ cursor: "pointer" }}>
                                 {columns.map(column => {
+                                    if(column.actions){
+                                        return (<TableCell key={column.id}>
+                                            <DeleteIcon onClick={() => handleDeleteAlert(row.id, row.alertIdentifier)} />
+                                        </TableCell>)    
+                                    }
+
                                     return (<TableCell key={column.id}>
                                         {row[column.id]}
                                     </TableCell>)

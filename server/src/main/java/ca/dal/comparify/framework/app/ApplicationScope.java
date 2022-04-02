@@ -26,6 +26,11 @@ public class ApplicationScope {
         this.activeUsers = activeUsers;
     }
 
+    /**
+     * @param userId
+     *
+     * @author Harsh Shah
+     */
     public void setActiveUsers(String userId) {
         if(this.activeUsers == null){
             this.activeUsers = new HashSet<>();
@@ -34,10 +39,30 @@ public class ApplicationScope {
         this.activeUsers.add(userId);
     }
 
+    /**
+     * @param userId
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    public boolean containsActiveUsers(String userId) {
+        if(this.activeUsers == null){
+            return false;
+        }
+
+        return true;
+    }
+
     public Map<String, String> getUserToReceiverToken() {
         return userToReceiverToken;
     }
 
+    /**
+     * @param userId
+     * @return
+     *
+     * @author Harsh Shah
+     */
     public String getUserToReceiverToken(String userId) {
 
         if(userToReceiverToken == null){
@@ -51,6 +76,12 @@ public class ApplicationScope {
         this.userToReceiverToken = userToReceiverToken;
     }
 
+    /**
+     * @param userId
+     * @param token
+     *
+     * @author Harsh Shah
+     */
     public void setUserToReceiverToken(String userId, String token){
         if(this.userToReceiverToken == null){
             this.userToReceiverToken = new HashMap<>();

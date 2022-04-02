@@ -9,7 +9,6 @@ import org.bson.types.ObjectId;
  */
 public class StoreModel{
 
-    @BsonProperty("_id")
     @BsonId
     private ObjectId id;
 
@@ -18,7 +17,7 @@ public class StoreModel{
     public StoreModel() {
     }
 
-    public StoreModel(@BsonProperty("_id") ObjectId id,
+    public StoreModel(@BsonId ObjectId id,
                       @BsonProperty("storeName") String storeName,
                       @BsonProperty("streetName")  String streetName,
                       @BsonProperty("city")  String city,
@@ -28,8 +27,9 @@ public class StoreModel{
         this.streetName = streetName;
         this.city = city;
         this.phone = phone;
-
     }
+
+
 
     public ObjectId getId() {
         return id;

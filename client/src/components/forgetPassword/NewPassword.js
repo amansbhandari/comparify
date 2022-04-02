@@ -1,4 +1,4 @@
-import { Button, TextField, Box, Grid } from "@material-ui/core";
+import { Button, TextField, Box, Grid, ThemeProvider } from "@material-ui/core";
 import { useFormik } from "formik";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
@@ -6,12 +6,20 @@ import { authenication } from "../../store/thunk/userThunkCreators";
 import useStyles from "../../hooks/use-styles";
 import { useNavigate } from "react-router-dom";
 import httpClient from "../../store/thunk/interceptor";
+import { theme } from "./../../themes/theme";
+import Typography from '@mui/material/Typography';
+import Avatar from '@mui/material/Avatar';
+
+
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 const style = {
   root: {
-    display: "inline-block",
-    margin: "30px 0px",
-  },
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    margin: "20px 0px"
+},
   button: {
     marginTop: "16px",
     marginBottom: "8px",
@@ -20,6 +28,7 @@ const style = {
     display: "flex",
     justifyContent: "end",
   },
+  
 };
 const NewPassword = (props) => {
   const navigate = useNavigate();
@@ -41,7 +50,7 @@ const NewPassword = (props) => {
       } catch (error) {
         console.log(error);
       }
-      navigate("/home");
+      navigate("/login");
     },
   });
 
@@ -53,9 +62,16 @@ const NewPassword = (props) => {
   }, [authentication, resetForm, props.values]);
 
   return (
-    <Grid container className={classes.root}>
-      <Box>
-        <form onSubmit={formik.handleSubmit}>
+    <ThemeProvider theme={theme}>
+    <Grid >
+    <Box className={classes.root}>
+                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                    <LockOutlinedIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                    Reset Password
+                </Typography>
+        <form onSubmit={formik.handleSubmit}  style={{'width' : '80%'}}>
           <Grid>
             <TextField
               fullWidth
@@ -137,6 +153,7 @@ const NewPassword = (props) => {
         </form>
       </Box>
     </Grid>
+    </ThemeProvider>
   );
 };
 export default NewPassword;

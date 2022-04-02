@@ -1,5 +1,6 @@
 package ca.dal.comparify.framework.notification.mail;
 
+import ca.dal.comparify.constant.MailTemplateConstant;
 import ca.dal.comparify.framework.notification.mail.MailService;
 import ca.dal.comparify.model.HashModel;
 import org.junit.jupiter.api.Test;
@@ -31,8 +32,8 @@ class MailServiceTest {
         model.put("alertName", "Grocery");
         model.put("subscriptionDate", zoneNow().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
 
-        assertTrue(mailService.send("harshshah1295@gmail.com", "Test",
-                "alert-template.html", model));
+        assertTrue(mailService.send("hm.shah@gmail.com", "Test",
+            MailTemplateConstant.ALERT_SUBSCRIBE_TEMPLATE, model));
     }
 
 }

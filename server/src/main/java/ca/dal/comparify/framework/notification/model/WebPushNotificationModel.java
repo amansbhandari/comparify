@@ -1,4 +1,7 @@
-package ca.dal.comparify.notification.model;
+package ca.dal.comparify.framework.notification.model;
+
+import ca.dal.comparify.notification.model.IconType;
+import ca.dal.comparify.notification.model.NotificationTypeEnum;
 
 /**
  * @author Harsh Shah

@@ -9,7 +9,7 @@ public class ItemRequestModel {
 
     private String name;
 
-    private String description;
+    private String description, itemCategoryId;
 
     @JsonProperty("default_image")
     private String defaultImage;
@@ -17,10 +17,11 @@ public class ItemRequestModel {
     public ItemRequestModel() {
     }
 
-    public ItemRequestModel(String name, String description, String defaultImage) {
+    public ItemRequestModel(String name, String description, String defaultImage, String itemCategoryId) {
         this.name = name;
         this.description = description;
         this.defaultImage = defaultImage;
+        this.itemCategoryId = itemCategoryId;
     }
 
     public String getName() {
@@ -45,5 +46,13 @@ public class ItemRequestModel {
 
     public void setDefaultImage(String defaultImage) {
         this.defaultImage = defaultImage;
+    }
+
+    public String getItemCategoryId() {
+        return itemCategoryId;
+    }
+
+    public void setItemCategoryId(String itemCategoryId) {
+        this.itemCategoryId = itemCategoryId;
     }
 }

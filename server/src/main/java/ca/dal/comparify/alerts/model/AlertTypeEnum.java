@@ -11,11 +11,15 @@ public enum AlertTypeEnum {
 
     private String value;
 
-    AlertTypeEnum(String value){
+    AlertTypeEnum(String value) {
         this.value = value;
     }
 
     public String getValue() {
         return value;
+    }
+
+    public String getValueLowerCase() {
+        return value.toLowerCase();
     }
 }

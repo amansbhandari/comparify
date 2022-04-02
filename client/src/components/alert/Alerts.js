@@ -57,11 +57,6 @@ const Alerts = (props) => {
                     onClick={handleDrawerOpen}>
                         Create
                     </Button>
-                    <Button sx={{marginLeft: "10px"}} 
-                            color="error" variant="contained" type="button" className={classes.button} 
-                        onClick={handleDrawerOpen}>
-                        Delete
-                    </Button>
                 </Box>
                 <Box sx={{
                     marginTop: "20px"
