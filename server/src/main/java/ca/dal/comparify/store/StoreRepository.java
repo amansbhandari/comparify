@@ -46,4 +46,26 @@ public class StoreRepository {
         List<StoreModel> result = mongoRepository.find(STORE_COLLECTION, query, StoreModel.class);
         return result;
     }
+
+    /**
+     * @return
+     *
+     * @author Aman Singh BHandari
+     */
+    public String saveStore(StoreModel storeModel){
+       return getResponseMessage(mongoRepository.insertOne(STORE_COLLECTION,storeModel, StoreModel.class));
+    }
+
+    public String getResponseMessage(int result)
+    {
+        if(result == -1 )
+            return "No collection with name " + STORE_COLLECTION + " found";
+        else if(result == -2)
+            return "Exception in mongodb";
+        else if(result == 0)
+            return "success";
+
+        return "Unknown Error";
+    }
+
 }

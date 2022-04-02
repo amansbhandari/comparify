@@ -51,4 +51,14 @@ public class StoreService {
         }
         return result;
     }
+
+
+    /**
+     * @return
+     *
+     * @author Aman Singh BHandari
+     */
+    public String  saveStore(StoreModel storeModel){
+        return storeRepository.saveStore(storeModel);
+    }
 }
