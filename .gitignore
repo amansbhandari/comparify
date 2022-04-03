@@ -14,3 +14,4 @@ client/.DS_Store
 .DS_Store
 server/comparify-server.iml
 node_modules/
+.idea/
