@@ -13,3 +13,4 @@ client/.vscode/
 client/.DS_Store
 .DS_Store
 server/comparify-server.iml
+.idea/

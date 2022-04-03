@@ -7,6 +7,12 @@ import org.bson.codecs.pojo.annotations.BsonId;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+
+/**
+ * @author Meghna Rupchandani
+ */
+
 public class SignupRequest {
 
   @BsonId
@@ -35,6 +41,11 @@ public class SignupRequest {
   private String password;
 
   private String confirmPassword;
+
+  private double points;
+
+  private String type;
+
 
   public String getFirstName() {
     return firstName;
@@ -132,7 +143,23 @@ public class SignupRequest {
     this.confirmPassword = confirmPassword;
   }
 
-  public SignupRequest(String firstName, String lastName, String username, String email,String securityQuestion1, String securityQuestion2, String securityQuestion3, String Answer1, String Answer2, String Answer3,String password, String confirmPassword) {
+  public double getPoints() {
+    return points;
+  }
+
+  public void setPoints(double points) {
+    this.points = points;
+  }
+
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
+  }
+
+  public SignupRequest(String firstName, String lastName, String username, String email, String securityQuestion1, String securityQuestion2, String securityQuestion3, String Answer1, String Answer2, String Answer3, String password, String confirmPassword, double points, String type) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.username = username;
@@ -145,6 +172,8 @@ public class SignupRequest {
     this.Answer3=Answer3;
     this.password = password;
     this.confirmPassword = confirmPassword;
+    this.points=points;
+    this.type=type;
   }
 
   public static final Pattern VALID_EMAIL_ADDRESS_REGEX =

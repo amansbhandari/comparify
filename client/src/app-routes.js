@@ -16,6 +16,7 @@ import Feedback from "./components/feedback/Feedback";
 import Analytics from "./components/analytics/Analytics";
 import UserManagement from "./components/user_management/UserManagement";
 import AddStore from "./components/store/AddStore";
+import UI from "./components/ComparePrices/UI";
 
 
 const AppRoutes = (props) => {
@@ -35,6 +36,7 @@ const AppRoutes = (props) => {
           <Route path="/home" element={<Menus />} >
             <Route index element={<Analytics />} />
             <Route path="analytics" element={<Analytics />} />
+            <Route path="ui" element={<UI />} />
             <Route path="alert" element={<Alerts />} />
             <Route path="profile" element={<UserProfile />} />
             <Route path="addproduct" element={<Addproduct />} />
