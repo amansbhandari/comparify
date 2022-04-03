@@ -13,6 +13,7 @@ public class Product {
     private double Price;
     private String image;
     private String description;
+    private String itemId;
 
     @BsonId
     private String recordId;
@@ -20,17 +21,22 @@ public class Product {
     public Product(){
 
     }
-    public Product(String productname, String brandName, String storeName, double unitOrVolume, double price,String image,String description,@BsonId String  recordId) {
+
+
+    public Product(String productname, String brandName, String storeName,
+                   double unitOrVolume, double price, String image, String
+                       description, String itemId, String recordId) {
         Productname = productname;
         BrandName = brandName;
         StoreName = storeName;
         this.unitOrVolume = unitOrVolume;
         Price = price;
-        this.image=image;
-        this.description=description;
-        this.recordId=recordId;
+        this.image = image;
+        this.description = description;
+        this.itemId = itemId;
+        this.recordId = recordId;
     }
-  
+
     public String getBrandName() {
         return BrandName;
     }
@@ -79,5 +85,13 @@ public class Product {
     }
     public void setRecordId(String recordId) {
         this.recordId = recordId;
+    }
+
+    public String getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
     }
 }

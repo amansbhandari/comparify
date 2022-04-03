@@ -12,6 +12,7 @@ import notification from "./reducers/notification";
 import store from "./reducers/store";
 import saveBrand from "./reducers/saveBrand";
 import analytics from "./reducers/analytics";
+import search from "./reducers/search";
 
 const CLEAR_ON_LOGOUT = "CLEAR_ON_LOGOUT";
 
@@ -32,6 +33,7 @@ const appReducer = combineReducers({
   store,
   saveBrand,
   analytics,
+  search
 });
 
 const rootReducer = (state, action) => {
