@@ -68,4 +68,10 @@ public class StoreRepository {
         return "Unknown Error";
     }
 
+    /**
+     * @author Chanpreet Singh
+     */
+    public Long getStoreCount(){
+        return mongoRepository.count(STORE_COLLECTION, Filters.empty());
+    }
 }

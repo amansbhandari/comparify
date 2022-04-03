@@ -5,6 +5,7 @@ import ca.dal.comparify.mongo.MongoRepository;
 import ca.dal.comparify.user.model.iam.UserDetailsModel;
 import ca.dal.comparify.user.model.iam.UserDetailsRequestModel;
 
+import com.mongodb.client.model.Filters;
 import org.bson.conversions.Bson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -74,5 +75,12 @@ public class UserDetailsRepository {
             eq("_id", id),
             and(tuple(USER_PASSWORD, 0)),
             UserDetailsModel.class);
+    }
+
+    /**
+     * @author Chanpreet Singh
+     */
+    public Long getUserCount() {
+        return mongoRepository.count(USER_DETAILS_COLLECTION, Filters.empty());
     }
 }

@@ -48,4 +48,11 @@ public class BrandRepository {
         List<BrandModel> result = mongoRepository.find(BRAND_COLLECTION, Filters.in("_id", brandListUnique), BrandModel.class);
         return result;
     }
+
+    /**
+     * @author Chanpreet Singh
+     */
+    public Long getBrandCount(){
+        return mongoRepository.count(BRAND_COLLECTION, Filters.empty());
+    }
 }

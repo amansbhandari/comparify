@@ -1,14 +1,11 @@
 package ca.dal.comparify.compareitems;
 
 import ca.dal.comparify.compareitems.model.CompareItemsModel;
-import ca.dal.comparify.model.AppreciationModel;
 import ca.dal.comparify.mongo.MongoRepository;
 import ca.dal.comparify.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.text.SimpleDateFormat;
 import org.bson.conversions.Bson;
-import java.util.Date;
 import java.util.List;
 
 import static ca.dal.comparify.mongo.MongoUtils.*;
