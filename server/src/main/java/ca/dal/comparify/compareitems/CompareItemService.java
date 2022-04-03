@@ -1,7 +1,6 @@
 package ca.dal.comparify.compareitems;
 
 import ca.dal.comparify.alerts.AlertService;
-import ca.dal.comparify.compareitems.CompareItemRepository;
 import ca.dal.comparify.compareitems.model.CompareItemsModel;
 import ca.dal.comparify.brand.BrandService;
 import ca.dal.comparify.item.ItemService;
@@ -35,7 +34,7 @@ public class CompareItemService {
     private ItemService itemService;
     @Autowired
     private ItemCategoryService itemCategoryService;
-    
+
     /**
      * @param model
      * @return

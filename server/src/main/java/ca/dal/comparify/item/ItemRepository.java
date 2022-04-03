@@ -54,4 +54,11 @@ public class ItemRepository {
         ItemModel result = mongoRepository.findOne(ITEM_COLLECTION, eq("_id", itemId), ItemModel.class);
         return result;
     }
+
+    /**
+     * @author Chanpreet Singh
+     */
+    public Long getItemCount(){
+        return mongoRepository.count(ITEM_COLLECTION, Filters.empty());
+    }
 }

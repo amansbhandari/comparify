@@ -4,6 +4,7 @@ package ca.dal.comparify.feedback.services;
 import ca.dal.comparify.feedback.repository.FeedbackRepository;
 import ca.dal.comparify.item.model.ItemModel;
 import ca.dal.comparify.item.model.ItemRequestModel;
+import com.mongodb.client.model.Filters;
 import org.springframework.beans.factory.annotation.Autowired;
 import ca.dal.comparify.feedback.model.Feedback;
 import org.springframework.data.mongodb.repository.Query;
@@ -37,10 +38,13 @@ public class FeedbackService {
         return false;
     }
 
-
-
-
- }
+    /**
+     * @author Chanpreet Singh
+     */
+    public long getFeedbackCount(){
+        return mongoRepository.count(FEEDBACK_COLLECTION, Filters.empty());
+    }
+}
 
 
 
