@@ -283,6 +283,7 @@ function Menus(props) {
     } else {
       setTitlePage(titlesAdmin[index]);
       if (index === 0) {
+        navigate("analyticsadmin");
       } else if (index === 1) {
         navigate("addbrand");
       } else if (index === 2) {

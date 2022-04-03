@@ -18,6 +18,7 @@ import UserManagement from "./components/user_management/UserManagement";
 import AddStore from "./components/store/AddStore";
 import AddBrand from "./components/brand/AddBrand";
 import AddAdminproduct from "./components/products/addAdminproduct";
+import AnalyticsAdmin from "./components/analytics/AnalyticsAdmin";
 
 const AppRoutes = (props) => {
   return (
@@ -46,6 +47,7 @@ const AppRoutes = (props) => {
             <Route path="addbrand" element={<AddBrand />} />
             <Route path="addproductadmin" element={<AddAdminproduct />} />
             <Route path="users" element={<UserManagement />} />
+            <Route path="analyticsadmin" element={<AnalyticsAdmin />} />
           </Route>
         </Route>
       </Routes>
