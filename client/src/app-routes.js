@@ -7,6 +7,7 @@ import Alerts from "./components/alert/Alerts";
 import Menus from "./components/side-navigation/Menus";
 import UserProfile from "./components/user-profile/UserProfile";
 import AuthGuard from "./guard/AuthGuard";
+import SearchProduct from "./components/searchProducts/SearchProduct";
 import Register from "./components/register";
 import SetSecurityQuestion from "./components/forgetPassword/SetSecurityQuestion";
 import ResetPassword from "./components/forgetPassword/ResetPassword";
@@ -48,6 +49,8 @@ const AppRoutes = (props) => {
             <Route path="addproductadmin" element={<AddAdminproduct />} />
             <Route path="users" element={<UserManagement />} />
             <Route path="analyticsadmin" element={<AnalyticsAdmin />} />
+            <Route path="addstore" element={<AddStore />} />
+            <Route path="search" element={<SearchProduct />} />
           </Route>
         </Route>
       </Routes>

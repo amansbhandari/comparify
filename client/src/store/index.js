@@ -5,6 +5,7 @@ import thunkMiddleware from "redux-thunk";
 import authentication from "./reducers/authentication";
 import user from "./reducers/user";
 import alert from "./reducers/alert";
+import product from "./reducers/product";
 import item from "./reducers/item";
 import brand from "./reducers/brand";
 import notification from "./reducers/notification";
@@ -24,6 +25,7 @@ const appReducer = combineReducers({
   authentication,
   user,
   alert,
+  product,
   item,
   brand,
   notification,
