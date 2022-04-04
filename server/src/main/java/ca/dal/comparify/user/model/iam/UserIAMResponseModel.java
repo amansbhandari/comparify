@@ -33,4 +33,11 @@ public class UserIAMResponseModel {
     public void setRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
     }
+
+    @Override
+    public String toString() {
+        return "UserIAMResponseModel{" +
+            "token='" + token + '\'' +
+            '}';
+    }
 }

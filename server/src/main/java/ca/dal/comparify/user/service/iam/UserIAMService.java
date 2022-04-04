@@ -56,13 +56,12 @@ public class UserIAMService {
     /**
      * @param userIdentifier
      * @return
-     *
      * @author Harsh Shah
      */
     public UserPrincipal fetchUser(String userIdentifier) {
 
         UserIAMModel userIAMModel = userIAMRepository
-                .fetchUserAuthenticationInfo(userIdentifier);
+            .fetchUserAuthenticationInfo(userIdentifier);
 
         if (userIAMModel == null) {
             throw new UsernameNotFoundException(ApplicationConstant.CANNOT_FIND_USERNAME);
@@ -78,14 +77,13 @@ public class UserIAMService {
     /**
      * @param requestModel
      * @return
-     *
      * @author Harsh Shah
      */
     public UserIAMResponseModel authenticate(UserIAMRequestModel requestModel) {
 
         UsernamePasswordAuthenticationToken userCredAuthToken = new UsernamePasswordAuthenticationToken(
-                requestModel.getUserIdentifier(),
-                requestModel.getUserSecret());
+            requestModel.getUserIdentifier(),
+            requestModel.getUserSecret());
 
         Authentication auth = null;
         try {
@@ -93,15 +91,13 @@ public class UserIAMService {
         } catch (DisabledException e) {
             throw new UserAuthenticationException(e.getMessage(), 401, UserErrorCode.E2000.getCode());
         } catch (BadCredentialsException e) {
-
             invalidAuthenticationAttempt(requestModel.getUserIdentifier());
-
             throw new UserAuthenticationException(e.getMessage(), 401, UserErrorCode.E2001.getCode());
         } catch (LockedException e) {
             throw new UserAuthenticationException(e.getMessage(), 401, UserErrorCode.E2002.getCode());
         } catch (CredentialsExpiredException e) {
             throw new UserAuthenticationException(e.getMessage(), 401, UserErrorCode.E2003.getCode());
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new UserAuthenticationException(e.getMessage(), 401, UserErrorCode.E2006.getCode());
         }
 
@@ -112,7 +108,6 @@ public class UserIAMService {
 
     /**
      * @param userIdentifier
-     *
      * @author Harsh Shah
      */
     private void validAuthenticationAttempt(String userIdentifier) {
@@ -121,7 +116,6 @@ public class UserIAMService {
 
     /**
      * @param userIdentifier
-     *
      * @author Harsh Shah
      */
     private void invalidAuthenticationAttempt(String userIdentifier) {
@@ -132,25 +126,24 @@ public class UserIAMService {
      * @param userIdentifier
      * @param secret
      * @return
-     *
      * @author Harsh Shah
      */
     public int createUserIAMInfo(String userId, String userIdentifier, String secret) {
 
         if (isUserExists(userIdentifier)) {
             throw new EntityAlreadyExistsException("User already exists having " + userIdentifier + " User Identifier",
-                    400, UserErrorCode.E2004.getCode());
+                400, UserErrorCode.E2004.getCode());
         }
 
         UserAuthorizationModel authorization = new UserAuthorizationModel(USER, CREATE_ACTION, SYSTEM);
 
         UserAuthenticationModel authentication = new UserAuthenticationModel(
-                passwordEncoder.encode(secret),
-                true,
-                0,
-                DateUtils.addDaysToLocalNow(ACCOUNT_EXPIRATION_DAYS),
-                DateUtils.addDaysToLocalNow(SECRET_EXPIRATION_DAYS),
-                new ArrayList<>());
+            passwordEncoder.encode(secret),
+            true,
+            0,
+            DateUtils.addDaysToLocalNow(ACCOUNT_EXPIRATION_DAYS),
+            DateUtils.addDaysToLocalNow(SECRET_EXPIRATION_DAYS),
+            new ArrayList<>());
 
         return userIAMRepository.save(new UserIAMModel(userId, userIdentifier, authentication, authorization));
 
@@ -159,7 +152,6 @@ public class UserIAMService {
     /**
      * @param userIdentifier
      * @return
-     *
      * @author Harsh Shah
      */
     private boolean isUserExists(String userIdentifier) {
@@ -169,7 +161,6 @@ public class UserIAMService {
     /**
      * @param userId
      * @return
-     *
      * @author Harsh Shah
      */
     public UserRoleModel getUserRole(String userId) {
@@ -182,7 +173,6 @@ public class UserIAMService {
      * @param userIdentifier
      * @param userSecret
      * @return
-     *
      * @author Harsh Shah
      */
     public boolean updateUserSecret(String userIdentifier, String userSecret) {
@@ -191,14 +181,13 @@ public class UserIAMService {
     }
 
     /**
-     * @return 
-     * 
+     * @return
      * @author Harsh Shah
      */
-    public List<HashModel> checkUserSecretValidity(){
+    public List<HashModel> checkUserSecretValidity() {
 
         LocalDate date = DateUtils.addDaysToLocalNow(ALERT_BEFORE_SECRET_EXPIRATION_DAYS);
-        
+
         return userIAMRepository.checkUserSecretValidity(date);
     }
 
@@ -206,10 +195,19 @@ public class UserIAMService {
     /**
      * @param userId
      * @return
-     *
      * @author Harsh Shah
      */
     public List<HashModel> getAllUsers(String userId) {
         return userIAMRepository.getAllUsers();
+    }
+
+    /**
+     * @param userId
+     * @author Harsh Shah
+     * @return
+     */
+    public boolean logout(String userId) {
+        applicationScope.removeActiveUsers(userId);
+        return true;
     }
 }

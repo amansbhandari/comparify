@@ -110,6 +110,35 @@ public class MongoRepository {
     /**
      * @param collectionName
      * @param query
+     * @param classOf
+     * @param <T>
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    public <T> List<T> find(String collectionName, Bson query, PaginationOptions options, Class<T> classOf) {
+        MongoCollection<T> collection = getCollection(collectionName, classOf);
+
+        List<T> output = new ArrayList<>();
+
+        if (collection == null) {
+            return output;
+        }
+
+        collection.find(query)
+            .sort(options.getSort())
+            .allowDiskUse(true)
+            .iterator()
+            .forEachRemaining(output::add);
+
+
+        return output;
+    }
+
+
+    /**
+     * @param collectionName
+     * @param query
      * @param projection
      * @param classOf
      * @param <T>
@@ -139,6 +168,42 @@ public class MongoRepository {
         return output;
     }
 
+
+    /**
+     * @param collectionName
+     * @param query
+     * @param projection
+     * @param options
+     * @param classOf
+     * @param <T>
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    public <T> List<T> find(String collectionName, Bson query, Bson projection, PaginationOptions options,
+                            Class<T> classOf) {
+        MongoCollection<T> collection = getCollection(collectionName, classOf);
+
+        List<T> output = new ArrayList<>();
+
+        if (collection == null) {
+            return output;
+        }
+
+        if (projection == null) {
+            projection = new Document();
+        }
+
+        collection.find(query)
+            .sort(options.getSort())
+            .allowDiskUse(true)
+            .iterator()
+            .forEachRemaining(output::add);
+
+
+        return output;
+    }
+
     /**
      * @param collectionName
      * @param query
@@ -156,6 +221,27 @@ public class MongoRepository {
         }
 
         return collection.find(query).first();
+    }
+
+
+    /**
+     * @param collectionName
+     * @param query
+     * @param options
+     * @param classOf
+     * @param <T>
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    public <T> T findOne(String collectionName, Bson query, PaginationOptions options, Class<T> classOf) {
+        MongoCollection<T> collection = getCollection(collectionName, classOf);
+
+        if (collection == null) {
+            return null;
+        }
+
+        return collection.find(query).sort(options.getSort()).first();
     }
 
     /**
@@ -180,6 +266,31 @@ public class MongoRepository {
         }
 
         return collection.find(query).projection(projection).first();
+    }
+
+    /**
+     * @param collectionName
+     * @param query
+     * @param projection
+     * @param classOf
+     * @param <T>
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    public <T> T findOne(String collectionName, Bson query, Bson projection,
+                         PaginationOptions options, Class<T> classOf) {
+        MongoCollection<T> collection = getCollection(collectionName, classOf);
+
+        if (collection == null) {
+            return null;
+        }
+
+        if (projection == null) {
+            projection = new Document();
+        }
+
+        return collection.find(query).projection(projection).sort(options.getSort()).first();
     }
 
     /**

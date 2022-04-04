@@ -102,4 +102,8 @@ public class UserService {
     public List<HashModel> getAllUsers(String userId) {
         return userIAMService.getAllUsers(userId);
     }
+
+    public boolean logout(String userId) {
+        return userIAMService.logout(userId);
+    }
 }

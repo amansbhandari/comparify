@@ -12,6 +12,12 @@ import java.util.Map;
  */
 public class ResponseEntityUtils {
 
+    public static final String SUCCESS = "Success";
+    public static final String CREATED = "Created";
+    public static final String ENTITY_ALREADY_EXISTS = "Entity already exists";
+    public static final String REQUEST_FAILED_SOMETHING_WENT_WRONG = "Request Failed! Something went wrong...";
+    public static final String INVALID_REQUEST = "Invalid Request";
+
     ResponseEntityUtils(){}
 
     /**
@@ -29,28 +35,28 @@ public class ResponseEntityUtils {
 
             case 1:
                 httpStatus = HttpStatus.OK;
-                message = "Success";
+                message = SUCCESS;
                 break;
 
             case 0:
                 httpStatus = HttpStatus.CREATED;
-                message = "Created";
+                message = CREATED;
                 break;
 
             case -2:
                 httpStatus = HttpStatus.UNPROCESSABLE_ENTITY;
-                message = "Entity already exists";
+                message = ENTITY_ALREADY_EXISTS;
                 break;
 
             case -3:
                 customStatus = 512;
-                message = "Request Failed! Something went wrong...";
+                message = REQUEST_FAILED_SOMETHING_WENT_WRONG;
                 break;
 
             case -1:
             default:
                 httpStatus = HttpStatus.BAD_REQUEST;
-                message = "Invalid Request";
+                message = INVALID_REQUEST;
         }
 
         int responseStatus = httpStatus == null ? customStatus : httpStatus.value();

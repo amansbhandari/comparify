@@ -1,6 +1,7 @@
 package ca.dal.comparify.user.model.iam;
 
 import ca.dal.comparify.utils.StringUtils;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
@@ -60,15 +61,26 @@ public class UserIAMRequestModel implements Serializable {
         this.id = id;
     }
 
+    @JsonIgnore
     public boolean isEmpty(){
         return StringUtils.isAnyEmpty(userIdentifier, userSecret);
     }
 
+    @JsonIgnore
     public boolean isAllEmpty(){
         return StringUtils.isAllEmpty(userIdentifier, userSecret);
     }
 
+    @JsonIgnore
     public List<String> getRequiredFields(){
         return Arrays.asList(USER_IDENTIFIER, USER_SECRET);
+    }
+
+    @Override
+    public String toString() {
+        return "UserIAMRequestModel{" +
+            "userIdentifier='" + userIdentifier + '\'' +
+            ", userSecret='" + userSecret + '\'' +
+            '}';
     }
 }

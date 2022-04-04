@@ -78,9 +78,6 @@ public class AnalyticsRepository {
             match(new Document("status", "verified")
                 .append("productId", itemId)),
 
-
-            sortAscending("dateOfPurchase"),
-
             facet(new Document("brands", asList(
 
                 group(new Document("_id", "$brandId"))))
@@ -90,7 +87,9 @@ public class AnalyticsRepository {
                         new Document("date", "$dateOfPurchase")
                             .append("brand", "$brandId"))
                         .append("price",
-                            first("$price")))))));
+                            first("$price"))),
+                    sortAscending("_id.date")
+                    ))));
 
 
         return mongoRepository.aggregateOne(CompareItemRepository.ITEM_COLLECTION, pipeline,

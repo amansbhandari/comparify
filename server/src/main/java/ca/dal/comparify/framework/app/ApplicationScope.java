@@ -41,6 +41,19 @@ public class ApplicationScope {
 
     /**
      * @param userId
+     *
+     * @author Harsh Shah
+     */
+    public void removeActiveUsers(String userId) {
+        if(this.activeUsers == null){
+            this.activeUsers = new HashSet<>();
+        }
+
+        this.activeUsers.remove(userId);
+    }
+
+    /**
+     * @param userId
      * @return
      *
      * @author Harsh Shah
