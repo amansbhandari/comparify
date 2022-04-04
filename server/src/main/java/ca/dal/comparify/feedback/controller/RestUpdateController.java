@@ -28,7 +28,7 @@ public class RestUpdateController {
 
     @PostMapping("/feedback")
     @ResponseBody
-    public String userFeedback(@ModelAttribute Feedback fb) {
+    public String userFeedback(@RequestBody Feedback fb) {
         fb.setDate(LocalDate.now());
         boolean data = feedbackService.addFeedback(fb);
         sendEmail(fb);
@@ -46,7 +46,7 @@ public class RestUpdateController {
 
         HashModel model = new HashModel();
 
-        model.put("feedback", feedback.getUsersfeedback());
+        model.put("feedback", feedback.getUsersFeedback());
         model.put("suggestion", feedback.getSuggestions());
 
         mailService.send(feedback.getEmail(), subject, "feedback-template.html",model);

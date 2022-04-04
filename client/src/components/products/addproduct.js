@@ -50,6 +50,7 @@ const classes = useStyles();
     
   
    function handleSubmit(event) {
+    event.preventDefault();
      addproducts({
     
       "userId": localStorage.getItem('user-id'), "product":itemCategory, "productId":product, "brandId":brand, "storeId":store, "unit":volume,"dateOfPurchase": date,"price":price, discount,
@@ -131,7 +132,7 @@ return(
 
       <div>
       <Box sx={{ m: 3}}></Box> 
-        <TextField id="discount" label="Discount" variant="outlined"  type="number" value={discount} fullWidth={170} onChange={(e) => setDiscount(e.target.value)}
+        <TextField id="discount" label="Discount (in %)" variant="outlined"  type="number" value={discount} fullWidth={170} onChange={(e) => setDiscount(e.target.value)}
          />
       </div> 
 
