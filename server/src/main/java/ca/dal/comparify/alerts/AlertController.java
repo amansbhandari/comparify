@@ -31,9 +31,8 @@ public class AlertController {
      */
     @PostMapping("")
     public ResponseEntity<Map<String, String>> create(@RequestBody AlertRequestModel model){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        int status = alertService.create(model, (String) auth.getPrincipal());
-
+        String userId = SecurityUtils.getPrincipal(SecurityContextHolder.getContext());
+        int status = alertService.create(model, userId);
         return ResponseEntityUtils.returnStatus(status);
     }
 
@@ -44,8 +43,8 @@ public class AlertController {
      */
     @GetMapping("")
     public List<AlertResponseModel> fetch(){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return alertService.fetch((String) auth.getPrincipal());
+        String userId = SecurityUtils.getPrincipal(SecurityContextHolder.getContext());
+        return alertService.fetch(userId);
     }
 
 

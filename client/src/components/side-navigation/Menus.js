@@ -268,7 +268,7 @@ function Menus(props) {
     if (user.role.role_id === "USER") {
       setTitlePage(titles[index]);
       if (index === 0) {
-        //setDetailPage(<h1>Our home page detail page can be added by replacing this!</h1>)
+        navigate("/home")
       } else if (index === 1) {
         navigate("addproduct");
       } else if (index === 2) {

@@ -14,7 +14,7 @@ const AnalyticsAdmin = (props) => {
 
   useEffect(() => {
     dispatch(getStatistics());
-  });
+  }, [dispatch]);
   return (
     <div
       style={{

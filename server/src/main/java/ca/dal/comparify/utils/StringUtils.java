@@ -58,4 +58,14 @@ public class StringUtils {
 
         return true;
     }
+
+    /**
+     * @param value
+     * @return
+     *
+     * @author Harsh Shah
+     */
+    public static String valueOf(Object value){
+        return String.valueOf(value);
+    }
 }

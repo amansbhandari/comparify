@@ -35,7 +35,7 @@ const appReducer = combineReducers({
   saveBrand,
   analytics,
   search,
-  statistics,
+  statistics
 });
 
 const rootReducer = (state, action) => {

@@ -16,6 +16,10 @@ public class UserRoleModel {
 
     private AuditModel audit;
 
+    public UserRoleModel(UserAuthorizationRoleEnum roleId) {
+        this.roleId = roleId;
+    }
+
     public UserRoleModel(String id, UserAuthorizationRoleEnum roleId, AuditModel audit) {
         this.id = id;
         this.roleId = roleId;
