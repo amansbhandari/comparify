@@ -21,9 +21,13 @@ import AddBrand from "./components/brand/AddBrand";
 import AddAdminproduct from "./components/products/addAdminproduct";
 import AnalyticsAdmin from "./components/analytics/AnalyticsAdmin";
 import ComparePrice from "./components/ComparePrices/ComparePrice";
+import { useSelector } from "react-redux";
 
 
 const AppRoutes = (props) => {
+
+  const userRole = useSelector((state) => state.user.role.role_id);
+
   return (
     <Router basename={process.env.REACT_APP_BASE_HREF}>
       <Routes>
@@ -40,7 +44,7 @@ const AppRoutes = (props) => {
         </Route>
         <Route element={<AuthGuard />}>
           <Route path="/home" element={<Menus />}>
-            <Route index element={<SearchProduct />} />
+            <Route index element={userRole === "USER" ? <SearchProduct /> : <AnalyticsAdmin />} />
             <Route path="compare" element={<ComparePrice { ...props } />} />
             <Route path="analytics" element={<Analytics />} />
             <Route path="alert" element={<Alerts />} />
@@ -51,7 +55,6 @@ const AppRoutes = (props) => {
             <Route path="addbrand" element={<AddBrand />} />
             <Route path="addproductadmin" element={<AddAdminproduct />} />
             <Route path="users" element={<UserManagement />} />
-            <Route path="analyticsadmin" element={<AnalyticsAdmin />} />
             <Route path="addstore" element={<AddStore />} />
           </Route>
         </Route>

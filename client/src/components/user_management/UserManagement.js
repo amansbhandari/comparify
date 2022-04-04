@@ -131,7 +131,7 @@ export default function UserManagement() {
     };
 
     return (
-        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+        <Paper sx={{ width: '100%', overflow: 'hidden',  }}>
             <TableContainer sx={{ maxHeight: 500 }} >
                 <Table stickyHeader sx={{ minWidth: 500 }} aria-label="custom pagination table">
                     <TableHead >
@@ -140,7 +140,8 @@ export default function UserManagement() {
                         }}>
 
                             {columns.map(column => {
-                                return (<TableCell sx={{ color: "#fff", background: "#1976d2" }} key={column.id}>
+                                return (<TableCell sx={{ color: "#fff", background: "#1976d2",
+                                fontSize: theme.typography.fontSize }} key={column.id}>
                                     {column.label}
                                 </TableCell>)
                             })}
@@ -154,7 +155,7 @@ export default function UserManagement() {
                             <TableRow hover key={row.id}
                                 sx={{ cursor: "pointer" }}>
                                 {columns.map(column => {
-                                    return (<TableCell key={column.id}>
+                                    return (<TableCell key={column.id} sx={{fontSize: theme.typography.fontSize}}>
                                         {row[column.id]}
                                     </TableCell>)
                                 })}
