@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MediaCard from "./MediaCard";
 import brand from "../../assets/images/brand.png";
 import feedback from "../../assets/images/feedback3.png";
 import products from "../../assets/images/products.png";
 import shop from "../../assets/images/shop.png";
 import users from "../../assets/images/users.png";
+import { useDispatch, useSelector } from "react-redux";
+import { getStatistics } from "../../store/thunk/statisticsAdmin";
 
 const AnalyticsAdmin = (props) => {
+  const dispatch = useDispatch();
+  const stats = useSelector((state) => state.statistics.stats);
+
+  useEffect(() => {
+    dispatch(getStatistics());
+  });
   return (
     <div
       style={{
@@ -19,11 +27,23 @@ const AnalyticsAdmin = (props) => {
         flexBasis: "33%",
       }}
     >
-      {<MediaCard description="100" title="Brands" image={brand} />}
-      {<MediaCard description="90" title="Stores" image={shop} />}
-      {<MediaCard description="80" title="Feedbacks" image={feedback} />}
-      {<MediaCard description="70" title="Users" image={users} />}
-      {<MediaCard description="50" title="Products" image={products} />}
+      {<MediaCard description={stats.brand} title="Brands" image={brand} />}
+      {<MediaCard description={stats.stores} title="Stores" image={shop} />}
+      {
+        <MediaCard
+          description={stats.feedback}
+          title="Feedbacks"
+          image={feedback}
+        />
+      }
+      {<MediaCard description={stats.users} title="Users" image={users} />}
+      {
+        <MediaCard
+          description={stats.product}
+          title="Products"
+          image={products}
+        />
+      }
     </div>
   );
 };
