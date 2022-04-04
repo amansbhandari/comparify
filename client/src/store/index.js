@@ -34,7 +34,7 @@ const appReducer = combineReducers({
   store,
   saveBrand,
   analytics,
-  search
+  search,
   statistics
 });
 
