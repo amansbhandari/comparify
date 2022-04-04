@@ -4,7 +4,7 @@ import httpClient from "./interceptor";
 
 export const fetchPriceTrend = (itemId) => async (dispatch) => {
   try {
-    const { data } = await httpClient.get("/analysis", { params: { "item_id": itemId } });
+    const { data } = await httpClient.get("/analytics", { params: { "item_id": itemId } });
     dispatch(gotPriceTrend(data));
   } catch (error) {
     dispatch(failedGetPriceTrend(error));
@@ -13,7 +13,7 @@ export const fetchPriceTrend = (itemId) => async (dispatch) => {
 
 export const fetchPriceTrendForBrands = (itemId) => async (dispatch) => {
   try {
-    const { data } = await httpClient.get("/analysis/brands", { params: { "item_id": itemId } });
+    const { data } = await httpClient.get("/analytics/brands", { params: { "item_id": itemId } });
     dispatch(gotPriceTrendForBrands(data));
   } catch (error) {
     dispatch(failedGetPriceTrendForBrands(error));

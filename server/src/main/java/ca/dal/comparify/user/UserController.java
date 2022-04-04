@@ -1,9 +1,8 @@
 package ca.dal.comparify.user;
 
-import ca.dal.comparify.framework.exception.InvalidFormatException;
 import ca.dal.comparify.constant.ApplicationConstant;
+import ca.dal.comparify.framework.exception.InvalidFormatException;
 import ca.dal.comparify.framework.exception.MissingRequiredFieldException;
-import ca.dal.comparify.framework.notification.push.WebPushNotificationService;
 import ca.dal.comparify.model.HashModel;
 import ca.dal.comparify.user.model.SignupRequest;
 import ca.dal.comparify.user.model.iam.UserDetailsModel;
@@ -14,8 +13,9 @@ import ca.dal.comparify.user.model.iam.authorization.UserRoleModel;
 import ca.dal.comparify.user.service.UserDetailsService;
 import ca.dal.comparify.user.service.UserService;
 import ca.dal.comparify.utils.ResponseEntityUtils;
-import ca.dal.comparify.utils.UUIDUtils;
 import ca.dal.comparify.utils.SecurityUtils;
+import ca.dal.comparify.utils.StringUtils;
+import ca.dal.comparify.utils.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -40,17 +40,13 @@ public class UserController {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    @Autowired
-    private WebPushNotificationService webPushNotificationService;
-
     /**
      * @param userIAMRequestModel
      * @return
      * @author Harsh Shah
      */
     @PostMapping("/authentication")
-    public UserIAMResponseModel authentication(@RequestBody UserIAMRequestModel userIAMRequestModel)
-        throws ExecutionException, InterruptedException {
+    public UserIAMResponseModel authentication(@RequestBody UserIAMRequestModel userIAMRequestModel) {
 
         if (userIAMRequestModel.isEmpty()) {
             throw new MissingRequiredFieldException(400, 1000, userIAMRequestModel.getRequiredFields());
@@ -70,13 +66,12 @@ public class UserController {
             throw new MissingRequiredFieldException(400, 1000, new ArrayList<>());
         }
 
-        if(!signupRequest.validateEmail())
-        {
-            throw new InvalidFormatException("Invalid Format",1000,2005);
+        if (!signupRequest.validateEmail()) {
+            throw new InvalidFormatException("Invalid Format", 1000, 2005);
         }
 
-        if(!signupRequest.HasValidPasswordPattern(signupRequest.getPassword())){
-            throw new InvalidFormatException("Invalid Format",1000,2005);
+        if (!signupRequest.HasValidPasswordPattern(signupRequest.getPassword())) {
+            throw new InvalidFormatException("Invalid Format", 1000, 2005);
         }
 
         signupRequest.setId(UUIDUtils.generate());
@@ -90,8 +85,7 @@ public class UserController {
         int status = userService.register(signupRequest);
 
 
-
-        if(status == 0) {
+        if (status == 0) {
 
             if (userIAMRequestModel.isEmpty()) {
                 throw new MissingRequiredFieldException(400, 1000, userIAMRequestModel.getRequiredFields());
@@ -122,7 +116,8 @@ public class UserController {
      */
     @GetMapping("/logout")
     public Map<String, Boolean> logout() {
-        return Collections.singletonMap(ApplicationConstant.STATUS, true);
+        String userId = SecurityUtils.getPrincipal(SecurityContextHolder.getContext());
+        return Collections.singletonMap(ApplicationConstant.STATUS, userService.logout(userId));
     }
 
 
@@ -160,13 +155,12 @@ public class UserController {
     /**
      * @param userIAMRequestModel
      * @return
-     *
      * @author Harsh Shah
      */
     @PutMapping("/iam")
     public ResponseEntity<Map<String, String>> update(@RequestBody UserIAMRequestModel userIAMRequestModel) {
 
-        if (userIAMRequestModel.isAllEmpty()) {
+        if (userIAMRequestModel.isEmpty()) {
             throw new MissingRequiredFieldException(400, 1000, userIAMRequestModel.getRequiredFields());
         }
 
@@ -178,7 +172,6 @@ public class UserController {
 
     /**
      * @return
-     *
      * @author Harsh Shah
      */
     @GetMapping("/all")
