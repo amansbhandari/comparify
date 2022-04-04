@@ -6,6 +6,8 @@ import { useState } from "react";
 import { addfeedback } from "../../store/thunk/userThunkCreators";
 import { Avatar } from "@mui/material";
 import logo from '../../assets/logo/logo-512-trans.png';
+import Grid from '@mui/material/Grid';
+import { Button} from "@material-ui/core";
 
 
 const Feedback = () =>{
@@ -13,10 +15,12 @@ const Feedback = () =>{
     root: {
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center',
       marginTop: "30px",
+      marginLeft:"200px",
+      marginRight:"200px",
+      
       backgroundImage : `url(${logo})`,
-      width: '100%',  
+       
       height: '100%',
   },
   imageContainer: {
@@ -27,11 +31,18 @@ const Feedback = () =>{
   image: {
       width: "100%"
   },
-  editableField: {
-      width : '50%',
-      float : 'right',
-      fontSize: 18,
-  },
+  
+buttonContainer: {
+    display: "flex",
+    justifyContent: "end"
+},
+field:{
+  alignItems: 'center',
+  flexDirection: 'column',
+  marginTop: "25px",
+  marginBottom: "25px",
+  width: "70%",
+},
   grid:{
       display: 'flex',
       flexDirection: 'column',
@@ -48,51 +59,50 @@ const Feedback = () =>{
     }
   });
 
-    const [email, setEmail] = useState("");
+    
     const [feedback, setFeedback] = useState("");
     const [suggestions, setSuggestions] = useState("");
 
     
-      function handleSubmit(event) {
-        event.preventdefault();
+  function handleSubmit(event) {
+        event.preventDefault();
         addfeedback({
-        
-        "email": email, "Usersfeedback": feedback, "suggestions": suggestions 
+        "usersFeedback": feedback, "suggestions": suggestions 
         })
 
       
-       
-      }
+        }
     const classes = useStyles();
     
 return(
 
 <Box className={classes.root} >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' , alignSelf:"center"}}>
                     </Avatar>
-                    <Typography component="h1" variant="h5">
+                    <Typography component="h1" variant="h5" align="center">
                         Add Feedback
                     </Typography>
     <form onSubmit={handleSubmit}>
+      
       <div>
-        <TextField id="email" label="Email" variant="outlined" value={email} onChange={(e) => setEmail(e.target.value)} />
-      </div>
-      <div>
-       
-       <Box sx={{ m: 3}} /> 
-        <TextField id="feedback" label="Feedback" variant="outlined" value={feedback} multiline={true} rows={3} onChange={(e) => setFeedback(e.target.value)}
+        <Box sx={{ m: 3}} /> 
+        <TextField id="feedback" label="Feedback" variant="outlined" value={feedback}  fullWidth={100} onChange={(e) => setFeedback(e.target.value)}
         />
       </div>
       <div>
-      
-         <Box sx={{ m: 3}} /> 
-        <TextField id="suggestions" label="Suggestions" variant="outlined" value={suggestions} multiline={true} rows={5} onChange={(e) => setSuggestions(e.target.value)}
+  
+        <Box sx={{ m: 3}} />  
+        <TextField id="suggestions" label="Suggestions" variant="outlined" value={suggestions} multiline={true}  fullWidth={100} rows={5} onChange={(e) => setSuggestions(e.target.value)}
          />
       </div> 
       
-      <Box sx={{ m: 3}}></Box> 
-      <button variant="contained" style={{display: "flex", justifyContent: "right", color:"primary" }} className="float-right" type="submit">Submit</button>
-    </form>
+<Box sx={{ m: 3}}></Box>
+    <Grid item className={classes.buttonContainer} >
+                        <Button color="primary" variant="contained" type="submit" className={classes.button}> Submit
+    </Button>
+                    </Grid>
+                    </form>
+
 
                     
        </Box>

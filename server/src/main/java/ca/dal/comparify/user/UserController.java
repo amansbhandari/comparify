@@ -62,11 +62,10 @@ public class UserController {
     /**
      * @param signupRequest
      * @return
-     * @author Harsh Shah
+     * @author Meghna Rupchandani
      */
     @PostMapping("/register")
     public ResponseEntity<Map<String, String>> register(@RequestBody SignupRequest signupRequest){
-        // validate - optional
         if(!signupRequest.validate()){
             throw new MissingRequiredFieldException(400, 1000, new ArrayList<>());
         }

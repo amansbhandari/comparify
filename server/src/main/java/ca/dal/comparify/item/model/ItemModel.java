@@ -10,7 +10,6 @@ import org.bson.codecs.pojo.annotations.BsonProperty;
  */
 public class ItemModel extends ItemRequestModel {
 
-    @BsonId
     private String id;
 
     @BsonProperty("default_image")

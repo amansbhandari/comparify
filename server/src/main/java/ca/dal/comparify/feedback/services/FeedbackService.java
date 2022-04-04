@@ -33,9 +33,9 @@ public class FeedbackService {
         int result = mongoRepository.insertOne(FEEDBACK_COLLECTION, f , Feedback.class);
 
         if(result == 0)
-            return true;
-
-        return false;
+        { return true;}
+        else
+        {return false;}
     }
 
     /**

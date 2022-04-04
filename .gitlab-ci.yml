@@ -89,7 +89,7 @@ build_client:
   stage: build
   image: node:16
   tags:
-    - dalfcs_docker_autoscale
+    - dalfcs_docker_kvm
   script:
     - cd client
     - npm install

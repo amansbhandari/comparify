@@ -3,6 +3,7 @@ package ca.dal.comparify.feedback.model;
 import ca.dal.comparify.utils.UUIDUtils;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.codecs.pojo.annotations.BsonProperty;
+import org.bson.types.ObjectId;
 
 import java.time.LocalDate;
 
@@ -13,9 +14,9 @@ public class Feedback{
      * @author Meghna Rupchandani
      */
     @BsonId
-    private String id;
+    private ObjectId id;
     @BsonProperty
-    private String email, Usersfeedback, suggestions;
+    private String email, usersFeedback, suggestions;
     @BsonProperty
     private LocalDate date ;
 
@@ -23,38 +24,20 @@ public class Feedback{
 
     }
 
-    public Feedback(String email, String Usersfeedback, String suggestions) {
-        this.id = UUIDUtils.generate();
+    public Feedback(ObjectId id, String email, String usersFeedback, String suggestions, LocalDate date) {
+        this.id = id;
         this.email = email;
-        this.Usersfeedback = Usersfeedback;
+        this.usersFeedback = usersFeedback;
         this.suggestions = suggestions;
-        this.date = LocalDate.now();
+        this.date = date;
     }
 
-//    public Feedback(String id, String email, String Usersfeedback, String suggestions) {
-//        this.id = id;
-//        this.email = email;
-//        this.Usersfeedback = Usersfeedback;
-//        this.suggestions = suggestions;
-//    }
-
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
-    }
-
-    @Override
-    public String toString() {
-        return "Feedback{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", feedback='" + Usersfeedback + '\'' +
-                ", suggestions='" + suggestions + '\'' +
-                ", date='" + date + '\'' +
-                '}';
     }
 
     public String getEmail() {
@@ -65,12 +48,12 @@ public class Feedback{
         this.email = email;
     }
 
-    public String getUsersfeedback() {
-        return Usersfeedback;
+    public String getUsersFeedback() {
+        return usersFeedback;
     }
 
-    public void setUsersfeedback(String usersfeedback) {
-        this.Usersfeedback = usersfeedback;
+    public void setUsersFeedback(String usersFeedback) {
+        this.usersFeedback = usersFeedback;
     }
 
     public String getSuggestions() {
