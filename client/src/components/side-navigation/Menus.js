@@ -33,11 +33,12 @@ import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import AddBusinessIcon from "@mui/icons-material/AddBusiness";
 import BrandingWatermarkIcon from "@mui/icons-material/BrandingWatermark";
+import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 
 const style = {
   root: {},
   fabContainer: {
-    position: "absolute !important",
+    position: "fixed !important",
     bottom: "50px",
     right: "50px",
   },
@@ -52,10 +53,13 @@ function Menus(props) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
+  const userRole = useSelector((state) => state.user.role.role_id);
+
   //Titles stored for all the menus
   var titles = [
     "Home",
     "Add Item",
+    "Analytics",
     "Alerts",
     "Feedback",
     "User Profile",
@@ -96,10 +100,11 @@ function Menus(props) {
     if (user.role.role_id === "USER") {
       if (index === 0) return <HomeIcon />;
       else if (index === 1) return <BrandingWatermarkIcon />;
-      else if (index === 2) return <AddAlertOutlinedIcon />;
-      else if (index === 3) return <FeedbackIcon />;
-      else if (index === 4) return <AccountCircleIcon />;
-      else if (index === 5) return <LogoutIcon />;
+      else if (index === 2) return <AutoGraphIcon />;
+      else if (index === 3) return <AddAlertOutlinedIcon />;
+      else if (index === 4) return <FeedbackIcon />;
+      else if (index === 5) return <AccountCircleIcon />;
+      else if (index === 6) return <LogoutIcon />;
       else return <AddIcon />;
     } else {
       if (index === 0) return <HomeIcon />;
@@ -158,6 +163,7 @@ function Menus(props) {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
+    <>{ userRole &&  
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar
@@ -261,7 +267,7 @@ function Menus(props) {
           </Fab>
         </>
       )}
-    </Box>
+    </Box>}</>
   );
 
   function menuClicked(index) {
@@ -272,19 +278,20 @@ function Menus(props) {
       } else if (index === 1) {
         navigate("addproduct");
       } else if (index === 2) {
-        navigate("alert");
+        navigate("analytics");
       } else if (index === 3) {
-        navigate("feedback");
+        navigate("alert");
       } else if (index === 4) {
+        navigate("feedback");
+      } else if (index === 5) {
         navigate("profile");
       } else {
         dispatch(logout());
       }
     } else {
       setTitlePage(titlesAdmin[index]);
-      if (index === 0) {
-        navigate("analyticsadmin");
-      } else if (index === 1) {
+      if (index === 0) {} 
+      else if (index === 1) {
         navigate("addbrand");
       } else if (index === 2) {
         navigate("addstore");
