@@ -8,7 +8,7 @@ export const ProductList = (products) => (
 
   id="productName"
   select
-  label="product Name"
+  label="Product Name"
   name="{products.itemName}"
   fullWidth={170}
   onChange={products.onChange}

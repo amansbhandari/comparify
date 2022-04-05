@@ -5,8 +5,9 @@ import { TextField, makeStyles} from "@material-ui/core";
 import { useState} from "react";
 import { addAdminproducts } from "../../store/thunk/userThunkCreators";
 import ImageUploader from "../image/ImageUploader";
-
+import logo from '../../assets/logo/logo-512-trans.png';
 import ItemCategories from "./ItemCategories";
+import { Button} from "@material-ui/core";
 
 
 const AddAdminproduct = () =>{
@@ -14,17 +15,16 @@ const AddAdminproduct = () =>{
     root: {
       background: "linear-gradient",
       minWidth: "100%",
-      minHeight: "100vh",
+      minHeight: "40vh",
+      backgroundImage : `url(${logo})`,
       display: "flex",
       flexDirection: "column",
       justifyContent: "center"
     },
-    card: {
-      maxWidth: "40%",
-      minHeight: "20vh",
+    buttonContainer: {
       display: "flex",
-      alignItems: "center"
-    },
+      justifyContent: "end"
+  },
     select: {
         background: 'transparent'
     }
@@ -54,10 +54,6 @@ const classes = useStyles();
   function handleCategory(itemVal){
     setCategory(itemVal);
 }
-
-
-
- 
 
 return(
     
@@ -93,11 +89,13 @@ return(
       </div>
 
 
-    <Box sx={{ m: 3}}></Box> 
-      <button variant="contained" style={{display: "flex", justifyContent: "right", color:"primary" }} className="float-right" type="submit">Submit</button>
-    </form>
-    
-    </Grid>
+    <Box sx={{ m: 3}}></Box>
+    <Grid item className={classes.buttonContainer} >
+                        <Button color="primary" variant="contained" type="submit" alignItems="right" className={classes.button}> Submit
+    </Button>
+                    </Grid>
+                    </form>
+                    </Grid>
    
 )
 }

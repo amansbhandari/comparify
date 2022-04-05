@@ -7,7 +7,7 @@ export const StoreList = (stores) => (
 
   id="store name"
   select
-  label="store name"
+  label="Store Name"
   name="{stores.storeName}"
   fullWidth={170}
   onChange={stores.onChange}

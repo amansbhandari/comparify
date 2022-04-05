@@ -10,23 +10,18 @@ export const BrandList = (brands) => (
   label="Brand Name"
   name="{brands.username}"
   fullWidth={170}
-  // value={currency}
-  onChange={brands.onChange}
+ onChange={brands.onChange}
   variant="outlined"
   SelectProps={{
     native: true,
   }}
-  //variant="outlined"
+
 >
  <option defaultValue>Brand Name {brands.name}</option> 
      {brands.options.map((item, index) => (
        <option key={index} value={item.id}>
         {item.name}
     </option>
-  // {products.map((option) => (
-  //   <option key={option.id} value={option.username}>
-  //     {option.username}
-  //   </option>
   ))}
 </TextField>
 )
@@ -39,10 +34,7 @@ export default class BrandListDropDown extends React.Component {
     }
   }
   componentDidMount() {
-    // fetch('https://jsonplaceholder.typicode.com/users')
-    //   .then((response) => response.json())
-    //   .then((res) => this.setState({ collection: res }))
-
+    
     brandListDropDown().then((data) => {
       this.setState({ collection: data })
     })
