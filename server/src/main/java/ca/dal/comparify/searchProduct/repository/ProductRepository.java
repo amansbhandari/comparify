@@ -7,17 +7,15 @@ import ca.dal.comparify.compareitems.model.CompareItemsModel;
 import ca.dal.comparify.searchProduct.model.Product;
 import ca.dal.comparify.store.model.StoreModel;
 
-import io.micrometer.core.ipc.http.HttpSender.Method;
 
 import java.util.ArrayList;
 import java.util.List;
 import static ca.dal.comparify.mongo.MongoUtils.eq;
-import static ca.dal.comparify.mongo.MongoUtils.set;
+
 import static ca.dal.comparify.mongo.MongoUtils.and;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoProperties.Storage;
 import org.springframework.stereotype.Service;
 
 @Service
