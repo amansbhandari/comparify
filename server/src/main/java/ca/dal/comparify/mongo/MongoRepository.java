@@ -1,12 +1,12 @@
 package ca.dal.comparify.mongo;
 
-import ca.dal.comparify.model.HashModel;
 import ca.dal.comparify.utils.ObjectUtils;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.MongoException;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.IndexOptions;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.InsertManyResult;
 import com.mongodb.client.result.InsertOneResult;
@@ -175,8 +175,8 @@ public class MongoRepository {
      * @return
      * @author Harsh Shah
      */
-    public <T> List<T> find(String collectionName, Bson query, Bson projection, PaginationOptions options,
-                            Class<T> classOf) {
+    public <T> List<T> find(String collectionName, Bson query, Bson projection,
+                            PaginationOptions options, Class<T> classOf) {
         MongoCollection<T> collection = getCollection(collectionName, classOf);
 
         List<T> output = new ArrayList<>();
@@ -344,29 +344,6 @@ public class MongoRepository {
         return collection.countDocuments(query);
     }
 
-
-    /**
-     * @param collectionName
-     * @param query
-     * @param update
-     * @return
-     * @author Harsh Shah
-     */
-    public boolean updateOne(String collectionName, Bson query, HashModel update) {
-        MongoCollection<Document> collection = getCollection(collectionName);
-
-        if (collection == null) {
-            return false;
-        }
-
-        Document params = new Document("$set", new Document(update));
-
-        UpdateResult result = collection.updateOne(query, params);
-
-        return result.wasAcknowledged();
-    }
-
-
     /**
      * @param collectionName
      * @param query
@@ -405,24 +382,6 @@ public class MongoRepository {
         }
 
         DeleteResult result = collection.deleteOne(query);
-
-        return result.wasAcknowledged();
-    }
-
-    /**
-     * @param collectionName
-     * @param query
-     * @return
-     * @author Harsh Shah
-     */
-    public boolean deleteMany(String collectionName, Bson query) {
-        MongoCollection<Document> collection = getCollection(collectionName);
-
-        if (collection == null) {
-            return false;
-        }
-
-        DeleteResult result = collection.deleteMany(query);
 
         return result.wasAcknowledged();
     }
@@ -478,9 +437,33 @@ public class MongoRepository {
     /**
      * @param collectionName
      * @author Harsh Shah
+     * @return
      */
-    public void dropCollection(String collectionName) {
+    public boolean dropCollection(String collectionName) {
         MongoCollection<Document> collection = getCollection(collectionName);
+
+        if(null == collection){
+            return false;
+        }
+
         collection.drop();
+        return true;
+    }
+
+    /**
+     * @param collectionName
+     * @param index
+     * @param unique
+     * @return
+     * @author Harsh Shah
+     */
+    public String createIndex(String collectionName, Document index, boolean unique) {
+        MongoCollection<Document> collection = getCollection(collectionName);
+
+        if(null == collection){
+            return null;
+        }
+
+        return collection.createIndex(index, new IndexOptions().unique(unique));
     }
 }

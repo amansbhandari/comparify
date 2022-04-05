@@ -140,7 +140,7 @@ public class AlertService {
 
         if(alertsOnInformationAvailable.isEmpty() &&
             alertsOnPriceDrop.isEmpty() &&
-            alertsOnPriceDrop.isEmpty()){
+            alertsOnPriceRange.isEmpty()){
             return;
         }
 
