@@ -134,6 +134,15 @@ public class StoreRepositoryTest {
 
         assertEquals(storeRepository.getStoreCount(), new Long(2));
     }
+    
+    /**
+     * @author Chanpreet Singh
+     */
+    @Test
+    void getResponseMessageTestUnknown()
+    {
+        assertEquals(storeRepository.getResponseMessage(-3),"Unknown Error");
 
+    }
 
 }

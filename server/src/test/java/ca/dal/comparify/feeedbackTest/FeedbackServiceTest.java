@@ -108,4 +108,26 @@ public class FeedbackServiceTest {
         }
 
     }
+
+    /**
+     * @author Chanpreet Singh
+     */
+    @Test
+    void TestaddFeedback2(){
+
+        ObjectId id=null;
+        LocalDate date=LocalDate.now();
+        Feedback feedbackmodel =new Feedback();
+        feedbackmodel.setId(id);
+        feedbackmodel.setUsersFeedback("DummyData");
+        feedbackmodel.setSuggestions("Dummydata");
+        feedbackmodel.setDate(date);
+
+        List feedbackmodels =new ArrayList<>();
+
+        feedbackmodels.add(feedbackmodel);
+
+        when(mongoRepository.insertOne(any(),any(),any())).thenReturn(1);
+        assertEquals(feedbackService.addFeedback(feedbackmodel), false);
+    }
 }
