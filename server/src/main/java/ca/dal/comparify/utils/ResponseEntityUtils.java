@@ -18,20 +18,20 @@ public class ResponseEntityUtils {
     public static final String REQUEST_FAILED_SOMETHING_WENT_WRONG = "Request Failed! Something went wrong...";
     public static final String INVALID_REQUEST = "Invalid Request";
 
-    ResponseEntityUtils(){}
+    private ResponseEntityUtils() {
+    }
 
     /**
      * @param status
      * @return
-     *
      * @author Harsh Shah
      */
-    public static ResponseEntity<Map<String, String>> returnStatus(int status){
+    public static ResponseEntity<Map<String, String>> returnStatus(int status) {
         HttpStatus httpStatus = null;
         int customStatus = HttpStatus.BAD_REQUEST.value();
         String message = null;
 
-        switch (status){
+        switch (status) {
 
             case 1:
                 httpStatus = HttpStatus.OK;

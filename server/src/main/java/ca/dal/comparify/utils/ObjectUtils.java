@@ -18,15 +18,17 @@ public class ObjectUtils {
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
     }
 
-    private ObjectUtils(){}
+    private ObjectUtils() {
+    }
 
     /**
      * @param json
      * @param classOf
      * @param <T>
      * @return
+     * @author Harsh Shah
      */
-    public static <T> T read(String json, Class<T> classOf){
+    public static <T> T read(String json, Class<T> classOf) {
         try {
             return mapper.readValue(json, classOf);
         } catch (JsonProcessingException e) {
@@ -35,8 +37,12 @@ public class ObjectUtils {
     }
 
 
-
-    public static String write(Object object){
+    /**
+     * @param object
+     * @return
+     * @author Harsh Shah
+     */
+    public static String write(Object object) {
         try {
             return mapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {
@@ -49,10 +55,9 @@ public class ObjectUtils {
      * @param classOf
      * @param <T>
      * @return
-     *
      * @author Harsh Shah
      */
-    public static <T> T convert(Object object, Class<T> classOf){
+    public static <T> T convert(Object object, Class<T> classOf) {
         try {
             return read(mapper.writeValueAsString(object), classOf);
         } catch (JsonProcessingException e) {
@@ -65,10 +70,9 @@ public class ObjectUtils {
      * @param classOf
      * @param <T>
      * @return
-     *
      * @author Harsh Shah
      */
-    public static <T> List<T> convert(List<Object> objects, Class<T> classOf){
+    public static <T> List<T> convert(List<Object> objects, Class<T> classOf) {
         return objects.stream().map(object -> convert(object, classOf)).collect(Collectors.toList());
     }
 }
