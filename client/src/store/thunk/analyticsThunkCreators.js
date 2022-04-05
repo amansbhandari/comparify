@@ -1,4 +1,4 @@
-import { failedGetPriceTrend, failedGetPriceTrendForBrands, gotPriceTrend, gotPriceTrendForBrands } from "../reducers/analytics";
+import { failedGetMonthlyTotalPurchaseOfItemCategory, failedGetPriceTrend, failedGetPriceTrendForBrands, failedGetProductCountForCategory, gotMonthlyTotalPurchaseOfItemCategory, gotPriceTrend, gotPriceTrendForBrands, gotProductCountForCategory } from "../reducers/analytics";
 import httpClient from "./interceptor";
 
 
@@ -17,5 +17,23 @@ export const fetchPriceTrendForBrands = (itemId) => async (dispatch) => {
     dispatch(gotPriceTrendForBrands(data));
   } catch (error) {
     dispatch(failedGetPriceTrendForBrands(error));
+  }
+};
+
+export const fetchProductCountForCategory = (date) => async (dispatch) => {
+  try {
+    const { data } = await httpClient.get("/analytics/categories", { params: { "date": date } });
+    dispatch(gotProductCountForCategory(data));
+  } catch (error) {
+    dispatch(failedGetProductCountForCategory(error));
+  }
+};
+
+export const fetchMonthlyTotalPurchaseOfItemCategory = (month) => async (dispatch) => {
+  try {
+    const { data } = await httpClient.get("/analytics/monthly", { params: { month} });
+    dispatch(gotMonthlyTotalPurchaseOfItemCategory(data));
+  } catch (error) {
+    dispatch(failedGetMonthlyTotalPurchaseOfItemCategory(error));
   }
 };
