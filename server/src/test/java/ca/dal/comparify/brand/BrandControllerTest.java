@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static java.util.Collections.emptyList;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -37,15 +38,7 @@ public class BrandControllerTest {
 
     @Test
     public void TestgetAllBrands() throws Exception {
-        BrandModel brandModel=new BrandModel();
-        brandModel.setName("dummydata");
-        brandModel.setId("dummydata");
-      //  brandModel.setAudit();
-        brandModel.setDescription("dummydata");
-        List testcontroller = new ArrayList<>();
-        testcontroller.add(brandModel);
-
-        when(brandService.getAllBrands()).thenReturn((ArrayList<Map>) testcontroller);
+        when(brandService.getAllBrands()).thenReturn(emptyList());
         this.mockMvc.perform(get("/brand/"))
                 .andExpect(status().isOk());
     }

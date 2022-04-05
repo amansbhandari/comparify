@@ -197,10 +197,10 @@ public class SignupRequest {
   }
 
   // digit + lowercase char + uppercase char + punctuation + symbol
-  private static final String PATTERN_PASSWORD =
+  private static final String PATTERN_FOR_USER_SECRET =
               "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";
 
-  private final Pattern objPattern = Pattern.compile(PATTERN_PASSWORD);
+  private final Pattern objPattern = Pattern.compile(PATTERN_FOR_USER_SECRET);
 
   public boolean HasValidPasswordPattern(String password) {
         Matcher matcher = objPattern.matcher(password);

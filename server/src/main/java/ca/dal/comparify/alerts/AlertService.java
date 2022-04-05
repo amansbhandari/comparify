@@ -153,8 +153,8 @@ public class AlertService {
         String storeName = store.getStoreName();
 
 
-        String message = String.format("Information on %s of brand %s is available in %s",
-            itemName, brandName, storeName);
+        String message = String.format("Information on %s of brand %s is available in %s for price %d",
+            itemName, brandName, storeName, price);
 
         for (AlertModel alert : alertsOnInformationAvailable) {
             notificationService.create(alert.getAudit().getCreatedBy(),

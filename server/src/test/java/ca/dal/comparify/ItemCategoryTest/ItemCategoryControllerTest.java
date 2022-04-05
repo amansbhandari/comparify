@@ -19,6 +19,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 
+import static java.util.Collections.emptyList;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -48,15 +49,7 @@ public class ItemCategoryControllerTest {
 
     @Test
     void TestGetAllCategories() throws Exception {
-
-        ItemCategoryModel itemCategoryModel =new ItemCategoryModel();
-        itemCategoryModel.setCategoryName("dummydata");
-        itemCategoryModel.setId(new ObjectId());
-
-        List testcontroller = new ArrayList<>();
-        testcontroller.add(itemCategoryModel);
-
-        when(itemCategoryController.getAllCategories()).thenReturn((ArrayList<Map>) testcontroller);
+        when(itemCategoryController.getAllCategories()).thenReturn(emptyList());
         this.mockMvc.perform(get("/itemcategories/"))
                 .andExpect(status().isOk());
     }

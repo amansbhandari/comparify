@@ -171,6 +171,10 @@ public class AnalyticsRepository {
             pipeline, HashModel.class);
     }
 
+    /**
+     * @return
+     * @author Harsh Shah
+     */
     public List<ItemCategoryModel> getAllCategories() {
         return mongoRepository.find("itemCategories", new Document(), ItemCategoryModel.class);
     }
