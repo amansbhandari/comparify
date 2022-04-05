@@ -1,19 +1,22 @@
 package ca.dal.comparify.alerts.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
-
 import ca.dal.comparify.model.EntityReference;
 import ca.dal.comparify.model.RangeModel;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 class AlertRequestModelTest {
+
+    /**
+     * @author Harsh Shah
+     */
     @Test
     void testConstructor() {
         AlertRequestModel actualAlertRequestModel = new AlertRequestModel();
@@ -38,6 +41,9 @@ class AlertRequestModelTest {
         assertEquals(AlertTypeEnum.PRICE_DROP, actualAlertRequestModel.getType());
     }
 
+    /**
+     * @author Harsh Shah
+     */
     @Test
     void testConstructor2() {
         EntityReference item = new EntityReference("42", "Entity Type");
@@ -65,6 +71,9 @@ class AlertRequestModelTest {
         assertEquals(AlertTypeEnum.PRICE_DROP, actualAlertRequestModel.getType());
     }
 
+    /**
+     * @author Harsh Shah
+     */
     @Test
     void testConstructor3() {
         EntityReference item = new EntityReference("42", "Entity Type");

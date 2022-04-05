@@ -1,13 +1,15 @@
 package ca.dal.comparify.brand.model;
 
+import ca.dal.comparify.model.AuditModel;
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-import ca.dal.comparify.model.AuditModel;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-
 class BrandModelTest {
+    /**
+     * @author Harsh Shah
+     */
     @Test
     void testConstructor() {
         BrandModel actualBrandModel = new BrandModel();
@@ -18,6 +20,9 @@ class BrandModelTest {
         assertEquals("42", actualBrandModel.getId());
     }
 
+    /**
+     * @author Harsh Shah
+     */
     @Test
     void testConstructor2() {
         BrandModel actualBrandModel = new BrandModel("42", "Name", "The characteristics of someone or something",
@@ -29,6 +34,9 @@ class BrandModelTest {
         assertEquals("42", actualBrandModel.getId());
     }
 
+    /**
+     * @author Harsh Shah
+     */
     @Test
     void testConstructor3() {
         AuditModel createResult = AuditModel.create("Jan 1, 2020 8:00am GMT+0100");
@@ -39,6 +47,9 @@ class BrandModelTest {
         assertEquals("The characteristics of someone or something", actualBrandModel.getDescription());
     }
 
+    /**
+     * @author Harsh Shah
+     */
     @Test
     void testTransform() {
         BrandModel actualTransformResult = BrandModel.transform(
