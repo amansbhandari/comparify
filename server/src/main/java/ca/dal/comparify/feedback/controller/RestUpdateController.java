@@ -11,12 +11,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 
 @RestController
 public class RestUpdateController {
-
-
     /**
      * @author Meghna Rupchandani
      */
@@ -40,6 +39,9 @@ public class RestUpdateController {
         }
     }
 
+    /**
+     * @author Meghna Rupchandani
+     */
     public void sendEmail(Feedback feedback) {
 
         String subject = "Thank you for your feedback!!";
@@ -52,4 +54,11 @@ public class RestUpdateController {
         mailService.send(feedback.getEmail(), subject, "feedback-template.html",model);
     }
 
+    /**
+     * @author Chanpreet Singh
+     */
+    @GetMapping("/feedback")
+    public ArrayList getAllFeedback(){
+        return feedbackService.getAll();
+    }
 }

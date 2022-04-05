@@ -146,3 +146,13 @@ export const fetchComparedProducts = (itemId) => {
   });
 };
 
+
+export const fetchfeedback = () => {
+  return httpClient.get("/feedback/").then((response) => {
+      let data = response.data
+      return data;
+  }, (error) => {
+    alert(error);
+  });
+};
+

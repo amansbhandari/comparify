@@ -10,8 +10,10 @@ import { MenuItem, Select } from "@material-ui/core";
   const style = {
     root: {
         display: "inline-block",
-        margin: "30px 0px"
-      
+        margin: "30px 0px",
+        background: "linear-gradient",
+        minWidth: "100%",
+        minHeight: "100vh",
        },
     button: {
         marginTop: "16px",
@@ -104,6 +106,7 @@ const RegisterPage = (props) => {
                     <Grid>
                         <Grid item>
                             <TextField fullWidth margin="normal" 
+                                 variant="outlined" 
                                 id="firstname"
                                 name="firstname"
                                 label="First Name"
@@ -119,6 +122,7 @@ const RegisterPage = (props) => {
                         </Grid>
                         <Grid item>
                             <TextField fullWidth margin="normal" 
+                             variant="outlined" 
                                 id="lastname"
                                 name="lastname"
                                 label="Last Name"
@@ -134,9 +138,10 @@ const RegisterPage = (props) => {
                         </Grid>
                         <Grid item>
                             <TextField fullWidth margin="normal" 
+                             variant="outlined" 
                                 id="username"
                                 name="username"
-                                label="UserName"
+                                label="Username"
                                 autoComplete="off"
                                 value={formik.values.username}
                                 onChange={formik.handleChange}
@@ -149,6 +154,7 @@ const RegisterPage = (props) => {
                         </Grid>
                         <Grid item>
                             <TextField fullWidth margin="normal" 
+                             variant="outlined" 
                                 id="email"
                                 name="email"
                                 label="Email"
@@ -173,13 +179,13 @@ const RegisterPage = (props) => {
                                 </h3>
                                 {/* //select question */}
                                 <Select
+                                variant="outlined"
                                     id="Question1select" fullWidth margin="normal" 
                                     editable={false}
                                     value={question1} 
                                     onChange={handleSelect1}
-                                   
-                                    
-                                >
+                                    label="Security Question 1"
+                                   >
                                     <MenuItem value={"What was your childhood nickname?"}>What was your childhood nickname?</MenuItem>
                                     <MenuItem value={"What is your favourite sport?"}>What is your favourite sport?</MenuItem>
                                     <MenuItem value={"What school did you attend?"}>What school did you attend?</MenuItem>
@@ -188,7 +194,7 @@ const RegisterPage = (props) => {
 
 
                                 </Select>
-
+                                <Box sx={{ m: 2 }}></Box> 
                                 {/* //input answer */}
                                 <input type="text" onChange={ans1} className="register" id="security1ans"  minlength="4" maxlength="20"
                                     placeholder="Must be a minimum of 4 characters long" required/>
@@ -201,6 +207,7 @@ const RegisterPage = (props) => {
                                 </h3>
                                 {/* //select question  */}
                                 <Select
+                                 variant="outlined"
                                 id="Questionselect2"
                                     fullWidth margin="normal" 
                                     value={question2} 
@@ -216,6 +223,7 @@ const RegisterPage = (props) => {
 
                                 </Select>
 
+                                <Box sx={{ m: 2}}></Box> 
                                 {/* //input answer */}
                                 <input type="text" onChange={ans2} className="register" id="security2ans"  minlength="4" maxlength="20"
                                 placeholder="Must be a minimum of 4 characters long" required/>
@@ -223,10 +231,11 @@ const RegisterPage = (props) => {
 
                                 {/* // 3rd Security Question */}
                                 <h3>
-                                    Security question 3
+                                    Security question 3:
                                 </h3>
                                 {/* //select question */}
                                 <Select 
+                                    variant="outlined"
                                     fullWidth margin="normal" 
                                     value={question3} 
                                     onChange={handleSelect3}
@@ -238,14 +247,16 @@ const RegisterPage = (props) => {
                                      <MenuItem value={"What is the name of your oldest sibling?"}>What is the name of your oldest sibling ?</MenuItem>
                                      <MenuItem value={"What is the name of your favorite childhood friend?"}>What is the name of your favorite childhood friend?</MenuItem>
                                 </Select>
+                                <Box sx={{ m: 2}}></Box> 
                                 {/* //input answer */}
-                                <input type="text" onChange={ans3} className="register" id="security3ans"  minlength="4" maxlength="20"
+                                <input type="text" onChange={ans3} className="register"  fullWidth="normal" id="security3ans"  minlength="4" maxlength="20"
                                 placeholder="Must be a minimum of 4 characters long" required/>
                                 <span class="validity"></span>
                             </div>
                         </Grid> 
                         <Grid item>
                             <TextField fullWidth margin="normal" 
+                             variant="outlined" 
                                 id="password"
                                 name="password"
                                 label="Password"
@@ -263,9 +274,10 @@ const RegisterPage = (props) => {
                         <div>Must be a minimum 8 characters with atleast one uppercase, lowercase, punctuation and symbol</div>
                         <Grid item>
                             <TextField fullWidth margin="normal" 
+                                 variant="outlined" 
                                 id="confirmpassword"
                                 name="confirmpassword"
-                                label="ConfirmPassword"
+                                label="Confirm Password"
                                 autoComplete="off"
                                 type="password"
                                 value={formik.values.confirmpassword}
