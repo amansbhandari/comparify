@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,9 +37,10 @@ public class ItemController {
 
     /**
      * @author Chanpreet Singh
+     * Sonar fix by Harsh Shah
      */
     @GetMapping("/")
-    public ArrayList<Map> getItems(){
+    public List<Map<String, String>> getItems(){
         return itemService.getAllItems();
     }
 

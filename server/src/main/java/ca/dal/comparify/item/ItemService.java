@@ -22,11 +22,10 @@ public class ItemService {
     /**
      * @param model
      * @return
-     *
      * @author Chanpreet Singh
      */
-    public int create(ItemRequestModel model, String createdBy){
-        if(!findItem(model.getName()))
+    public int create(ItemRequestModel model, String createdBy) {
+        if (!findItem(model.getName()))
             return itemRepository.save(ItemModel.create(model, createdBy));
         else
             return -2;
@@ -34,16 +33,16 @@ public class ItemService {
 
     /**
      * @author Chanpreet Singh
+     * Sonar fix by Harsh Shah
      */
-    public ArrayList<Map> getAllItems(){
+    public List<Map<String, String>> getAllItems() {
         List<ItemModel> mongoResult = itemRepository.getAll();
-        ArrayList<Map> result = new ArrayList<>();
-        for(ItemModel each:mongoResult) {
-            Map<String, String> eachObj = new HashMap<String, String>(){{
-                put("id", each.getId());
-                put("itemName", each.getName());
-                put("itemDescription", each.getDescription());
-            }};
+        List<Map<String, String>> result = new ArrayList<>();
+        for (ItemModel each : mongoResult) {
+            Map<String, String> eachObj = new HashMap<>();
+            eachObj.put("id", each.getId());
+            eachObj.put("itemName", each.getName());
+            eachObj.put("itemDescription", each.getDescription());
             result.add(eachObj);
         }
         return result;
@@ -52,25 +51,26 @@ public class ItemService {
     /**
      * @author Chanpreet Singh
      */
-    public boolean findItem(String itemName){
+    public boolean findItem(String itemName) {
         boolean status = false;
         ItemModel mongoResult = itemRepository.searchItemName(itemName);
-        if(mongoResult != null)
+        if (mongoResult != null)
             status = true;
         return status;
     }
 
     /**
      * @author Chanpreet Singh
+     * Sonar fix by Harsh Shah
      */
-    public Map<String, Object> getItemDetails(String itemId){
+    public Map<String, Object> getItemDetails(String itemId) {
         ItemModel mongoResult = itemRepository.findOneItem(itemId);
-        Map result = new HashMap(){{
-            put("name", mongoResult.getName());
-            put("description", mongoResult.getDescription());
-            put("image", mongoResult.getDefaultImage());
-            put("categoryId", mongoResult.getItemCategoryId());
-        }};
+        Map<String, Object> result = new HashMap();
+        result.put("name", mongoResult.getName());
+        result.put("description", mongoResult.getDescription());
+        result.put("image", mongoResult.getDefaultImage());
+        result.put("categoryId", mongoResult.getItemCategoryId());
+
         return result;
     }
 
@@ -79,7 +79,7 @@ public class ItemService {
      * @return
      * @author Harsh Shah
      */
-    public ItemModel findItemById(String id){
+    public ItemModel findItemById(String id) {
         return itemRepository.findItemById(id);
     }
 }

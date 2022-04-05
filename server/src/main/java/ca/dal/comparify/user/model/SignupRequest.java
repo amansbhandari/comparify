@@ -92,7 +92,7 @@ public class SignupRequest {
   }
 
   public void setSecurityQuestion2(String securityQuestion2) {
-    securityQuestion2 = securityQuestion2;
+    this.securityQuestion2 = securityQuestion2;
   }
 
   public String getSecurityQuestion3() {
@@ -100,7 +100,7 @@ public class SignupRequest {
   }
 
   public void setSecurityQuestion3(String securityQuestion3) {
-    securityQuestion3 = securityQuestion3;
+    this.securityQuestion3 = securityQuestion3;
   }
 
   public String getAnswer1() {

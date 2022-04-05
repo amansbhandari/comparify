@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -58,7 +60,7 @@ public class RestUpdateController {
      * @author Chanpreet Singh
      */
     @GetMapping("/feedback")
-    public ArrayList getAllFeedback(){
+    public List<Map<String, Object>> getAllFeedback(){
         return feedbackService.getAll();
     }
 }

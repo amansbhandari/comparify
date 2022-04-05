@@ -31,15 +31,16 @@ public class BrandService {
      * @return
      *
      * @author Chanpreet Singh
+     * Sonar fix by Harsh Shah
      */
-    public ArrayList<Map> getAllBrands(){
+    public List<Map<String, String>> getAllBrands(){
         List<BrandModel> mongoResult = brandRepository.getAll();
-        ArrayList<Map> result = new ArrayList<>();
-        for(BrandModel each:mongoResult) {
-            Map<String, String> eachObj = new HashMap<String, String>(){{
-                put("id", each.getId());
-                put("name", each.getName());
-                put("description", each.getDescription());}};
+        List<Map<String, String>> result = new ArrayList<>();
+        for(BrandModel each: mongoResult) {
+            Map<String, String> eachObj = new HashMap<>();
+            eachObj.put("id", each.getId());
+            eachObj.put("name", each.getName());
+            eachObj.put("description", each.getDescription());
             result.add(eachObj);
         }
         return result;
