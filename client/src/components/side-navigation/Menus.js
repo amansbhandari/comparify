@@ -33,7 +33,7 @@ import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import AddBusinessIcon from "@mui/icons-material/AddBusiness";
 import BrandingWatermarkIcon from "@mui/icons-material/BrandingWatermark";
-import AutoGraphIcon from '@mui/icons-material/AutoGraph';
+import AutoGraphIcon from "@mui/icons-material/AutoGraph";
 
 const style = {
   root: {},
@@ -163,118 +163,121 @@ function Menus(props) {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <>{ userRole &&  
-    <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
-          background: "#2e4670",
-        }}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
+    <>
+      {userRole && (
+        <Box sx={{ display: "flex" }}>
+          <CssBaseline />
+          <AppBar
+            position="fixed"
+            sx={{
+              width: { sm: `calc(100% - ${drawerWidth}px)` },
+              ml: { sm: `${drawerWidth}px` },
+              background: "#2e4670",
+            }}
           >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            variant="h5"
-            noWrap
-            component="div"
-            style={{ marginLeft: "20px", fontWeight: "Bold" }}
+            <Toolbar>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={handleDrawerToggle}
+                sx={{ mr: 2, display: { sm: "none" } }}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography
+                variant="h5"
+                noWrap
+                component="div"
+                style={{ marginLeft: "20px", fontWeight: "Bold" }}
+              >
+                {titlePage}
+              </Typography>
+            </Toolbar>
+          </AppBar>
+          <Box
+            component="nav"
+            sx={{
+              width: { sm: drawerWidth },
+              flexShrink: { sm: 0 },
+            }}
+            aria-label="mailbox folders"
           >
-            {titlePage}
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Box
-        component="nav"
-        sx={{
-          width: { sm: drawerWidth },
-          flexShrink: { sm: 0 },
-        }}
-        aria-label="mailbox folders"
-      >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-        <Drawer
-          container={container}
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
-          sx={{
-            display: { xs: "block", sm: "none" },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: drawerWidth,
-            },
-          }}
-        >
-          {drawer}
-        </Drawer>
-        <Drawer
-          variant="permanent"
-          sx={{
-            display: { xs: "none", sm: "block" },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: drawerWidth,
-            },
-          }}
-          open
-        >
-          {drawer}
-        </Drawer>
-      </Box>
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          p: 3,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-        }}
-      >
-        <Toolbar />
-        {/* <Typography paragraph>
+            {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+            <Drawer
+              container={container}
+              variant="temporary"
+              open={mobileOpen}
+              onClose={handleDrawerToggle}
+              ModalProps={{
+                keepMounted: true, // Better open performance on mobile.
+              }}
+              sx={{
+                display: { xs: "block", sm: "none" },
+                "& .MuiDrawer-paper": {
+                  boxSizing: "border-box",
+                  width: drawerWidth,
+                },
+              }}
+            >
+              {drawer}
+            </Drawer>
+            <Drawer
+              variant="permanent"
+              sx={{
+                display: { xs: "none", sm: "block" },
+                "& .MuiDrawer-paper": {
+                  boxSizing: "border-box",
+                  width: drawerWidth,
+                },
+              }}
+              open
+            >
+              {drawer}
+            </Drawer>
+          </Box>
+          <Box
+            component="main"
+            sx={{
+              flexGrow: 1,
+              p: 3,
+              width: { sm: `calc(100% - ${drawerWidth}px)` },
+            }}
+          >
+            <Toolbar />
+            {/* <Typography paragraph>
           Lorem ipsum d
         </Typography>
         <Typography paragraph>
           Consequat mauris n
         </Typography> */}
-        <Outlet></Outlet>
-        {/* <UserProfile></UserProfile> */}
-      </Box>
-      {authentication && authentication.token && (
-        <>
-          <NotificationTray ref={notificationRef}></NotificationTray>
-          <Fab
-            color="primary"
-            aria-label="add"
-            className={classes.fabContainer}
-          >
-            <AddAlertIcon
-              onClick={() => notificationRef.current.openNotificationTray()}
-            />
-          </Fab>
-        </>
+            <Outlet></Outlet>
+            {/* <UserProfile></UserProfile> */}
+          </Box>
+          {authentication && authentication.token && (
+            <>
+              <NotificationTray ref={notificationRef}></NotificationTray>
+              <Fab
+                color="primary"
+                aria-label="add"
+                className={classes.fabContainer}
+              >
+                <AddAlertIcon
+                  onClick={() => notificationRef.current.openNotificationTray()}
+                />
+              </Fab>
+            </>
+          )}
+        </Box>
       )}
-    </Box>}</>
+    </>
   );
 
   function menuClicked(index) {
     if (user.role.role_id === "USER") {
       setTitlePage(titles[index]);
       if (index === 0) {
-        navigate("/home")
+        navigate("/home");
       } else if (index === 1) {
         navigate("addproduct");
       } else if (index === 2) {
@@ -290,8 +293,9 @@ function Menus(props) {
       }
     } else {
       setTitlePage(titlesAdmin[index]);
-      if (index === 0) {} 
-      else if (index === 1) {
+      if (index === 0) {
+        navigate("analyticsadmin");
+      } else if (index === 1) {
         navigate("addbrand");
       } else if (index === 2) {
         navigate("addstore");
@@ -300,6 +304,7 @@ function Menus(props) {
       } else if (index === 4) {
         navigate("users");
       } else if (index === 5) {
+        navigate("viewfeedbacks");
       } else if (index === 6) {
         dispatch(logout());
       }
