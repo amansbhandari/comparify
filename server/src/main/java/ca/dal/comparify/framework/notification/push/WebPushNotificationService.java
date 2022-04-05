@@ -45,7 +45,7 @@ public class WebPushNotificationService {
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                 .build();
 
-            //FirebaseApp.initializeApp(options);
+            FirebaseApp.initializeApp(options);
         } catch (IOException e) {
 
         } catch (Exception e){
@@ -82,6 +82,8 @@ public class WebPushNotificationService {
         } catch (InterruptedException e) {
             return false;
         } catch (ExecutionException e) {
+            return false;
+        } catch (Exception e){
             return false;
         }
 

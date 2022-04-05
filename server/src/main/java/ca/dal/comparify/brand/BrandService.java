@@ -61,4 +61,8 @@ public class BrandService {
         }
         return result;
     }
+
+    public BrandModel findBrandById(String id){
+        return brandRepository.findBrandById(id);
+    }
 }

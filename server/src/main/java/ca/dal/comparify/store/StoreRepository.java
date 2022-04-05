@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static ca.dal.comparify.mongo.MongoUtils.eq;
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.in;
 
@@ -73,5 +74,14 @@ public class StoreRepository {
      */
     public Long getStoreCount(){
         return mongoRepository.count(STORE_COLLECTION, Filters.empty());
+    }
+
+    /**
+     * @param storeId
+     * @author Harsh Shah
+     * @return
+     */
+    public StoreModel findStoreById(String storeId) {
+        return mongoRepository.findOne(STORE_COLLECTION, eq("_id", new ObjectId(storeId)), StoreModel.class);
     }
 }

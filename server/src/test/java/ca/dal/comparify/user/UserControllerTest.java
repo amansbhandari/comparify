@@ -167,7 +167,6 @@ class UserControllerTest {
 
     @BeforeAll
     void setUpForTestSuite() {
-
         securityUtils = Mockito.mockStatic(SecurityUtils.class);
         securityUtils.when(() -> SecurityUtils.getPrincipal(any()))
             .thenReturn("dummy_id");
@@ -205,7 +204,6 @@ class UserControllerTest {
                     assertEquals(write(expected), content);
                 }
             });
-
     }
 
     /**

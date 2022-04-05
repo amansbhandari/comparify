@@ -61,4 +61,13 @@ public class ItemRepository {
     public Long getItemCount(){
         return mongoRepository.count(ITEM_COLLECTION, Filters.empty());
     }
+
+    /**
+     * @param id
+     * @return
+     * @author Harsh Shah
+     */
+    public ItemModel findItemById(String id) {
+        return mongoRepository.findOne(ITEM_COLLECTION, eq("_id", id), ItemModel.class);
+    }
 }

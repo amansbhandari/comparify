@@ -3,6 +3,9 @@ package ca.dal.comparify.framework.exception;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * @author Harsh Shah
+ */
 public class AllEmptyFieldException extends ApplicationRuntimeException {
 
     private final List<String> fields;
