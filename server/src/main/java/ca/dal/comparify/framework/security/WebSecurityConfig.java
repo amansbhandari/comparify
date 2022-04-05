@@ -18,6 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    public static final String SECURITY_QUESTION = "/securityQuestion/**";
     @Autowired
     private TokenService tokenService;
 
@@ -35,13 +36,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS)
                 .permitAll()
-                .antMatchers(HttpMethod.GET, "/socket/**", "/securityQuestion/**")
+                .antMatchers(HttpMethod.GET, "/socket/**", SECURITY_QUESTION)
                 .permitAll()
-                .antMatchers(HttpMethod.POST, "/user/authentication", "/user/register", "/securityQuestion/**")
+                .antMatchers(HttpMethod.POST, "/user/authentication", "/user/register", SECURITY_QUESTION)
                 .permitAll()
-                .antMatchers(HttpMethod.PUT, "/securityQuestion/**")
+                .antMatchers(HttpMethod.PUT, SECURITY_QUESTION)
                 .permitAll()
-                .antMatchers(HttpMethod.DELETE, "/securityQuestion/**")
+                .antMatchers(HttpMethod.DELETE, SECURITY_QUESTION)
                 .permitAll()
                 .anyRequest()
                 .authenticated()

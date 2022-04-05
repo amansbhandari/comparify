@@ -23,6 +23,16 @@ import static java.util.Arrays.asList;
 public class AnalyticsRepository {
 
     public static final String STATUS = "status";
+    public static final String VERIFIED = "verified";
+    public static final String DATE_OF_PURCHASE = "$dateOfPurchase";
+    public static final String PRICE = "$price";
+    public static final String BRANDS = "brands";
+    public static final String BRAND_ID = "$brandId";
+    public static final String BRAND = "brand";
+    public static final String CATEGORY = "category";
+    public static final String EXPR = "$expr";
+
+
     @Autowired
     private MongoRepository mongoRepository;
 
@@ -34,31 +44,31 @@ public class AnalyticsRepository {
     public List<HashModel> getPriceTrend(String itemId) {
 
         List<Bson> pipeline = asList(
-            match(new Document(STATUS, "verified")
+            match(new Document(STATUS, VERIFIED)
                 .append("productId", itemId)),
 
             sortAscending("dateOfPurchase"),
 
-            group(new Document("_id", "$dateOfPurchase")
+            group(new Document("_id", DATE_OF_PURCHASE)
                 .append("price",
-                    new Document("$first", "$price"))
-                .append("brands",
-                    new Document("$addToSet", "$brandId"))
+                    new Document("$first", PRICE))
+                .append(BRANDS,
+                    new Document("$addToSet", BRAND_ID))
                 .append("stores",
                     new Document("$addToSet", "$storeId"))),
 
-            lookup("brand",
-                new Document("category", "$brands"),
-                asList(match(new Document("$expr", new Document("$in", asList("$_id", "$$category")))),
+            lookup(BRAND,
+                new Document(CATEGORY, "$brands"),
+                asList(match(new Document(EXPR, new Document("$in", asList("$_id", "$$category")))),
                     project(new Document("name", "$name"))),
-                "brands"),
+                BRANDS),
 
 
             lookup("store",
-                new Document("category",
+                new Document(CATEGORY,
                     map("$stores", "itr", new Document("$toObjectId", "$$itr"))),
                 asList(
-                    match(new Document("$expr",
+                    match(new Document(EXPR,
                         new Document("$in", asList("$_id", "$$category")))),
                     project(new Document("name", "$storeName"))),
                 "stores"));
@@ -76,19 +86,19 @@ public class AnalyticsRepository {
 
         List<Bson> pipeline = asList(
 
-            match(new Document(STATUS, "verified")
+            match(new Document(STATUS, VERIFIED)
                 .append("productId", itemId)),
 
-            facet(new Document("brands", asList(
+            facet(new Document(BRANDS, asList(
 
-                group(new Document("_id", "$brandId"))))
+                group(new Document("_id", BRAND_ID))))
                 .append("trend", asList(
 
                     group(new Document("_id",
-                        new Document("date", "$dateOfPurchase")
-                            .append("brand", "$brandId"))
+                        new Document("date", DATE_OF_PURCHASE)
+                            .append(BRAND, BRAND_ID))
                         .append("price",
-                            first("$price"))),
+                            first(PRICE))),
                     sortAscending("_id.date")
                 ))));
 
@@ -103,7 +113,7 @@ public class AnalyticsRepository {
      * @author Harsh Shah
      */
     public List<BrandModel> getBrands(List<String> brands) {
-        return mongoRepository.find("brand",
+        return mongoRepository.find(BRAND,
             eq("_id", new Document("$in", brands)), eq("name", 1), BrandModel.class);
     }
 
@@ -115,7 +125,7 @@ public class AnalyticsRepository {
      */
     public List<HashModel> getProductCountForCategory(LocalDate date) {
         List<Bson> pipeline = asList(
-            match(new Document(STATUS, "verified")
+            match(new Document(STATUS, VERIFIED)
                 .append("dateOfPurchase", date)),
 
             group(new Document("_id", "$productId")
@@ -128,12 +138,12 @@ public class AnalyticsRepository {
             lookup("itemCategories",
                 new Document("categoryId",
                     new Document("$toObjectId", "$item.itemCategoryId")),
-                asList(match(new Document("$expr",
+                asList(match(new Document(EXPR,
                     new Document("$eq", asList("$_id", "$$categoryId"))))),
-                "category"),
+                CATEGORY),
             unwind("$category"),
             project(new Document("count", 1L)
-                .append("category", "$category.categoryName")));
+                .append(CATEGORY, "$category.categoryName")));
 
         return mongoRepository.aggregate(CompareItemRepository.ITEM_COLLECTION, pipeline,
             HashModel.class);
@@ -148,16 +158,16 @@ public class AnalyticsRepository {
     public List<HashModel> getMonthlyTotalPurchaseOfItemCategory(int month) {
         List<Bson> pipeline = asList(
 
-            match(new Document(STATUS, "verified")
-                .append("$expr",
-                    new Document("$eq", asList(new Document("$month", "$dateOfPurchase"), month)))),
+            match(new Document(STATUS, VERIFIED)
+                .append(EXPR,
+                    new Document("$eq", asList(new Document("$month", DATE_OF_PURCHASE), month)))),
 
             group(
                 new Document("_id",
-                    new Document("date", "$dateOfPurchase")
+                    new Document("date", DATE_OF_PURCHASE)
                         .append("itemId", "$productId"))
                     .append("totalPurchase",
-                        new Document("$sum", "$price"))),
+                        new Document("$sum", PRICE))),
 
             lookup("item", "_id.itemId", "_id", "item"),
 

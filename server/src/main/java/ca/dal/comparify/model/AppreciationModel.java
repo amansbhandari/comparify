@@ -13,15 +13,15 @@ import java.util.List;
 
 public class AppreciationModel implements Serializable {
 
-    public static final String USERNAME = "username";
+    public static final String USERNAME_KEY = "username";
 
-    public static final String POINTS = "points";
+    public static final String POINTS_KEY = "points";
 
-    public static final String TYPE = "type";
+    public static final String TYPE_KEY = "type";
 
 
 
-    @JsonProperty(USERNAME)
+    @JsonProperty(USERNAME_KEY)
     private String username;
 
     private Double points;

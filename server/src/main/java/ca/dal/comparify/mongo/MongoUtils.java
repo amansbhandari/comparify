@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 public class MongoUtils {
 
     private static final String DOLLAR_INC = "$inc";
+    public static final String LOOKUP = "$lookup";
 
     private MongoUtils() {
     }
@@ -104,7 +105,7 @@ public class MongoUtils {
     public static Bson lookup(final String from, final String localField,
                               final String foreignField, final String as) {
 
-        return new Document("$lookup",
+        return new Document(LOOKUP,
             new Document("from", from)
                 .append("localField", localField)
                 .append("foreignField", foreignField)
@@ -124,7 +125,7 @@ public class MongoUtils {
                               final String foreignField, final List<Document> pipeline,
                               final String as) {
 
-        return new Document("$lookup",
+        return new Document(LOOKUP,
             new Document("from", from)
                 .append("localField", localField)
                 .append("foreignField", foreignField)
@@ -145,7 +146,7 @@ public class MongoUtils {
                               final List<Bson> pipeline,
                               final String as) {
 
-        return new Document("$lookup",
+        return new Document(LOOKUP,
             new Document("from", from)
                 .append("let", let)
                 .append("pipeline", pipeline)

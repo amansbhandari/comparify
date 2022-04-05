@@ -13,13 +13,13 @@ import java.util.List;
  */
 public class UserDetailsModel {
 
-    public static final String USERNAME = "username";
+    public static final String USERNAME_KEY = "username";
 
     @BsonProperty("_id")
     @BsonId
     private String id;
 
-    @BsonProperty(USERNAME)
+    @BsonProperty(USERNAME_KEY)
     private String username;
 
     private String email;
@@ -35,9 +35,9 @@ public class UserDetailsModel {
     }
 
     public UserDetailsModel(@BsonId String id,
-                            @BsonProperty(USERNAME) String username,
-                            @BsonProperty("email") String email,
-                            @BsonProperty("firstName") String firstName,
+                        @BsonProperty(USERNAME_KEY) String username,
+                        @BsonProperty("email") String email,
+                        @BsonProperty("firstName") String firstName,
                             @BsonProperty("lastName") String lastName,
                             @BsonProperty("point") Double points,
                             @BsonProperty("type") String type) {
@@ -60,7 +60,7 @@ public class UserDetailsModel {
     }
 
     public static List<String> getRequiredFields() {
-        return Arrays.asList(USERNAME);
+        return Arrays.asList(USERNAME_KEY);
     }
 
     public String getId() {
@@ -123,5 +123,4 @@ public class UserDetailsModel {
     public void setType(String type) {
         this.type = type;
     }
-
-}
+ }

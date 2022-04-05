@@ -28,10 +28,10 @@ public class ProductRepository {
     static final String ITEMCOLLECTION_NAME = "item";
     static final String BRRANDCOLLECTION_NAME = "brand";
 
-    private final String ITEM_ID = "productId";
-    private final String STOREID = "_id";
-    private final String BRANDID = "_id";
-    private final String ITEMNAME = "name";
+    private final String itemId = "productId";
+    private final String storeid = "_id";
+    private final String brandid = "_id";
+    private final String itemname = "name";
 
     Class<Product> productCLass = Product.class;
     Class<StoreModel> storeCLass = StoreModel.class;
@@ -42,19 +42,19 @@ public class ProductRepository {
     public List<Product> getAllProducts(String itemName) {
         List<Product> products = new ArrayList<>();
         try {
-            ItemModel item = mongoRepository.findOne(ITEMCOLLECTION_NAME, eq(ITEMNAME, itemName), itemCLass);
+            ItemModel item = mongoRepository.findOne(ITEMCOLLECTION_NAME, eq(itemname, itemName), itemCLass);
 
             List<CompareItemsModel> itemsDetails = mongoRepository.find(ITEMDETAILCOLLECTION_NAME,
-                    and(eq(ITEM_ID, item.getId()), eq("status", "verified")),
+                    and(eq(itemId, item.getId()), eq("status", "verified")),
                     itemDetailCLass);
 
             for (CompareItemsModel itemDetail : itemsDetails) {
 
-                StoreModel store = mongoRepository.findOne(STORECOLLECTION_NAME, eq(STOREID,
+                StoreModel store = mongoRepository.findOne(STORECOLLECTION_NAME, eq(storeid,
                         new ObjectId(itemDetail.getStoreId())),
                         storeCLass);
                 String storeName = store.getStoreName();
-                BrandModel brand = mongoRepository.findOne(BRRANDCOLLECTION_NAME, eq(BRANDID, itemDetail.getBrandId()),
+                BrandModel brand = mongoRepository.findOne(BRRANDCOLLECTION_NAME, eq(brandid, itemDetail.getBrandId()),
                         brandCLass);
                 String brandName = brand.getName();
                 String productName = item.getName();

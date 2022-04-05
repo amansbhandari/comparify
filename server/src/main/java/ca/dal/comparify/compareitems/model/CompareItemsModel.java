@@ -13,11 +13,12 @@ import java.util.UUID;
  */
 public class CompareItemsModel {
 
-    public final static String _ID = "_id";
-    public final static String STATUS = "status";
+    public final static String ID = "_id";
+    public final static String STATUS_KEY = "status";
 
     @BsonId
     private ObjectId id;
+
 
     @JsonProperty
     private String imageText, userId, productId, storeId, brandId;

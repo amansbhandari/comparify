@@ -5,5 +5,8 @@ import java.util.HashMap;
 
 public class HashModel extends HashMap<String, Object> implements Serializable {
 
-    public HashModel() {}
+    public HashModel() {
+        //Not supported
+    }
+
 }

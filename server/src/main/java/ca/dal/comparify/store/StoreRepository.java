@@ -19,6 +19,9 @@ import static com.mongodb.client.model.Filters.in;
 @Service
 public class StoreRepository {
     public static final String STORE_COLLECTION = "store";
+    public static final int ERROR_1 = -1;
+    public static final int ERROR_2 = -2;
+    public static final int SUCCESS = 0;
 
     @Autowired
     private MongoRepository mongoRepository;
@@ -59,11 +62,11 @@ public class StoreRepository {
 
     public String getResponseMessage(int result)
     {
-        if(result == -1 )
+        if(result == ERROR_1)
             return "No collection with name " + STORE_COLLECTION + " found";
-        else if(result == -2)
+        else if(result == ERROR_2)
             return "Exception in mongodb";
-        else if(result == 0)
+        else if(result == SUCCESS)
             return "success";
 
         return "Unknown Error";

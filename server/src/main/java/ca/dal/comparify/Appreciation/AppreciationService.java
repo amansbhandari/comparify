@@ -23,13 +23,13 @@ public class AppreciationService {
     @Autowired
     private UserDetailsRepository userDetailsRepository;
 
-    private final double ADDITIONAL_POINTS = 20.0;
+    private final double additionalPoints = 20.0;
 
-    public final double GOLD_MEMBER_MIN = 50.0;
+    public final double goldMemberMin = 50.0;
 
-    private final String GOLD_MEMBERSHIP = "gold";
+    private final String goldMembership = "gold";
 
-    private final String SILVER_MEMBERSHIP = "silver";
+    private final String silverMembership = "silver";
 
     /**
      * @param compareItemsModel
@@ -47,7 +47,7 @@ public class AppreciationService {
         for(String userId : users)
         {
             UserDetailsModel userModels = userDetailsRepository.fetchUserDetails(userId);
-            Double totalPoints = userModels.getPoints() + ADDITIONAL_POINTS;
+            Double totalPoints = userModels.getPoints() + additionalPoints;
             AppreciationModel appreciationModel = new AppreciationModel(userId,totalPoints,evaluateMembership(totalPoints));
 
             Boolean result = appreciationRepository.saveUserAppreciation(appreciationModel);
@@ -75,7 +75,7 @@ public class AppreciationService {
 
     private String evaluateMembership(double point)
     {
-        return point >= GOLD_MEMBER_MIN ? GOLD_MEMBERSHIP : SILVER_MEMBERSHIP;
+        return point >= goldMemberMin ? goldMembership : silverMembership;
     }
 
 

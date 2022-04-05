@@ -13,7 +13,7 @@ import java.util.List;
 
 public class UserDetailsRequestModel implements Serializable {
 
-    private static final String USERNAME = "username";
+    private static final String USERNAME_KEY = "username";
 
     private static final String EMAIL_ID = "email";
 
@@ -23,7 +23,7 @@ public class UserDetailsRequestModel implements Serializable {
 
 
 
-    @JsonProperty(USERNAME)
+    @JsonProperty(USERNAME_KEY)
     private String username;
 
     private String email;
