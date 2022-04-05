@@ -34,6 +34,9 @@ import java.util.concurrent.ExecutionException;
 @RequestMapping("/user")
 public class UserController {
 
+    public static final int STATUS = 400;
+    public static final int ERROR_CODE = 1000;
+    public static final int ERROR_CODE1 = 2005;
     @Autowired
     private UserService userService;
 
@@ -49,7 +52,7 @@ public class UserController {
     public UserIAMResponseModel authentication(@RequestBody UserIAMRequestModel userIAMRequestModel) {
 
         if (userIAMRequestModel.isEmpty()) {
-            throw new MissingRequiredFieldException(400, 1000, userIAMRequestModel.getRequiredFields());
+            throw new MissingRequiredFieldException(STATUS, ERROR_CODE, userIAMRequestModel.getRequiredFields());
         }
 
         return userService.authenticate(userIAMRequestModel);
@@ -63,15 +66,15 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<Map<String, String>> register(@RequestBody SignupRequest signupRequest){
         if(!signupRequest.validate()){
-            throw new MissingRequiredFieldException(400, 1000, new ArrayList<>());
+            throw new MissingRequiredFieldException(STATUS, ERROR_CODE, new ArrayList<>());
         }
 
         if (!signupRequest.validateEmail()) {
-            throw new InvalidFormatException("Invalid Format", 1000, 2005);
+            throw new InvalidFormatException("Invalid Format", ERROR_CODE, ERROR_CODE1);
         }
 
         if (!signupRequest.HasValidPasswordPattern(signupRequest.getPassword())) {
-            throw new InvalidFormatException("Invalid Format", 1000, 2005);
+            throw new InvalidFormatException("Invalid Format", ERROR_CODE, ERROR_CODE1);
         }
 
         signupRequest.setId(UUIDUtils.generate());
@@ -88,7 +91,7 @@ public class UserController {
         if (status == 0) {
 
             if (userIAMRequestModel.isEmpty()) {
-                throw new MissingRequiredFieldException(400, 1000, userIAMRequestModel.getRequiredFields());
+                throw new MissingRequiredFieldException(STATUS, ERROR_CODE, userIAMRequestModel.getRequiredFields());
             }
 
             status = userService.createUserIAMInfo(
@@ -130,7 +133,7 @@ public class UserController {
     public UserDetailsModel getUserDetails(@RequestParam(name = "username") String username) {
 
         if (username.isEmpty()) {
-            throw new MissingRequiredFieldException(400, 1000, UserDetailsModel.getRequiredFields());
+            throw new MissingRequiredFieldException(STATUS, ERROR_CODE, UserDetailsModel.getRequiredFields());
         }
 
         return userDetailsService.fetchUser(username);
@@ -146,7 +149,7 @@ public class UserController {
     public Boolean setUserDetails(@RequestBody UserDetailsRequestModel userDetailsRequestModel) {
 
         if (userDetailsRequestModel.isEmpty()) {
-            throw new MissingRequiredFieldException(400, 1000, userDetailsRequestModel.getRequiredFields());
+            throw new MissingRequiredFieldException(STATUS, ERROR_CODE, userDetailsRequestModel.getRequiredFields());
         }
 
         return userDetailsService.saveUserDetails(userDetailsRequestModel);
@@ -161,7 +164,7 @@ public class UserController {
     public ResponseEntity<Map<String, String>> update(@RequestBody UserIAMRequestModel userIAMRequestModel) {
 
         if (userIAMRequestModel.isEmpty()) {
-            throw new MissingRequiredFieldException(400, 1000, userIAMRequestModel.getRequiredFields());
+            throw new MissingRequiredFieldException(STATUS, ERROR_CODE, userIAMRequestModel.getRequiredFields());
         }
 
         boolean status = userService.updateUserSecret(userIAMRequestModel.getUserIdentifier(),

@@ -2,10 +2,7 @@ package ca.dal.comparify.brand;
 
 import ca.dal.comparify.brand.model.BrandModel;
 import ca.dal.comparify.mongo.MongoRepository;
-import ca.dal.comparify.store.StoreRepository;
-import ca.dal.comparify.store.model.StoreModel;
-import org.junit.Before;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -36,7 +33,7 @@ public class BrandRepositoryTest {
 
     List brandModels = new ArrayList<>();
 
-    @Before
+    @BeforeEach
     void setUpTestForBrand()
     {
         brandModel = new BrandModel();

@@ -21,6 +21,8 @@ import static java.util.Collections.emptyMap;
 @RestController
 public class AnalyticsController {
 
+    public static final int START_MONTH = 1;
+    public static final int END_MONTH = 12;
     @Autowired
     private AnalyticsService analyticsService;
 
@@ -70,7 +72,7 @@ public class AnalyticsController {
      */
     @GetMapping("/monthly")
     public Map<String, Double> getMonthlyTotalPurchaseOfItemCategory(@RequestParam("month") int month) {
-        if (month < 1 || month > 12) {
+        if (month < START_MONTH || month > END_MONTH) {
             return emptyMap();
         }
         return analyticsService.getMonthlyTotalPurchaseOfItemCategory(month);

@@ -89,58 +89,5 @@ class AnalyticsServiceTest {
         verify(this.analyticsRepository).getAllCategories();
         verify(this.analyticsRepository).getMonthlyTotalPurchaseOfItemCategory(anyInt());
     }
-
-    @Test
-    @Disabled("TODO: Complete this test")
-    void testGetMonthlyTotalPurchaseOfItemCategory6() {
-        ItemCategoryModel itemCategoryModel = new ItemCategoryModel();
-        itemCategoryModel.setCategoryName("Category Name");
-        itemCategoryModel.setId(new ObjectId());
-
-        ArrayList<ItemCategoryModel> itemCategoryModelList = new ArrayList<>();
-        itemCategoryModelList.add(null);
-        itemCategoryModelList.add(itemCategoryModel);
-        when(this.analyticsRepository.getAllCategories()).thenReturn(itemCategoryModelList);
-        when(this.analyticsRepository.getMonthlyTotalPurchaseOfItemCategory(anyInt())).thenReturn(new ArrayList<>());
-        this.analyticsService.getMonthlyTotalPurchaseOfItemCategory(1);
-    }
-
-    @Test
-    @Disabled("TODO: Complete this test")
-    void testGetMonthlyTotalPurchaseOfItemCategory4() {
-        ItemCategoryModel itemCategoryModel = new ItemCategoryModel();
-        itemCategoryModel.setId(ObjectId.get());
-
-        ArrayList<ItemCategoryModel> itemCategoryModelList = new ArrayList<>();
-        itemCategoryModelList.add(itemCategoryModel);
-        when(this.analyticsRepository.getAllCategories()).thenReturn(itemCategoryModelList);
-        when(this.analyticsRepository.getMonthlyTotalPurchaseOfItemCategory(anyInt())).thenReturn(new ArrayList<>());
-        this.analyticsService.getMonthlyTotalPurchaseOfItemCategory(1);
-    }
-
-    @Test
-    @Disabled("TODO: Complete this test")
-    void testGetPriceTrendForDifferentBrands() {
-        when(this.analyticsRepository.getPriceTrendForDifferentBrands(any())).thenReturn(new HashModel());
-        this.analyticsService.getPriceTrendForDifferentBrands("42");
-    }
-
-    @Test
-    @Disabled("TODO: Complete this test")
-    void testGetProductCountForCategory2() {
-        when(this.analyticsRepository.getProductCountForCategory((java.time.LocalDate) any()))
-            .thenReturn(new ArrayList<>());
-        this.analyticsService.getProductCountForCategory("2020/03/01");
-    }
-
-    @Test
-    @Disabled("TODO: Complete this test")
-    void testGetMonthlyTotalPurchaseOfItemCategory2() {
-        ArrayList<ItemCategoryModel> itemCategoryModelList = new ArrayList<>();
-        itemCategoryModelList.add(new ItemCategoryModel());
-        when(this.analyticsRepository.getAllCategories()).thenReturn(itemCategoryModelList);
-        when(this.analyticsRepository.getMonthlyTotalPurchaseOfItemCategory(anyInt())).thenReturn(new ArrayList<>());
-        this.analyticsService.getMonthlyTotalPurchaseOfItemCategory(1);
-    }
 }
 

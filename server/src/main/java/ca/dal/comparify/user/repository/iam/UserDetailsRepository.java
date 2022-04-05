@@ -42,7 +42,7 @@ public class UserDetailsRepository {
     public UserDetailsModel fetchUserDetails(String username) {
 
         UserDetailsModel userDetailsModel = mongoRepository.findOne(USER_DETAILS_COLLECTION,
-                eq(UserDetailsModel.USERNAME, username),
+                eq(UserDetailsModel.USERNAME_KEY, username),
                 and(tuple(USER_PASSWORD, 0)),
                 UserDetailsModel.class);
 
@@ -56,7 +56,7 @@ public class UserDetailsRepository {
      * @author Aman Singh Bhandari
      */
     public Boolean saveUserDetails(UserDetailsRequestModel userDetailsRequestModel) {
-        Bson query = eq(UserDetailsModel.USERNAME, userDetailsRequestModel.getUsername());
+        Bson query = eq(UserDetailsModel.USERNAME_KEY, userDetailsRequestModel.getUsername());
         Bson[] values = {set(EMAIL_ID,userDetailsRequestModel.getEmail()), set(FIRST_NAME, userDetailsRequestModel.getFirstName()), set(LAST_NAME,userDetailsRequestModel.getLastName())};
         Boolean result = mongoRepository.updateOne(USER_DETAILS_COLLECTION,query, values);
 

@@ -34,6 +34,9 @@ import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 @Service
 public class MongoRepository {
 
+    public static final int ERROR_1 = -1;
+    public static final int ERROR_2 = -2;
+    public static final int SUCCESS_0 = 0;
     private MongoDatabase database;
 
     private CodecRegistry pojoCodecRegistry;
@@ -298,16 +301,16 @@ public class MongoRepository {
         InsertOneResult result = null;
 
         if (null == collection) {
-            return -1;
+            return ERROR_1;
         }
 
         try {
             result = collection.insertOne(object);
         } catch (MongoException ex) {
-            return -2;
+            return ERROR_2;
         }
 
-        return result.wasAcknowledged() ? 0 : -1;
+        return result.wasAcknowledged() ? SUCCESS_0 : ERROR_1;
     }
 
 
@@ -317,16 +320,16 @@ public class MongoRepository {
         InsertManyResult result = null;
 
         if (null == collection) {
-            return -1;
+            return ERROR_1;
         }
 
         try {
             result = collection.insertMany(objects);
         } catch (MongoException ex) {
-            return -2;
+            return ERROR_2;
         }
 
-        return result.wasAcknowledged() ? 0 : -1;
+        return result.wasAcknowledged() ? SUCCESS_0 : ERROR_1;
     }
 
     /**
@@ -338,7 +341,7 @@ public class MongoRepository {
         MongoCollection<Document> collection = getCollection(collectionName);
 
         if (null == collection) {
-            return -1;
+            return ERROR_1;
         }
 
         return collection.countDocuments(query);

@@ -100,7 +100,7 @@ public class UserIAMRepository {
     public UserIAMModel getUserRole(String userId) {
 
         return mongoRepository.findOne(USER_IAM_COLLECTION,
-            eq(UserIAMModel.ID, userId),
+            eq(UserIAMModel.ID_KEY, userId),
             and(tuple(USER_AUTHORIZATION_KEY, 1)),
             UserIAMModel.class);
     }

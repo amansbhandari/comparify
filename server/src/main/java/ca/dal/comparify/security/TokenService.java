@@ -22,6 +22,7 @@ import static java.util.Collections.emptyList;
 @Service
 public class TokenService implements AuthenticationProviders {
 
+    public static final int LENGTH = 2;
     @Value("${jwt.token.expiration}")
     private long tokenExpiration;
 
@@ -105,7 +106,7 @@ public class TokenService implements AuthenticationProviders {
 
         String[] parts = token.split(BLANK_SPACE);
 
-        if(parts.length != 2){
+        if(parts.length != LENGTH){
             return null;
         }
 

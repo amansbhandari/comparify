@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -23,8 +22,8 @@ public class CompareItemController {
     @Autowired
     private AppreciationService appreciationService;
 
-    private final String STATUS_VERIFIED = "verified";
-    private final String STATUS_NOT_VERIFIED = "not verified";
+    private final String statusVerified = "verified";
+    private final String statusNotVerified = "not verified";
 
     /**
      * @param model
@@ -38,11 +37,11 @@ public class CompareItemController {
         Boolean result = compareItemService.verifyItem(model);
         if(result == false)
         {
-            model.setStatus(STATUS_NOT_VERIFIED);
+            model.setStatus(statusNotVerified);
         }
         else
         {
-            model.setStatus(STATUS_VERIFIED);
+            model.setStatus(statusVerified);
         }
 
         int status = compareItemService.create(model);

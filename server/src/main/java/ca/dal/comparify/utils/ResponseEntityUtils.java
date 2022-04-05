@@ -17,6 +17,7 @@ public class ResponseEntityUtils {
     public static final String ENTITY_ALREADY_EXISTS = "Entity already exists";
     public static final String REQUEST_FAILED_SOMETHING_WENT_WRONG = "Request Failed! Something went wrong...";
     public static final String INVALID_REQUEST = "Invalid Request";
+    public static final int CUSTOM_STATUS = 512;
 
     private ResponseEntityUtils() {
     }
@@ -49,7 +50,7 @@ public class ResponseEntityUtils {
                 break;
 
             case -3:
-                customStatus = 512;
+                customStatus = CUSTOM_STATUS;
                 message = REQUEST_FAILED_SOMETHING_WENT_WRONG;
                 break;
 

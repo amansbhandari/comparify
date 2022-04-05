@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * @author Harsh Shah
  */
-public class NotificationModel implements Serializable {
+public class NotificationModel{
 
     @BsonId
     private String id;
