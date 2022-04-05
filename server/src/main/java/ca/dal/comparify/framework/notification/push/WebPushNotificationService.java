@@ -7,6 +7,8 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.messaging.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -23,6 +25,9 @@ import static ca.dal.comparify.constant.NotificationConstant.TTL;
  */
 @Service
 public class WebPushNotificationService {
+
+    private static final Logger logger = LoggerFactory.getLogger(WebPushNotificationService.class);
+
 
     @Autowired
     private PushNotificationConfigurationProperties pushNotificationConfigurationProperties;
@@ -47,9 +52,9 @@ public class WebPushNotificationService {
 
             FirebaseApp.initializeApp(options);
         } catch (IOException e) {
-
+            logger.error(e.getMessage());
         } catch (Exception e){
-
+            logger.error(e.getMessage());
         }
     }
 
@@ -80,10 +85,13 @@ public class WebPushNotificationService {
         try {
             FirebaseMessaging.getInstance().sendAsync(message).get();
         } catch (InterruptedException e) {
-            return false;
+            logger.error(e.getMessage());
+            Thread.currentThread().interrupt();
         } catch (ExecutionException e) {
+            logger.error(e.getMessage());
             return false;
         } catch (Exception e){
+            logger.error(e.getMessage());
             return false;
         }
 
