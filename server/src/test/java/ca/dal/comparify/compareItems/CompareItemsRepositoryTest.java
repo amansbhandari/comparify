@@ -4,21 +4,15 @@ package ca.dal.comparify.compareItems;
 import ca.dal.comparify.compareitems.CompareItemRepository;
 import ca.dal.comparify.compareitems.model.CompareItemsModel;
 import ca.dal.comparify.mongo.MongoRepository;
-import ca.dal.comparify.store.model.StoreModel;
-
-import org.assertj.core.util.Arrays;
-import org.bson.conversions.Bson;
-import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -41,14 +35,12 @@ public class CompareItemsRepositoryTest {
 
     @Test
     void testgetSameItems() {
-
         Date date = new Date();
         CompareItemsModel compareItemsModel = new CompareItemsModel();
         compareItemsModel.setUserId("dummydata");
         compareItemsModel.setBrandId("dummydata");
         compareItemsModel.setDateOfPurchase(date);
         compareItemsModel.setPrice(10.0);
-
         List compareItems = new ArrayList<>();
         compareItems.add(compareItemsModel);
 
@@ -135,15 +127,5 @@ public class CompareItemsRepositoryTest {
 
         when(mongoRepository.insertOne(any(),any(),any())).thenReturn(0);
         assertEquals(compareItemRepository.updateItem(compareItemsModel), false);
-
-
     }
-
-
-
-    }
-
-
-
-
-
+}
