@@ -70,8 +70,8 @@ public class AnalyticsService {
         List<HashModel> resultSet = analyticsRepository.getMonthlyTotalPurchaseOfItemCategory(month);
 
         Map<String, Double> stats = new HashMap<>();
-        for (Map<String, Object> resut : resultSet) {
-            stats.put((String) resut.get("_id"), (Double) resut.get("totalPurchase"));
+        for (Map<String, Object> result : resultSet) {
+            stats.put((String) result.get("_id"), (Double) result.get("totalPurchase"));
         }
 
         Map<String, String> categories = analyticsRepository.getAllCategories().stream()

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:remove="all">Alert Notification</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<p>
+    Hello, <span th:text="${name}">User</span>
+</p>
+<p th:text="${message}"></p>
+<p>
+    Subscribed alert name - <b th:text="${alertName}"></b>
+</p>
+<p>
+    <span>Regards,</span>
+    <br/>
+    <span>Comparify Team</span>
+</p>
+</body>
+</html>

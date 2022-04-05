@@ -8,6 +8,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.InsertManyResult;
 import com.mongodb.client.result.InsertOneResult;
 import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
@@ -43,20 +44,19 @@ public class MongoRepository {
         this.database = mongoClient.getDatabase(databaseName);
 
         this.pojoCodecRegistry =
-                fromRegistries(
-                        MongoClientSettings.getDefaultCodecRegistry(),
-                        fromProviders(PojoCodecProvider.builder().automatic(true).build()));
+            fromRegistries(
+                MongoClientSettings.getDefaultCodecRegistry(),
+                fromProviders(PojoCodecProvider.builder().automatic(true).build()));
     }
 
     /**
      * @param collectionName
      * @return
-     *
      * @author Harsh Shah
      */
     private MongoCollection<Document> getCollection(String collectionName) {
         try {
-        return this.database.getCollection(collectionName);
+            return this.database.getCollection(collectionName);
         } catch (Exception e) {
             return null;
         }
@@ -67,7 +67,6 @@ public class MongoRepository {
      * @param classOf
      * @param <T>
      * @return
-     *
      * @author Harsh Shah
      */
     private <T> MongoCollection<T> getCollection(String collectionName, Class<T> classOf) {
@@ -85,7 +84,6 @@ public class MongoRepository {
      * @param classOf
      * @param <T>
      * @return
-     *
      * @author Harsh Shah
      */
     public <T> List<T> find(String collectionName, Bson query, Class<T> classOf) {
@@ -98,9 +96,9 @@ public class MongoRepository {
         }
 
         collection.find(query)
-                .allowDiskUse(true)
-                .iterator()
-                .forEachRemaining(output::add);
+            .allowDiskUse(true)
+            .iterator()
+            .forEachRemaining(output::add);
 
 
         return output;
@@ -113,7 +111,6 @@ public class MongoRepository {
      * @param classOf
      * @param <T>
      * @return
-     *
      * @author Harsh Shah
      */
     public <T> List<T> find(String collectionName, Bson query, PaginationOptions options, Class<T> classOf) {
@@ -143,7 +140,6 @@ public class MongoRepository {
      * @param classOf
      * @param <T>
      * @return
-     *
      * @author Harsh Shah
      */
     public <T> List<T> find(String collectionName, Bson query, Bson projection, Class<T> classOf) {
@@ -177,7 +173,6 @@ public class MongoRepository {
      * @param classOf
      * @param <T>
      * @return
-     *
      * @author Harsh Shah
      */
     public <T> List<T> find(String collectionName, Bson query, Bson projection, PaginationOptions options,
@@ -210,7 +205,6 @@ public class MongoRepository {
      * @param classOf
      * @param <T>
      * @return
-     *
      * @author Harsh Shah
      */
     public <T> T findOne(String collectionName, Bson query, Class<T> classOf) {
@@ -231,7 +225,6 @@ public class MongoRepository {
      * @param classOf
      * @param <T>
      * @return
-     *
      * @author Harsh Shah
      */
     public <T> T findOne(String collectionName, Bson query, PaginationOptions options, Class<T> classOf) {
@@ -251,7 +244,6 @@ public class MongoRepository {
      * @param classOf
      * @param <T>
      * @return
-     *
      * @author Harsh Shah
      */
     public <T> T findOne(String collectionName, Bson query, Bson projection, Class<T> classOf) {
@@ -275,7 +267,6 @@ public class MongoRepository {
      * @param classOf
      * @param <T>
      * @return
-     *
      * @author Harsh Shah
      */
     public <T> T findOne(String collectionName, Bson query, Bson projection,
@@ -299,7 +290,6 @@ public class MongoRepository {
      * @param classOf
      * @param <T>
      * @return
-     *
      * @author Harsh Shah
      */
     public <T> int insertOne(String collectionName, T object, Class<T> classOf) {
@@ -320,16 +310,34 @@ public class MongoRepository {
         return result.wasAcknowledged() ? 0 : -1;
     }
 
+
+    public <T> int insertMany(String collectionName, List<T> objects, Class<T> classOf) {
+        MongoCollection<T> collection = getCollection(collectionName, classOf);
+
+        InsertManyResult result = null;
+
+        if (null == collection) {
+            return -1;
+        }
+
+        try {
+            result = collection.insertMany(objects);
+        } catch (MongoException ex) {
+            return -2;
+        }
+
+        return result.wasAcknowledged() ? 0 : -1;
+    }
+
     /**
      * @param collectionName
      * @return
-     *
      * @author Harsh Shah
      */
     public long count(String collectionName, Bson query) {
         MongoCollection<Document> collection = getCollection(collectionName);
 
-        if(null == collection){
+        if (null == collection) {
             return -1;
         }
 
@@ -342,7 +350,6 @@ public class MongoRepository {
      * @param query
      * @param update
      * @return
-     *
      * @author Harsh Shah
      */
     public boolean updateOne(String collectionName, Bson query, HashModel update) {
@@ -365,7 +372,6 @@ public class MongoRepository {
      * @param query
      * @param values
      * @return
-     *
      * @author Harsh Shah
      */
     public boolean updateOne(String collectionName, Bson query, Bson... values) {
@@ -389,7 +395,6 @@ public class MongoRepository {
      * @param collectionName
      * @param query
      * @return
-     *
      * @author Harsh Shah
      */
     public boolean deleteOne(String collectionName, Bson query) {
@@ -408,7 +413,6 @@ public class MongoRepository {
      * @param collectionName
      * @param query
      * @return
-     *
      * @author Harsh Shah
      */
     public boolean deleteMany(String collectionName, Bson query) {
@@ -429,7 +433,6 @@ public class MongoRepository {
      * @param classOf
      * @param <T>
      * @return
-     *
      * @author Harsh Shah
      */
     public <T> List<T> aggregate(String collectionName, List<Bson> pipeline, Class<T> classOf) {
@@ -442,10 +445,10 @@ public class MongoRepository {
             return Collections.emptyList();
         }
 
-         collection.aggregate(pipeline)
-             .allowDiskUse(true)
-             .iterator()
-             .forEachRemaining(output::add);
+        collection.aggregate(pipeline)
+            .allowDiskUse(true)
+            .iterator()
+            .forEachRemaining(output::add);
 
         return output;
     }
@@ -457,7 +460,6 @@ public class MongoRepository {
      * @param classOf
      * @param <T>
      * @return
-     *
      * @author Harsh Shah
      */
     public <T> T aggregateOne(String collectionName, List<Bson> pipeline, Class<T> classOf) {
@@ -471,5 +473,14 @@ public class MongoRepository {
         return ObjectUtils.convert(collection.aggregate(pipeline)
             .allowDiskUse(true).first(), classOf);
 
+    }
+
+    /**
+     * @param collectionName
+     * @author Harsh Shah
+     */
+    public void dropCollection(String collectionName) {
+        MongoCollection<Document> collection = getCollection(collectionName);
+        collection.drop();
     }
 }

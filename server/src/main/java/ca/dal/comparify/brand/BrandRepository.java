@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static ca.dal.comparify.mongo.MongoUtils.eq;
+
 
 @Service
 public class BrandRepository {
@@ -54,5 +56,14 @@ public class BrandRepository {
      */
     public Long getBrandCount(){
         return mongoRepository.count(BRAND_COLLECTION, Filters.empty());
+    }
+
+    /**
+     * @param id
+     * @return
+     * @author Harsh Shah
+     */
+    public BrandModel findBrandById(String id) {
+        return mongoRepository.findOne(BRAND_COLLECTION, eq("_id", id), BrandModel.class);
     }
 }

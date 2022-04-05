@@ -3,6 +3,7 @@ package ca.dal.comparify.constant;
 public class ApplicationConstant {
 
 
+    public static final String SILVER = "silver";
 
     private ApplicationConstant(){}
 
