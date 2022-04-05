@@ -119,6 +119,14 @@ class AlertControllerTest {
         securityUtils.close();
     }
 
+    /**
+     * @param request
+     * @param expectedStatus
+     * @param mockResponse
+     * @param expected
+     * @throws Exception
+     * @author Harsh Shah
+     */
     @ParameterizedTest(name = "{index}: testCreate() = {1}")
     @MethodSource("testCreateDatasource")
     void testCreate(AlertRequestModel request, int expectedStatus,
@@ -132,11 +140,18 @@ class AlertControllerTest {
             .andExpect(status().is(expectedStatus))
             .andExpect(result -> {
                 String content = result.getResponse().getContentAsString(StandardCharsets.UTF_8);
-                assertEquals(content, write(expected));
+                assertEquals(write(expected), content);
 
             });
     }
 
+    /**
+     * @param expectedStatus
+     * @param mockResponse
+     * @param expected
+     * @throws Exception
+     * @author Harsh Shah
+     */
     @ParameterizedTest(name = "{index}: testFetch() = {0}")
     @MethodSource("testFetchDatasource")
     void testFetch(int expectedStatus, List<AlertResponseModel> mockResponse,
@@ -157,6 +172,14 @@ class AlertControllerTest {
             });
     }
 
+    /**
+     * @param request
+     * @param expectedStatus
+     * @param mockResponse
+     * @param expected
+     * @throws Exception
+     * @author Harsh Shah
+     */
     @ParameterizedTest(name = "{index}: testDelete() = {1}")
     @MethodSource("testDeleteDatasource")
     void testDelete(Map<String, String> request, int expectedStatus,
@@ -170,7 +193,7 @@ class AlertControllerTest {
             .andExpect(status().is(expectedStatus))
             .andExpect(result -> {
                 String content = result.getResponse().getContentAsString(StandardCharsets.UTF_8);
-                assertEquals(content, write(expected));
+                assertEquals(write(expected), content);
             });
 
     }

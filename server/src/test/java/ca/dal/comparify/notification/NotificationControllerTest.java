@@ -84,6 +84,13 @@ class NotificationControllerTest {
         securityUtils.close();
     }
 
+    /**
+     * @param expectedStatus
+     * @param mockResponse
+     * @param expected
+     * @throws Exception
+     * @author Harsh Shah
+     */
     @ParameterizedTest(name = "{index}: testFetch() = {0}")
     @MethodSource("testFetchDatasource")
     void testFetch(int expectedStatus, List<NotificationModel> mockResponse,
@@ -96,14 +103,22 @@ class NotificationControllerTest {
             .andExpect(status().is(expectedStatus)).andExpect(result -> {
                 String content = result.getResponse().getContentAsString(StandardCharsets.UTF_8);
                 if (mockResponse == null) {
-                    assertEquals(content, expected);
+                    assertEquals(expected, content);
                 } else {
-                    assertEquals(content, write(expected));
+                    assertEquals(write(expected), content);
                 }
 
             });
     }
 
+    /**
+     * @param request
+     * @param expectedStatus
+     * @param mockResponse
+     * @param expected
+     * @throws Exception
+     * @author Harsh Shah
+     */
     @ParameterizedTest(name = "{index}: testRegisterReceiver() = {1}")
     @MethodSource("testRegisterReceiverDatasource")
     void testRegisterReceiver(NotificationReceiverModel request, int expectedStatus,
@@ -116,7 +131,7 @@ class NotificationControllerTest {
                 .content(write(request)))
             .andExpect(status().is(expectedStatus)).andExpect(result -> {
                 String content = result.getResponse().getContentAsString(StandardCharsets.UTF_8);
-                assertEquals(content, write(expected));
+                assertEquals(write(expected), content);
             });
     }
 }
