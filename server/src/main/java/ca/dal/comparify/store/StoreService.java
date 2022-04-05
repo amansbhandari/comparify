@@ -1,8 +1,6 @@
 package ca.dal.comparify.store;
 
-import ca.dal.comparify.brand.model.BrandModel;
 import ca.dal.comparify.store.model.StoreModel;
-import ca.dal.comparify.store.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -60,5 +58,14 @@ public class StoreService {
      */
     public String  saveStore(StoreModel storeModel){
         return storeRepository.saveStore(storeModel);
+    }
+
+
+    /**
+     * @param storeId
+     * @return
+     */
+    public StoreModel findStoreById(String storeId){
+        return storeRepository.findStoreById(storeId);
     }
 }

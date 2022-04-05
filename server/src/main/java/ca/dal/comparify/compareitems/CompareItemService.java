@@ -44,7 +44,7 @@ public class CompareItemService {
     public int create(CompareItemsModel model){
         int status = compareItemRepository.save(model);
         if(status == 0){
-            alertService.trigger(model.getBrandId(), model.getProductId());
+            alertService.trigger(model.getBrandId(), model.getProductId(), model.getPrice(), model.getStoreId());
         }
         return status;
     }

@@ -3,14 +3,21 @@ package ca.dal.comparify.alerts;
 import ca.dal.comparify.alerts.model.AlertModel;
 import ca.dal.comparify.alerts.model.AlertRequestModel;
 import ca.dal.comparify.alerts.model.AlertResponseModel;
+import ca.dal.comparify.brand.BrandService;
+import ca.dal.comparify.brand.model.BrandModel;
+import ca.dal.comparify.constant.ApplicationConstant;
 import ca.dal.comparify.constant.MailTemplateConstant;
 import ca.dal.comparify.framework.notification.model.MailNotificationModel;
 import ca.dal.comparify.framework.notification.model.WebPushNotificationModel;
 import ca.dal.comparify.framework.notification.model.WebSocketNotificationModel;
+import ca.dal.comparify.item.ItemService;
+import ca.dal.comparify.item.model.ItemModel;
 import ca.dal.comparify.model.HashModel;
 import ca.dal.comparify.notification.NotificationService;
 import ca.dal.comparify.notification.model.IconType;
 import ca.dal.comparify.notification.model.NotificationTypeEnum;
+import ca.dal.comparify.store.StoreService;
+import ca.dal.comparify.store.model.StoreModel;
 import ca.dal.comparify.user.model.iam.UserDetailsModel;
 import ca.dal.comparify.user.service.UserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,11 +47,19 @@ public class AlertService {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private BrandService brandService;
+
+    @Autowired
+    private ItemService itemService;
+
+    @Autowired
+    private StoreService storeService;
+
     /**
      * @param alert
      * @param createdBy
      * @return
-     * 
      * @author Harsh Shah
      */
     public int create(AlertRequestModel alert, String createdBy) {
@@ -67,7 +82,6 @@ public class AlertService {
     /**
      * @param userIdentifier
      * @return
-     * 
      * @author Harsh Shah
      */
     public List<AlertResponseModel> fetch(String userIdentifier) {
@@ -78,7 +92,6 @@ public class AlertService {
      * @param userId
      * @param id
      * @return
-     * 
      * @author Harsh Shah
      */
     public boolean delete(String userId, String id) {
@@ -107,10 +120,11 @@ public class AlertService {
     /**
      * @param brandId
      * @param productId
-     * 
+     * @param price
+     * @param storeId
      * @author Harsh Shah
      */
-    public void trigger(String brandId, String productId) {
+    public void trigger(String brandId, String productId, Double price, String storeId) {
 
         HashModel alerts = checkForAlerts(brandId, productId);
 
@@ -123,46 +137,83 @@ public class AlertService {
         List<AlertModel> alertsOnPriceRange =
             convert((List<Object>) alerts.get(PRICE_RANGE.getValueLowerCase()), AlertModel.class);
 
-        String message = "Product Information Available";
-        for(AlertModel alert: alertsOnInformationAvailable){
+
+        if(alertsOnInformationAvailable.isEmpty() &&
+            alertsOnPriceDrop.isEmpty() &&
+            alertsOnPriceDrop.isEmpty()){
+            return;
+        }
+
+        BrandModel brand = brandService.findBrandById(brandId);
+        ItemModel item = itemService.findItemById(productId);
+        StoreModel store = storeService.findStoreById(storeId);
+
+        String itemName = item.getName();
+        String brandName = brand.getName();
+        String storeName = store.getStoreName();
+
+
+        String message = String.format("Information on %s of brand %s is available in %s",
+            itemName, brandName, storeName);
+
+        for (AlertModel alert : alertsOnInformationAvailable) {
             notificationService.create(alert.getAudit().getCreatedBy(),
                 alert.getAlertIdentifier(), message, NotificationTypeEnum.ALERT);
         }
         triggerSocket(alertsOnInformationAvailable, message);
-        triggerWebPush(alertsOnInformationAvailable, "Product Information Available");
+        triggerWebPush(alertsOnInformationAvailable, message);
+        triggerMail(alertsOnInformationAvailable, message);
 
 
-
-        message = "Price Dropped";
-        for(AlertModel alert: alertsOnPriceDrop){
+        message = String.format("Price dropped on the %s of brand %s in store %s",
+            itemName, brandName, storeName);
+        for (AlertModel alert : alertsOnPriceDrop) {
             notificationService.create(alert.getAudit().getCreatedBy(),
                 alert.getAlertIdentifier(), message, NotificationTypeEnum.ALERT);
         }
         triggerSocket(alertsOnPriceDrop, message);
         triggerWebPush(alertsOnPriceDrop, message);
+        triggerMail(alertsOnPriceDrop, message);
 
 
-
-        message = "Available in Range";
-        for(AlertModel alert: alertsOnPriceRange){
+        message = String.format("%s is available in price range of brand %s in store %s",
+            itemName, brandName, storeName);
+        for (AlertModel alert : alertsOnPriceRange) {
             notificationService.create(alert.getAudit().getCreatedBy(),
                 alert.getAlertIdentifier(), message, NotificationTypeEnum.ALERT);
         }
         triggerSocket(alertsOnPriceRange, message);
         triggerWebPush(alertsOnPriceRange, message);
+        triggerMail(alertsOnPriceRange, message);
 
-
-
-        //triggerMail(activeAlerts);
     }
 
-    private void triggerMail(List<AlertModel> activeAlerts) {
+    private void triggerMail(List<AlertModel> activeAlerts, String message) {
+        if (activeAlerts.isEmpty()) {
+            return;
+        }
+
+        for (AlertModel alert : activeAlerts) {
+
+            String userId = alert.getAudit().getCreatedBy();
+            String title = "There is update on your Alert: " + alert.getAlertIdentifier();
+
+            HashModel model = new HashModel();
+            model.put("message", message);
+            model.put("alertName", alert.getAlertIdentifier());
+
+            MailNotificationModel notification = new MailNotificationModel(title,
+                MailTemplateConstant.ALERT_UPDATE_TEMPLATE,
+                IconType.ALERT, NotificationTypeEnum.ALERT, userId, model);
+
+            notificationService.send(userId, notification);
+
+        }
     }
 
     /**
      * @param alerts
      * @param message
-     * 
      * @author Harsh Shah
      */
     private void triggerWebPush(List<AlertModel> alerts, String message) {
@@ -173,6 +224,11 @@ public class AlertService {
         for (AlertModel alert : alerts) {
 
             String userId = alert.getAudit().getCreatedBy();
+
+            UserDetailsModel user = userDetailsService.findUserById(userId);
+            if (ApplicationConstant.SILVER.equalsIgnoreCase(user.getType())) {
+                continue;
+            }
 
             WebPushNotificationModel model = new WebPushNotificationModel(
                 alert.getAudit().getCreatedBy(), alert.getAlertIdentifier(),
@@ -186,7 +242,6 @@ public class AlertService {
     /**
      * @param alerts
      * @param message
-     * 
      * @author Harsh Shah
      */
     private void triggerSocket(List<AlertModel> alerts, String message) {
@@ -207,7 +262,6 @@ public class AlertService {
     /**
      * @param alertId
      * @return
-     *
      * @author Harsh Shah
      */
     private AlertModel fetchAlertById(String alertId) {
@@ -228,10 +282,9 @@ public class AlertService {
      * @param userId
      * @param alertIdentifier
      * @return
-     *
      * @author Harsh Shah
      */
-    private HashModel createMailModel(String userId, String alertIdentifier){
+    private HashModel createMailModel(String userId, String alertIdentifier) {
         UserDetailsModel user = userDetailsService.findUserById(userId);
 
         HashModel model = new HashModel();

@@ -73,4 +73,13 @@ public class ItemService {
         }};
         return result;
     }
+
+    /**
+     * @param id
+     * @return
+     * @author Harsh Shah
+     */
+    public ItemModel findItemById(String id){
+        return itemRepository.findItemById(id);
+    }
 }
