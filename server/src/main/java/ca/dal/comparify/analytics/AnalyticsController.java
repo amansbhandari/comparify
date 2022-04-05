@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Harsh Shah
@@ -22,17 +23,40 @@ public class AnalyticsController {
     /**
      * @param itemId
      * @return
-     *
      * @author Harsh Shah
      */
     @GetMapping("")
-    public List<HashModel> getPriceTrend(@RequestParam("item_id") String itemId){
+    public List<HashModel> getPriceTrend(@RequestParam("item_id") String itemId) {
         return analyticsService.getPriceTrend(itemId);
     }
 
+    /**
+     * @param itemId
+     * @return
+     * @author Harsh Shah
+     */
     @GetMapping("/brands")
-    public HashModel getPriceTrendForDifferentBrands(@RequestParam("item_id") String itemId){
+    public HashModel getPriceTrendForDifferentBrands(@RequestParam("item_id") String itemId) {
         return analyticsService.getPriceTrendForDifferentBrands(itemId);
     }
 
+    /**
+     * @param date
+     * @return
+     * @author Harsh Shah
+     */
+    @GetMapping("/categories")
+    public List<HashModel> getProductCountForCategory(@RequestParam("date") String date) {
+        return analyticsService.getProductCountForCategory(date);
+    }
+
+    /**
+     * @param month
+     * @return
+     * @author Harsh Shah
+     */
+    @GetMapping("/monthly")
+    public Map<String, Double> getMonthlyTotalPurchaseOfItemCategory(@RequestParam("month") int month) {
+        return analyticsService.getMonthlyTotalPurchaseOfItemCategory(month);
+    }
 }

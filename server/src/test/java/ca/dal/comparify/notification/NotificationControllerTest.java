@@ -1,53 +1,123 @@
 package ca.dal.comparify.notification;
 
+import ca.dal.comparify.framework.exception.handler.GlobalExceptionHandler;
+import ca.dal.comparify.notification.model.NotificationModel;
 import ca.dal.comparify.notification.model.NotificationReceiverModel;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.Test;
+import ca.dal.comparify.utils.SecurityUtils;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.test.web.servlet.MockMvc;
 
-@ContextConfiguration(classes = {NotificationController.class})
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Stream;
+
+import static ca.dal.comparify.constant.ApplicationConstant.EMPTY_STRING;
+import static ca.dal.comparify.constant.ApplicationConstant.STATUS;
+import static ca.dal.comparify.utils.ObjectUtils.write;
+import static java.util.Collections.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+
+@ContextConfiguration(classes = {NotificationController.class, GlobalExceptionHandler.class})
 @ExtendWith(SpringExtension.class)
+@WebMvcTest(NotificationController.class)
+@Import(NotificationController.class)
+@AutoConfigureMockMvc(addFilters = false)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class NotificationControllerTest {
 
+    public static final String REQUEST_MAPPING = "/notification";
+    public static final String RECEIVER_REGISTER_API = REQUEST_MAPPING + "/receiver/register";
+
     @Autowired
-    private NotificationController notificationController;
+    private MockMvc mockMvc;
 
     @MockBean
     private NotificationService notificationService;
 
-    @Test
-    void testFetch() throws Exception {
-        SecurityMockMvcRequestBuilders.FormLoginRequestBuilder requestBuilder = SecurityMockMvcRequestBuilders.formLogin();
-        ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(this.notificationController)
-            .build()
-            .perform(requestBuilder);
-        actualPerformResult.andExpect(MockMvcResultMatchers.status().isNotFound());
+    private MockedStatic<SecurityUtils> securityUtils;
+
+    public static Stream<Arguments> testFetchDatasource() {
+        return Stream.of(Arguments.of(OK.value(), emptyList(), emptyList()),
+            Arguments.of(OK.value(), null, EMPTY_STRING));
     }
 
-    @Test
-    void testRegisterReceiver() throws Exception {
-        MockHttpServletRequestBuilder postResult = MockMvcRequestBuilders.post("/notification/receiver/register");
-        postResult.characterEncoding("Encoding");
-        MockHttpServletRequestBuilder contentTypeResult = postResult.contentType(MediaType.APPLICATION_JSON);
+    public static Stream<Arguments> testRegisterReceiverDatasource() {
+        return Stream.of(
+            Arguments.of(new NotificationReceiverModel("sample"),
+                OK.value(), true, singletonMap(STATUS, true)),
+            Arguments.of(new NotificationReceiverModel("sample"),
+                OK.value(), false, singletonMap(STATUS, false)));
+    }
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        MockHttpServletRequestBuilder requestBuilder = contentTypeResult
-            .content(objectMapper.writeValueAsString(new NotificationReceiverModel()));
-        ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(this.notificationController)
-            .build()
-            .perform(requestBuilder);
-        actualPerformResult.andExpect(MockMvcResultMatchers.status().is(415));
+    @BeforeAll
+    void setUpForTestSuite() {
+        securityUtils = Mockito.mockStatic(SecurityUtils.class);
+        securityUtils.when(() -> SecurityUtils.getPrincipal(any())).thenReturn("dummy_id");
+    }
+
+    @AfterAll
+    void tearDownTestSuite() {
+        securityUtils.close();
+    }
+
+    @ParameterizedTest(name = "{index}: testFetch() = {0}")
+    @MethodSource("testFetchDatasource")
+    void testFetch(int expectedStatus, List<NotificationModel> mockResponse,
+                   Object expected) throws Exception {
+
+        when(notificationService.fetch(any())).thenReturn(mockResponse);
+
+        mockMvc.perform(get(REQUEST_MAPPING)
+                .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().is(expectedStatus)).andExpect(result -> {
+                String content = result.getResponse().getContentAsString(StandardCharsets.UTF_8);
+                if (mockResponse == null) {
+                    assertEquals(content, expected);
+                } else {
+                    assertEquals(content, write(expected));
+                }
+
+            });
+    }
+
+    @ParameterizedTest(name = "{index}: testRegisterReceiver() = {1}")
+    @MethodSource("testRegisterReceiverDatasource")
+    void testRegisterReceiver(NotificationReceiverModel request, int expectedStatus,
+                              boolean mockResponse, Map<String, Boolean> expected) throws Exception {
+
+        when(notificationService.registerReceiver(any(), any())).thenReturn(mockResponse);
+
+        mockMvc.perform(post(RECEIVER_REGISTER_API)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(write(request)))
+            .andExpect(status().is(expectedStatus)).andExpect(result -> {
+                String content = result.getResponse().getContentAsString(StandardCharsets.UTF_8);
+                assertEquals(content, write(expected));
+            });
     }
 }
 
