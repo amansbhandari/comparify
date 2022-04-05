@@ -3,6 +3,7 @@ package ca.dal.comparify.store;
 import ca.dal.comparify.store.model.StoreModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,18 +17,18 @@ public class StoreService {
 
     /**
      * @author Meghna Rupchandani
+     * Sonar fix by Harsh Shah
      */
-    public ArrayList<Map> getAllStores(){
+    public List<Map<String, String>> getAllStores() {
         List<StoreModel> mongoResult = storeRepository.getAll();
-        ArrayList<Map> result = new ArrayList<>();
-        for(StoreModel each:mongoResult) {
-            Map<String, String> eachObj = new HashMap<String, String>(){{
-                put("id", each.getId().toString());
-                put("storeName", each.getStoreName());
-                put("streetName", each.getStreetName());
-                put("city", each.getCity());
-                put("phone", each.getPhone());
-            }};
+        List<Map<String, String>> result = new ArrayList<>();
+        for (StoreModel each : mongoResult) {
+            Map<String, String> eachObj = new HashMap<>();
+            eachObj.put("id", each.getId().toString());
+            eachObj.put("storeName", each.getStoreName());
+            eachObj.put("streetName", each.getStreetName());
+            eachObj.put("city", each.getCity());
+            eachObj.put("phone", each.getPhone());
             result.add(eachObj);
         }
         return result;
@@ -35,17 +36,18 @@ public class StoreService {
 
     /**
      * @author Chanpreet Singh
+     * Sonar fix by Harsh Shah
      */
-    public Map<String, Object> getSpecificStoreDetails(ArrayList<String> storeList){
+    public Map<String, Object> getSpecificStoreDetails(ArrayList<String> storeList) {
         Map<String, Object> result = new HashMap<String, Object>();
         List<StoreModel> mongoResult = storeRepository.getSpecificStores(storeList);
-        for(StoreModel each: mongoResult){
-            result.put(each.getId().toString(), new HashMap<String, Object>(){{
-                put("storeName", each.getStoreName());
-                put("streetName", each.getStreetName());
-                put("city", each.getCity());
-                put("phone", each.getPhone());
-            }});
+        for (StoreModel each : mongoResult) {
+            HashMap<String, Object> itr = new HashMap<>();
+            itr.put("storeName", each.getStoreName());
+            itr.put("streetName", each.getStreetName());
+            itr.put("city", each.getCity());
+            itr.put("phone", each.getPhone());
+            result.put(each.getId().toString(), itr);
         }
         return result;
     }
@@ -53,10 +55,9 @@ public class StoreService {
 
     /**
      * @return
-     *
      * @author Aman Singh BHandari
      */
-    public String  saveStore(StoreModel storeModel){
+    public String saveStore(StoreModel storeModel) {
         return storeRepository.saveStore(storeModel);
     }
 
@@ -65,7 +66,7 @@ public class StoreService {
      * @param storeId
      * @return
      */
-    public StoreModel findStoreById(String storeId){
+    public StoreModel findStoreById(String storeId) {
         return storeRepository.findStoreById(storeId);
     }
 }

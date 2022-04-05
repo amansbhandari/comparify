@@ -1,13 +1,10 @@
 package ca.dal.comparify.itemcategories;
 
 import ca.dal.comparify.itemcategories.model.ItemCategoryModel;
-import ca.dal.comparify.itemcategories.ItemCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 
 @Service
 public class ItemCategoryService {
@@ -17,23 +14,27 @@ public class ItemCategoryService {
 
     /**
      * @author Meghna Rupchandani
+     * Sonar fix by Harsh Shah
      */
-    public ArrayList<Map> getAllCategories(){
+    public List<Map<String, String>> getAllCategories() {
         List<ItemCategoryModel> mongoResult = itemCategoryRepository.getAllCategories();
-        ArrayList<Map> result = new ArrayList<>();
-        for(ItemCategoryModel each:mongoResult) {
-            Map<String, String> eachObj = new HashMap<String, String>(){{
-                put("id", each.getId().toString());
-                put("categoryName", each.getCategoryName());
-            }};
+        List<Map<String, String>> result = new ArrayList<>();
+        for (ItemCategoryModel each : mongoResult) {
+            Map<String, String> eachObj = new HashMap<>();
+            eachObj.put("id", each.getId().toString());
+            eachObj.put("categoryName", each.getCategoryName());
             result.add(eachObj);
         }
         return result;
     }
 
-    public Map<String, String> getItemCategory(String itemCategoryId){
+    /**
+     * @param itemCategoryId
+     * @return
+     * Sonar fix by Harsh Shah
+     */
+    public Map<String, String> getItemCategory(String itemCategoryId) {
         ItemCategoryModel mongoResult = itemCategoryRepository.getCategoryName(itemCategoryId);
-        Map result = new HashMap(){{put("categoryName", mongoResult.getCategoryName());}};
-        return result;
+        return Collections.singletonMap("categoryName", mongoResult.getCategoryName());
     }
 }

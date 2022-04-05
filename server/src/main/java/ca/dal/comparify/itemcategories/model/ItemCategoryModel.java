@@ -18,9 +18,13 @@ public class ItemCategoryModel {
     public ItemCategoryModel() {
     }
 
+    /**
+     * @param id
+     * @param categoryName
+     * Sonar fix by Harsh Shah
+     */
     public ItemCategoryModel(@BsonProperty("_id") ObjectId id,
-                             @BsonProperty("categoryName") String storeName
-                        ){
+                             @BsonProperty("categoryName") String categoryName) {
         this.id = id;
         this.categoryName = categoryName;
     }

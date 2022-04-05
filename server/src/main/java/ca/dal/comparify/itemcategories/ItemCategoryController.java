@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
 
@@ -17,10 +18,11 @@ public class ItemCategoryController {
 
     /**
      * @author Meghna Rupchandani
+     * Sonar fix by Harsh Shah
      */
 
     @GetMapping("/")
-    public ArrayList<Map> getAllCategories(){
+    public List<Map<String, String>> getAllCategories(){
         return itemCategoryService.getAllCategories();
     }
 }
