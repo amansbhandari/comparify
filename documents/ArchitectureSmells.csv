@@ -1,0 +1,16 @@
+Project Name,Package Name,Architecture Smell,Cause of the Smell
+group15,ca.dal.comparify.framework.notification.model,Feature Concentration,Component is primary and contains mojority of classes
+group15,ca.dal.comparify.framework.exception,Feature Concentration,Component is primary and contains mojority of classes
+group15,ca.dal.comparify.notification.model,Feature Concentration,Component is primary and contains mojority of classes
+group15,ca.dal.comparify.brand,Feature Concentration,Component is primary and contains mojority of classes
+group15,ca.dal.comparify.utils,Cyclic Dependency,False positive
+group15,ca.dal.comparify.utils,Unstable Dependency,False positive
+group15,ca.dal.comparify.utils,Feature Concentration,Component is primary and contains mojority of classes
+group15,ca.dal.comparify.user.model.iam,Cyclic Dependency,False positive
+group15,ca.dal.comparify.user.model.iam,Feature Concentration,Component is primary and contains mojority of classes
+group15,ca.dal.comparify.alerts,Feature Concentration,Component is primary and contains mojority of classes
+group15,ca.dal.comparify.alerts.model,Feature Concentration,Component is primary and contains mojority of classes
+group15,ca.dal.comparify.item,Feature Concentration,Component is primary and contains mojority of classes
+group15,ca.dal.comparify.model,Feature Concentration,Component is primary and contains mojority of classes
+group15,ca.dal.comparify.mongo,Feature Concentration,Component is primary and contains mojority of classes
+group15,ca.dal.comparify.analytics,Feature Concentration,Component is primary and contains mojority of classes

@@ -1,0 +1,391 @@
+Project Name,Package Name,Type Name,Method Name,Implementation Smell,Explanation,Method start line no
+group15,ca.dal.comparify.Appreciation,AppreciationRepositoryTest,saveUserAppreciationTest,Magic Number,Method contains test cases,33
+group15,ca.dal.comparify.Appreciation,AppreciationRepositoryTest,billItemsOfSameProductsTest,Magic Number,Method contains test cases,46
+group15,ca.dal.comparify.Appreciation,AppreciationRepositoryTest,billItemsOfSameProductsTest,Magic Number,Method contains test cases,46
+group15,ca.dal.comparify.Appreciation,AppreciationRepositoryTest,billItemsOfSameProductsTest,Magic Number,Method contains test cases,46
+group15,ca.dal.comparify.Appreciation,AppreciationServiceTest,addAppreciationTest,Magic Number,Method contains test cases,37
+group15,ca.dal.comparify.Appreciation,AppreciationServiceTest,addAppreciationTest,Magic Number,Method contains test cases,37
+group15,ca.dal.comparify.Appreciation,AppreciationServiceTest,addAppreciationTest,Magic Number,Method contains test cases,37
+group15,ca.dal.comparify.Appreciation,AppreciationServiceTest,addAppreciationTest,Magic Number,Method contains test cases,37
+group15,ca.dal.comparify.Appreciation,AppreciationServiceTest,addAppreciationTest2,Magic Number,Method contains test cases,73
+group15,ca.dal.comparify.Appreciation,AppreciationServiceTest,addAppreciationTest2,Magic Number,Method contains test cases,73
+group15,ca.dal.comparify.Appreciation,AppreciationServiceTest,addAppreciationTest2,Magic Number,Method contains test cases,73
+group15,ca.dal.comparify.Appreciation,AppreciationServiceTest,addAppreciationTest2,Magic Number,Method contains test cases,73
+group15,ca.dal.comparify.Appreciation,AppreciationRepository,saveUserAppreciation,Long Statement,The statement is a quey containing long query condition,33
+group15,ca.dal.comparify.Appreciation,AppreciationRepository,billItemsOfSameProducts,Long Statement,The statement is a quey containing long query condition,46
+group15,ca.dal.comparify.securityQuestion,TestQuestionControler,addQuestionFailMongoException,Long Statement,Method contains test cases,46
+group15,ca.dal.comparify.securityQuestion,TestQuestionControler,addQuestionFailMongoException,Magic Number,Method contains test cases,46
+group15,ca.dal.comparify.securityQuestion,TestQuestionControler,addQuestionFailCollectionCanNotfind,Long Statement,Method contains test cases,59
+group15,ca.dal.comparify.securityQuestion,TestQuestionControler,addQuestionSuccessful,Long Statement,Method contains test cases,72
+group15,ca.dal.comparify.securityQuestion,TestQuestionControler,getQuestionSucceful,Long Statement,Method contains test cases,84
+group15,ca.dal.comparify.securityQuestion,TestQuestionControler,getQuestionNoRecordFound,Long Statement,Method contains test cases,96
+group15,ca.dal.comparify.securityQuestion,TestQuestionControler,getOneQuestionSuccess,Long Statement,Method contains test cases,112
+group15,ca.dal.comparify.securityQuestion,TestQuestionControler,updateAnswerSuccessFull,Long Statement,Method contains test cases,138
+group15,ca.dal.comparify.securityQuestion,TestQuestionControler,updateAnswerFail4xxError,Long Statement,Method contains test cases,145
+group15,ca.dal.comparify.securityQuestion,TestQuestionControler,deleteQuestionSuccess,Long Statement,Method contains test cases,154
+group15,ca.dal.comparify.framework.notification.mail,MailService,send,Long Statement,Constructor method and hence long statement,35
+group15,ca.dal.comparify.framework.notification.model,MailNotificationModelTest,testConstructor,Long Statement,Method contains test cases,12
+group15,ca.dal.comparify.framework.notification.model,AbstractChannelNotificationModelTest,testConstructor,Long Identifier,Method contains test cases,10
+group15,ca.dal.comparify.framework.notification.model,AbstractChannelNotificationModelTest,testConstructor,Long Statement,Method contains test cases,10
+group15,ca.dal.comparify.framework.notification.model,AbstractChannelNotificationModelTest,testConstructor2,Long Identifier,Method contains test cases,22
+group15,ca.dal.comparify.framework.notification.model,AbstractChannelNotificationModelTest,testConstructor2,Long Statement,Method contains test cases,22
+group15,ca.dal.comparify.framework.notification.model,WebSocketNotificationModelTest,testConstructor,Long Identifier,Method contains test cases,15
+group15,ca.dal.comparify.framework.notification.model,WebSocketNotificationModelTest,testConstructor,Long Statement,Method contains test cases,15
+group15,ca.dal.comparify.framework.notification.model,WebPushNotificationModelTest,testConstructor,Long Identifier,Method contains test cases,10
+group15,ca.dal.comparify.framework.notification.model,WebPushNotificationModelTest,testConstructor,Long Statement,Method contains test cases,10
+group15,ca.dal.comparify.framework.notification.model,WebSocketNotificationModel,WebSocketNotificationModel,Long Parameter List,Constructor method and hence long statement,15
+group15,ca.dal.comparify.framework.notification.model,MailNotificationModel,MailNotificationModel,Long Parameter List,Constructor method and hence long statement,16
+group15,ca.dal.comparify.framework.notification.model,WebPushNotificationModel,WebPushNotificationModel,Long Parameter List,Constructor method and hence long statement,13
+group15,ca.dal.comparify.framework.exception,AllEmptyFieldExceptionTest,testConstructor,Long Statement,Method contains test cases,12
+group15,ca.dal.comparify.framework.exception,AllEmptyFieldExceptionTest,testConstructor,Long Statement,Method contains test cases,12
+group15,ca.dal.comparify.framework.exception,AllEmptyFieldExceptionTest,testGetMessage,Long Statement,Method contains test cases,31
+group15,ca.dal.comparify.framework.exception,MissingRequiredFieldExceptionTest,testConstructor,Long Identifier,Method contains test cases,12
+group15,ca.dal.comparify.framework.exception,MissingRequiredFieldExceptionTest,testConstructor,Long Statement,Method contains test cases,12
+group15,ca.dal.comparify.framework.exception,MissingRequiredFieldExceptionTest,testConstructor,Long Statement,Method contains test cases,12
+group15,ca.dal.comparify.framework.exception,MissingRequiredFieldExceptionTest,testGetMessage,Long Statement,Method contains test cases,32
+group15,ca.dal.comparify.framework.exception,EntityAlreadyExistsExceptionTest,testConstructor,Long Identifier,Method contains test cases,9
+group15,ca.dal.comparify.framework.exception,EntityAlreadyExistsExceptionTest,testConstructor,Long Statement,Method contains test cases,9
+group15,ca.dal.comparify.framework.exception,MissingRequiredFieldException,getMessage,Long Statement,It is a string message,18
+group15,ca.dal.comparify.framework.exception,AllEmptyFieldException,getMessage,Long Statement,It is a string message,18
+group15,ca.dal.comparify.notification,NotificationControllerTest,testRegisterReceiverDatasource,Long Statement,Method contains test cases,68
+group15,ca.dal.comparify.notification,NotificationControllerTest,testFetch,Long Statement,Method contains test cases,87
+group15,ca.dal.comparify.notification,NotificationControllerTest,testRegisterReceiver,Long Statement,Method contains test cases,114
+group15,ca.dal.comparify.notification,NotificationController,registerReceiver,Long Statement,As per sonarqube suggestion to return immediately,25
+group15,ca.dal.comparify.notification.model,NotificationReceiverModelTest,testConstructor,Long Identifier,Method contains test cases,8
+group15,ca.dal.comparify.notification.model,NotificationReceiverModelTest,testConstructor2,Long Identifier,Method contains test cases,18
+group15,ca.dal.comparify.notification.model,NotificationModel,NotificationModel,Long Parameter List,The method has 5 parameters. ,44
+group15,ca.dal.comparify.brand.model,BrandModelTest,testConstructor2,Long Statement,Method contains test cases,23
+group15,ca.dal.comparify.brand.model,BrandModelTest,testTransform,Long Statement,Method contains test cases,50
+group15,ca.dal.comparify.brand,BrandServiceTest,getSpecificBrandDetailsTest,Long Statement,Method contains test cases,61
+group15,ca.dal.comparify.brand,BrandRepositoryTest,getBrandCountTest,Magic Number,Method contains test cases,81
+group15,ca.dal.comparify.brand,BrandRepositoryTest,getBrandCountTest,Magic Number,Method contains test cases,81
+group15,ca.dal.comparify.utils,StringUtilsTest,testIsNotEmptyDatasource,Long Statement,Method contains test cases,19
+group15,ca.dal.comparify.utils,StringUtilsTest,testIsEmptyDatasource,Long Statement,Method contains test cases,32
+group15,ca.dal.comparify.utils,StringUtilsTest,testIsAnyEmptyDatasource,Long Statement,Method contains test cases,45
+group15,ca.dal.comparify.utils,StringUtilsTest,testIsAllEmptyDatasource,Long Statement,Method contains test cases,58
+group15,ca.dal.comparify.utils,StringUtilsTest,testValueOfDatasource,Magic Number,Method contains test cases,70
+group15,ca.dal.comparify.utils,ResponseEntityUtilsTest,testReturnStatus,Magic Number,Method contains test cases,13
+group15,ca.dal.comparify.utils,ResponseEntityUtilsTest,testReturnStatus2,Magic Number,Method contains test cases,21
+group15,ca.dal.comparify.utils,ResponseEntityUtilsTest,testReturnStatus2,Magic Number,Method contains test cases,21
+group15,ca.dal.comparify.utils,ResponseEntityUtilsTest,testReturnStatus3,Magic Number,Method contains test cases,29
+group15,ca.dal.comparify.utils,ResponseEntityUtilsTest,testReturnStatus3,Magic Number,Method contains test cases,29
+group15,ca.dal.comparify.utils,ResponseEntityUtilsTest,testReturnStatus4,Magic Number,Method contains test cases,37
+group15,ca.dal.comparify.utils,ResponseEntityUtilsTest,testReturnStatus5,Magic Number,Method contains test cases,45
+group15,ca.dal.comparify.utils,ObjectUtilsTest,testReadDatasource,Long Statement,Method contains test cases,19
+group15,ca.dal.comparify.utils,ObjectUtilsTest,testWriteDatasource,Long Statement,Method contains test cases,30
+group15,ca.dal.comparify.utils,ObjectUtilsTest,testConvertDatasource,Long Statement,Method contains test cases,40
+group15,ca.dal.comparify.utils,ObjectUtilsTest,testConvertsDatasource,Long Statement,Method contains test cases,58
+group15,ca.dal.comparify.utils,ResponseEntityUtils,returnStatus,Long Identifier,Explanation is required as per the context,24
+group15,ca.dal.comparify.utils,ResponseEntityUtils,returnStatus,Magic Number,Switch case,24
+group15,ca.dal.comparify.utils,ResponseEntityUtils,returnStatus,Magic Number,Switch case,24
+group15,ca.dal.comparify.utils,ResponseEntityUtils,returnStatus,Missing default,Default case is present,24
+group15,ca.dal.comparify.user.enumeration,UserErrorCodeTest,testValueOf,Magic Number,Method contains test cases,8
+group15,ca.dal.comparify.user,UserControllerTest,testAuthenticationDatasource,Long Statement,Method contains test cases,89
+group15,ca.dal.comparify.user,UserControllerTest,testAuthenticationDatasource,Long Statement,Method contains test cases,89
+group15,ca.dal.comparify.user,UserControllerTest,testAuthenticationDatasource,Magic Number,Method contains test cases,89
+group15,ca.dal.comparify.user,UserControllerTest,testAuthenticationDatasource,Magic Number,Method contains test cases,89
+group15,ca.dal.comparify.user,UserControllerTest,testGetUserRoleDatasource,Long Statement,Method contains test cases,117
+group15,ca.dal.comparify.user,UserControllerTest,testLogoutDatasource,Long Statement,Method contains test cases,129
+group15,ca.dal.comparify.user,UserControllerTest,testUpdateDatasource,Long Statement,Method contains test cases,134
+group15,ca.dal.comparify.user,UserControllerTest,testUpdateDatasource,Long Statement,Method contains test cases,134
+group15,ca.dal.comparify.user,UserControllerTest,testUpdateDatasource,Magic Number,Method contains test cases,134
+group15,ca.dal.comparify.user,UserControllerTest,testUpdateDatasource,Magic Number,Method contains test cases,134
+group15,ca.dal.comparify.user,UserControllerTest,testUpdateDatasource,Magic Number,Method contains test cases,134
+group15,ca.dal.comparify.user,UserControllerTest,testGetAllUsers,Long Statement,Method contains test cases,186
+group15,ca.dal.comparify.user,UserControllerTest,testAuthentication,Long Statement,Method contains test cases,209
+group15,ca.dal.comparify.user,UserControllerTest,testGetUserRole,Long Statement,Method contains test cases,240
+group15,ca.dal.comparify.user,UserControllerTest,testLogout,Long Statement,Method contains test cases,264
+group15,ca.dal.comparify.user,UserControllerTest,testUpdate,Long Statement,Method contains test cases,286
+group15,ca.dal.comparify.user,UserController,register,Long Statement,Calling constructor,58
+group15,ca.dal.comparify.user,UserController,register,Long Statement,Calling method,58
+group15,ca.dal.comparify.user,UserController,update,Long Statement,Calling method,155
+group15,ca.dal.comparify.user.model,SignupRequestTest,testSetSecurityQuestion2,Long Statement,Method contains test cases,10
+group15,ca.dal.comparify.user.model,SignupRequestTest,testSetSecurityQuestion2,Magic Number,Method contains test cases,10
+group15,ca.dal.comparify.user.model,SignupRequestTest,testSetSecurityQuestion2,Magic Number,Method contains test cases,10
+group15,ca.dal.comparify.user.model,SignupRequestTest,testSetSecurityQuestion3,Long Statement,Method contains test cases,35
+group15,ca.dal.comparify.user.model,SignupRequestTest,testSetSecurityQuestion3,Magic Number,Method contains test cases,35
+group15,ca.dal.comparify.user.model,SignupRequestTest,testSetSecurityQuestion3,Magic Number,Method contains test cases,35
+group15,ca.dal.comparify.user.model,SignupRequestTest,testConstructor,Long Statement,Method contains test cases,60
+group15,ca.dal.comparify.user.model,SignupRequestTest,testConstructor,Magic Number,Method contains test cases,60
+group15,ca.dal.comparify.user.model,SignupRequestTest,testConstructor,Magic Number,Method contains test cases,60
+group15,ca.dal.comparify.user.model,SignupRequestTest,testConstructor,Magic Number,Method contains test cases,60
+group15,ca.dal.comparify.user.model,SignupRequestTest,testConstructor2,Long Statement,Method contains test cases,98
+group15,ca.dal.comparify.user.model,SignupRequestTest,testConstructor2,Magic Number,Method contains test cases,98
+group15,ca.dal.comparify.user.model,SignupRequestTest,testConstructor2,Magic Number,Method contains test cases,98
+group15,ca.dal.comparify.user.model,SignupRequestTest,testValidateEmail,Long Statement,Method contains test cases,123
+group15,ca.dal.comparify.user.model,SignupRequestTest,testValidateEmail,Magic Number,Method contains test cases,123
+group15,ca.dal.comparify.user.model,SignupRequestTest,testValidate,Long Statement,Method contains test cases,134
+group15,ca.dal.comparify.user.model,SignupRequestTest,testValidate,Long Statement,Method contains test cases,134
+group15,ca.dal.comparify.user.model,SignupRequestTest,testValidate,Long Statement,Method contains test cases,134
+group15,ca.dal.comparify.user.model,SignupRequestTest,testValidate,Magic Number,Method contains test cases,134
+group15,ca.dal.comparify.user.model,SignupRequestTest,testValidate,Magic Number,Method contains test cases,134
+group15,ca.dal.comparify.user.model,SignupRequestTest,testValidate,Magic Number,Method contains test cases,134
+group15,ca.dal.comparify.user.model,SignupRequestTest,testHasValidPasswordPattern,Long Statement,Method contains test cases,150
+group15,ca.dal.comparify.user.model,SignupRequestTest,testHasValidPasswordPattern,Magic Number,Method contains test cases,150
+group15,ca.dal.comparify.user.model,SignupRequest,SignupRequest,Long Parameter List,Constructor method and hence long statement,162
+group15,ca.dal.comparify.user.model,SignupRequest,validate,Long Statement,Checking if any string is empty or not,187
+group15,ca.dal.comparify.user.model.iam,UserIAMModelTest,testConstructor,Long Statement,Method contains test cases,16
+group15,ca.dal.comparify.user.model.iam,UserIAMModelTest,testConstructor,Long Statement,Method contains test cases,16
+group15,ca.dal.comparify.user.model.iam,UserIAMModelTest,testConstructor,Magic Number,Method contains test cases,16
+group15,ca.dal.comparify.user.model.iam,UserIAMModelTest,testConstructor2,Long Statement,Method contains test cases,40
+group15,ca.dal.comparify.user.model.iam,UserIAMModelTest,testConstructor2,Long Statement,Method contains test cases,40
+group15,ca.dal.comparify.user.model.iam,UserIAMModelTest,testConstructor2,Long Statement,Method contains test cases,40
+group15,ca.dal.comparify.user.model.iam,UserIAMModelTest,testConstructor2,Long Statement,Method contains test cases,40
+group15,ca.dal.comparify.user.model.iam,UserIAMModelTest,testConstructor2,Magic Number,Method contains test cases,40
+group15,ca.dal.comparify.user.model.iam,UserIAMModelTest,testConstructor2,Magic Number,Method contains test cases,40
+group15,ca.dal.comparify.user.model.iam,UserIAMModelTest,testConstructor3,Long Statement,Method contains test cases,70
+group15,ca.dal.comparify.user.model.iam,UserIAMModelTest,testConstructor3,Long Statement,Method contains test cases,70
+group15,ca.dal.comparify.user.model.iam,UserIAMModelTest,testConstructor3,Magic Number,Method contains test cases,70
+group15,ca.dal.comparify.user.model.iam,UserIAMRequestModelTest,testGetRequiredFields,Magic Number,Method contains test cases,74
+group15,ca.dal.comparify.user.model.iam,UserDetailsModel,UserDetailsModel,Long Parameter List,Constructor method and hence long statement,37
+group15,ca.dal.comparify.user.model.iam,UserDetailsModel,UserDetailsModel,Long Parameter List,Constructor method and hence long statement,53
+group15,ca.dal.comparify.user.model.iam.authorization,UserRoleModelTest,testConstructor2,Long Statement,Method contains test cases,26
+group15,ca.dal.comparify.user.model.iam.authorization,UserRoleModelTest,testConstructor3,Long Statement,Method contains test cases,42
+group15,ca.dal.comparify.user.model.iam.authorization,UserAuthorizationModelTest,testConstructor2,Long Statement,Method contains test cases,23
+group15,ca.dal.comparify.user.model.iam.authorization,UserAuthorizationModelTest,testConstructor3,Long Statement,Method contains test cases,37
+group15,ca.dal.comparify.user.model.iam.authorization,UserAuthorizationModelTest,testConstructor4,Long Statement,Method contains test cases,49
+group15,ca.dal.comparify.user.model.iam.authorization,UserAuthorizationModelTest,testConstructor5,Long Statement,Method contains test cases,61
+group15,ca.dal.comparify.user.model.iam.authentication,UserAuthenticationModelTest,testConstructor,Long Statement,Method contains test cases,13
+group15,ca.dal.comparify.user.model.iam.authentication,UserAuthenticationModelTest,testConstructor,Magic Number,Method contains test cases,13
+group15,ca.dal.comparify.user.model.iam.authentication,UserAuthenticationModelTest,testConstructor,Magic Number,Method contains test cases,13
+group15,ca.dal.comparify.user.model.iam.authentication,UserAuthenticationModelTest,testConstructor,Magic Number,Method contains test cases,13
+group15,ca.dal.comparify.user.model.iam.authentication,UserAuthenticationModelTest,testIsActive,Long Statement,Method contains test cases,42
+group15,ca.dal.comparify.user.model.iam.authentication,UserAuthenticationModelTest,testIsActive,Magic Number,Method contains test cases,42
+group15,ca.dal.comparify.user.model.iam.authentication,UserAuthenticationModelTest,testIsActive2,Long Statement,Method contains test cases,53
+group15,ca.dal.comparify.user.model.iam.authentication,UserAuthenticationModelTest,testIsActive2,Magic Number,Method contains test cases,53
+group15,ca.dal.comparify.user.model.iam.authentication,UserAuthenticationModelTest,testIsLocked,Long Statement,Method contains test cases,64
+group15,ca.dal.comparify.user.model.iam.authentication,UserAuthenticationModelTest,testIsLocked,Magic Number,Method contains test cases,64
+group15,ca.dal.comparify.user.model.iam.authentication,UserAuthenticationModelTest,testIsLocked2,Long Statement,Method contains test cases,75
+group15,ca.dal.comparify.user.model.iam.authentication,UserAuthenticationModelTest,testIsLocked2,Magic Number,Method contains test cases,75
+group15,ca.dal.comparify.user.model.iam.authentication,UserPrincipalTest,testCreate2,Long Statement,Method contains test cases,37
+group15,ca.dal.comparify.user.model.iam.authentication,UserPrincipalTest,testCreate2,Magic Number,Method contains test cases,37
+group15,ca.dal.comparify.user.model.iam.authentication,UserPrincipalTest,testCreate3,Long Statement,Method contains test cases,56
+group15,ca.dal.comparify.user.model.iam.authentication,UserPrincipalTest,testCreate3,Magic Number,Method contains test cases,56
+group15,ca.dal.comparify.user.model.iam.authentication,UserPrincipalTest,testCreate4,Long Statement,Method contains test cases,75
+group15,ca.dal.comparify.user.model.iam.authentication,UserPrincipal,create,Long Statement,Calling constructor,49
+group15,ca.dal.comparify.user.model.iam.authentication,UserAuthenticationModel,UserAuthenticationModel,Long Parameter List,Constructor method and hence long statement,30
+group15,ca.dal.comparify.user.exception.authentication,UserAuthenticationExceptionTest,testConstructor,Long Identifier,Method contains test cases,9
+group15,ca.dal.comparify.feedback.model,FeedbackTest,testConstructor2,Long Statement,Method contains test cases,32
+group15,ca.dal.comparify.feedback.model,Feedback,Feedback,Long Parameter List,Constructor method and hence long statement,27
+group15,ca.dal.comparify.alerts,AlertControllerTest,testCreateDatasource,Long Statement,Method contains test cases,70
+group15,ca.dal.comparify.alerts,AlertControllerTest,testCreateDatasource,Magic Number,Method contains test cases,70
+group15,ca.dal.comparify.alerts,AlertControllerTest,testDeleteDatasource,Long Statement,Method contains test cases,99
+group15,ca.dal.comparify.alerts,AlertControllerTest,testDeleteDatasource,Magic Number,Method contains test cases,99
+group15,ca.dal.comparify.alerts,AlertControllerTest,testCreate,Long Statement,Method contains test cases,122
+group15,ca.dal.comparify.alerts,AlertControllerTest,testFetch,Long Statement,Method contains test cases,148
+group15,ca.dal.comparify.alerts,AlertControllerTest,testDelete,Long Statement,Method contains test cases,175
+group15,ca.dal.comparify.alerts,AlertServiceTest,testCreate,Long Statement,Method contains test cases,68
+group15,ca.dal.comparify.alerts,AlertServiceTest,testCreate2,Long Statement,Method contains test cases,78
+group15,ca.dal.comparify.alerts,AlertServiceTest,testCreate2,Long Statement,Method contains test cases,78
+group15,ca.dal.comparify.alerts,AlertServiceTest,testCreate3,Long Statement,Method contains test cases,91
+group15,ca.dal.comparify.alerts,AlertServiceTest,testCreate6,Long Statement,Method contains test cases,101
+group15,ca.dal.comparify.alerts,AlertServiceTest,testCreate6,Long Statement,Method contains test cases,101
+group15,ca.dal.comparify.alerts,AlertServiceTest,testDelete,Long Statement,Method contains test cases,124
+group15,ca.dal.comparify.alerts,AlertServiceTest,testDelete,Long Statement,Method contains test cases,124
+group15,ca.dal.comparify.alerts,AlertServiceTest,testDelete3,Long Statement,Method contains test cases,139
+group15,ca.dal.comparify.alerts,AlertServiceTest,testDelete4,Long Statement,Method contains test cases,151
+group15,ca.dal.comparify.alerts,AlertServiceTest,testDelete5,Long Statement,Method contains test cases,162
+group15,ca.dal.comparify.alerts,AlertServiceTest,testDelete5,Long Statement,Method contains test cases,162
+group15,ca.dal.comparify.alerts,AlertServiceTest,testTrigger,Magic Number,Method contains test cases,180
+group15,ca.dal.comparify.alerts,AlertServiceTest,testTrigger,Magic Number,Method contains test cases,180
+group15,ca.dal.comparify.alerts,AlertRepositoryTest,testGetAlerts,Long Statement,Method contains test cases,42
+group15,ca.dal.comparify.alerts,AlertRepositoryTest,testCheckForAlerts,Long Statement,Method contains test cases,68
+group15,ca.dal.comparify.alerts,AlertRepositoryTest,testCheckForAlerts,Long Statement,Method contains test cases,68
+group15,ca.dal.comparify.alerts,AlertRepositoryTest,testFetchAlertById,Long Statement,Method contains test cases,80
+group15,ca.dal.comparify.alerts,AlertService,create,Long Statement,Notification hence long,59
+group15,ca.dal.comparify.alerts,AlertService,delete,Long Statement,Notification hence long,91
+group15,ca.dal.comparify.alerts,AlertService,trigger,Complex Conditional,Notification hence long,120
+group15,ca.dal.comparify.alerts,AlertService,trigger,Long Statement,Notification hence long,120
+group15,ca.dal.comparify.alerts,AlertService,trigger,Long Statement,Notification hence long,120
+group15,ca.dal.comparify.alerts,AlertService,trigger,Long Statement,Notification hence long,120
+group15,ca.dal.comparify.alerts,AlertService,trigger,Long Statement,Notification hence long,120
+group15,ca.dal.comparify.alerts,AlertService,triggerMail,Long Statement,Notification hence long,191
+group15,ca.dal.comparify.alerts,AlertService,triggerWebPush,Long Statement,Notification hence long,214
+group15,ca.dal.comparify.alerts,AlertService,triggerSocket,Long Statement,Notification hence long,242
+group15,ca.dal.comparify.alerts,AlertRepository,getAlerts,Long Statement,Notification hence long,43
+group15,ca.dal.comparify.alerts,AlertRepository,checkForAlerts,Long Statement,Notification hence long,83
+group15,ca.dal.comparify.alerts,AlertController,delete,Magic Number,Notification hence long,51
+group15,ca.dal.comparify.alerts.model,AlertResponseModelTest,testConstructor,Magic Number,Method contains test cases,17
+group15,ca.dal.comparify.alerts.model,AlertResponseModelTest,testConstructor2,Magic Number,Method contains test cases,44
+group15,ca.dal.comparify.alerts.model,AlertResponseModelTest,testConstructor3,Long Statement,Method contains test cases,73
+group15,ca.dal.comparify.alerts.model,AlertResponseModelTest,testConstructor3,Magic Number,Method contains test cases,73
+group15,ca.dal.comparify.alerts.model,AlertResponseModelTest,testConstructor3,Magic Number,Method contains test cases,73
+group15,ca.dal.comparify.alerts.model,AlertRequestModelTest,testConstructor,Magic Number,Method contains test cases,17
+group15,ca.dal.comparify.alerts.model,AlertRequestModelTest,testConstructor2,Long Statement,Method contains test cases,44
+group15,ca.dal.comparify.alerts.model,AlertRequestModelTest,testConstructor2,Magic Number,Method contains test cases,44
+group15,ca.dal.comparify.alerts.model,AlertRequestModelTest,testConstructor3,Long Statement,Method contains test cases,74
+group15,ca.dal.comparify.alerts.model,AlertRequestModelTest,testConstructor3,Magic Number,Method contains test cases,74
+group15,ca.dal.comparify.alerts.model,AlertRequestModelTest,testConstructor3,Magic Number,Method contains test cases,74
+group15,ca.dal.comparify.alerts.model,AlertModelTest,testConstructor,Magic Number,Method contains test cases,15
+group15,ca.dal.comparify.alerts.model,AlertModelTest,testConstructor4,Magic Number,Method contains test cases,77
+group15,ca.dal.comparify.alerts.model,AlertResponseModel,AlertResponseModel,Long Parameter List,Constructor method and hence long statement,40
+group15,ca.dal.comparify.alerts.model,AlertModel,AlertModel,Long Parameter List,Constructor method and hence long statement,41
+group15,ca.dal.comparify.alerts.model,AlertRequestModel,AlertRequestModel,Long Parameter List,Constructor method and hence long statement,32
+group15,ca.dal.comparify.item,ItemRepositoryTest,getItemCountTest,Magic Number,Method contains test cases,96
+group15,ca.dal.comparify.item,ItemRepositoryTest,getItemCountTest,Magic Number,Method contains test cases,96
+group15,ca.dal.comparify.item.model,ItemRequestModelTest,testConstructor2,Long Statement,Method contains test cases,24
+group15,ca.dal.comparify.item.model,ItemModelTest,testConstructor2,Long Statement,Method contains test cases,27
+group15,ca.dal.comparify.item.model,ItemModelTest,testConstructor3,Long Statement,Method contains test cases,43
+group15,ca.dal.comparify.item.model,ItemModelTest,testCreate,Long Statement,Method contains test cases,59
+group15,ca.dal.comparify.item.model,ItemModel,ItemModel,Long Parameter List,Constructor method and hence long statement,23
+group15,ca.dal.comparify.item.model,ItemModel,ItemModel,Long Parameter List,Constructor method and hence long statement,34
+group15,ca.dal.comparify.item.model,ItemModel,create,Long Statement,Calling constructor,41
+group15,ca.dal.comparify.model,AppreciationModelTest,testConstructor,Magic Number,Method contains test cases,13
+group15,ca.dal.comparify.model,AppreciationModelTest,testConstructor,Magic Number,Method contains test cases,13
+group15,ca.dal.comparify.model,AppreciationModelTest,testConstructor2,Magic Number,Method contains test cases,27
+group15,ca.dal.comparify.model,AppreciationModelTest,testConstructor2,Magic Number,Method contains test cases,27
+group15,ca.dal.comparify.model,AppreciationModelTest,testConstructor2,Magic Number,Method contains test cases,27
+group15,ca.dal.comparify.model,AppreciationModelTest,testIsEmpty,Magic Number,Method contains test cases,41
+group15,ca.dal.comparify.model,AppreciationModelTest,testGetRequiredFields,Magic Number,Method contains test cases,50
+group15,ca.dal.comparify.model,AuditModelTest,testConstructor,Magic Number,Method contains test cases,15
+group15,ca.dal.comparify.model,AuditModelTest,testConstructor,Magic Number,Method contains test cases,15
+group15,ca.dal.comparify.model,AuditModelTest,testConstructor2,Long Statement,Method contains test cases,35
+group15,ca.dal.comparify.model,AuditModelTest,testConstructor2,Magic Number,Method contains test cases,35
+group15,ca.dal.comparify.model,AuditModelTest,testConstructor2,Magic Number,Method contains test cases,35
+group15,ca.dal.comparify.model,AuditModelTest,testConstructor2,Magic Number,Method contains test cases,35
+group15,ca.dal.comparify.model,AuditModelTest,testConstructor2,Magic Number,Method contains test cases,35
+group15,ca.dal.comparify.model,AuditModelTest,testCreate2,Magic Number,Method contains test cases,67
+group15,ca.dal.comparify.model,AuditModelTest,testUpdate2,Magic Number,Method contains test cases,89
+group15,ca.dal.comparify.mongo,MongoRepositoryTest,testFindDatasource,Long Statement,Method contains test cases,38
+group15,ca.dal.comparify.mongo,MongoRepositoryTest,testFindDatasource,Magic Number,Method contains test cases,38
+group15,ca.dal.comparify.mongo,MongoRepositoryTest,testFindWithPaginationDatasource,Long Statement,Method contains test cases,45
+group15,ca.dal.comparify.mongo,MongoRepositoryTest,testFindWithProjectionDatasource,Long Statement,Method contains test cases,52
+group15,ca.dal.comparify.mongo,MongoRepositoryTest,testFindWithProjectionDatasource,Magic Number,Method contains test cases,52
+group15,ca.dal.comparify.mongo,MongoRepositoryTest,testFindWithProjectionAndPaginationDatasource,Long Statement,Method contains test cases,60
+group15,ca.dal.comparify.mongo,MongoRepositoryTest,testFindWithProjectionAndPaginationDatasource,Magic Number,Method contains test cases,60
+group15,ca.dal.comparify.mongo,MongoRepositoryTest,testFindOneDatasource,Long Statement,Method contains test cases,71
+group15,ca.dal.comparify.mongo,MongoRepositoryTest,testFindOneWithPaginationDatasource,Long Statement,Method contains test cases,78
+group15,ca.dal.comparify.mongo,MongoRepositoryTest,testFindOneWithProjectionDatasource,Long Statement,Method contains test cases,87
+group15,ca.dal.comparify.mongo,MongoRepositoryTest,testFindOneWithProjectionAndPaginationDatasource,Long Statement,Method contains test cases,96
+group15,ca.dal.comparify.mongo,MongoRepositoryTest,testInsertOneDatasource,Long Statement,Method contains test cases,107
+group15,ca.dal.comparify.mongo,MongoRepositoryTest,testInsertOneDatasource,Magic Number,Method contains test cases,107
+group15,ca.dal.comparify.mongo,MongoRepositoryTest,testInsertManyDatasource,Long Statement,Method contains test cases,114
+group15,ca.dal.comparify.mongo,MongoRepositoryTest,testInsertManyDatasource,Magic Number,Method contains test cases,114
+group15,ca.dal.comparify.mongo,MongoRepositoryTest,testCountDatasource,Long Statement,Method contains test cases,124
+group15,ca.dal.comparify.mongo,MongoRepositoryTest,testUpdateOneDatasource,Long Statement,Method contains test cases,130
+group15,ca.dal.comparify.mongo,MongoRepositoryTest,testDeleteOneDatasource,Long Statement,Method contains test cases,140
+group15,ca.dal.comparify.mongo,MongoRepositoryTest,testAggregateOneDatasource,Long Statement,Method contains test cases,156
+group15,ca.dal.comparify.mongo,MongoRepositoryTest,testFindWithProjectionAndPagination,Long Parameter List,Method contains test cases,241
+group15,ca.dal.comparify.mongo,MongoRepositoryTest,testFindOneWithProjectionAndPagination,Long Parameter List,Method contains test cases,314
+group15,ca.dal.comparify.mongo,MongoRepositoryTest,testCreateIndexDatasource,Long Statement,Method contains test cases,429
+group15,ca.dal.comparify.mongo,MongoUtils,lookup,Long Statement,Calling constructor,97
+group15,ca.dal.comparify.mongo,MongoUtils,lookup,Long Parameter List,Mongo query,115
+group15,ca.dal.comparify.mongo,MongoUtils,lookup,Long Statement,Calling constructor,115
+group15,ca.dal.comparify.mongo,MongoConfig,mongoClient,Long Statement,Mongo query,21
+group15,ca.dal.comparify.mongo,MongoRepository,MongoRepository,Long Statement,Mongo query,41
+group15,ca.dal.comparify.mongo,MongoRepository,find,Long Parameter List,Mongo query,168
+group15,ca.dal.comparify.mongo,MongoRepository,findOne,Long Parameter List,Mongo query,263
+group15,ca.dal.comparify.compareItems,CompareItemsRepositoryTest,testgetSameItems,Magic Number,Method contains test cases,36
+group15,ca.dal.comparify.compareItems,CompareItemsRepositoryTest,testSaveCompareItems,Magic Number,Method contains test cases,52
+group15,ca.dal.comparify.compareItems,CompareItemsRepositoryTest,TestfetchCompare,Magic Number,Method contains test cases,69
+group15,ca.dal.comparify.compareItems,CompareItemsRepositoryTest,TestfetchCompare2,Magic Number,Method contains test cases,92
+group15,ca.dal.comparify.compareItems,CompareItemsRepositoryTest,TestUpdateItem,Magic Number,Method contains test cases,115
+group15,ca.dal.comparify.compareItems,CompareItemsServiceTest,createTestPositive,Magic Number,Method contains test cases,43
+group15,ca.dal.comparify.compareItems,CompareItemsServiceTest,createTestPositive,Magic Number,Method contains test cases,43
+group15,ca.dal.comparify.compareItems,CompareItemsServiceTest,createTestPositive,Magic Number,Method contains test cases,43
+group15,ca.dal.comparify.compareItems.model,CompareItemsModelTest,testConstructor,Magic Number,Method contains test cases,16
+group15,ca.dal.comparify.compareItems.model,CompareItemsModelTest,testConstructor,Magic Number,Method contains test cases,16
+group15,ca.dal.comparify.compareItems.model,CompareItemsModelTest,testConstructor,Magic Number,Method contains test cases,16
+group15,ca.dal.comparify.compareItems.model,CompareItemsModelTest,testConstructor,Magic Number,Method contains test cases,16
+group15,ca.dal.comparify.compareItems.model,CompareItemsModelTest,testConstructor,Magic Number,Method contains test cases,16
+group15,ca.dal.comparify.compareItems.model,CompareItemsModelTest,testConstructor,Magic Number,Method contains test cases,16
+group15,ca.dal.comparify.compareItems.model,CompareItemsModelTest,testConstructor,Magic Number,Method contains test cases,16
+group15,ca.dal.comparify.compareItems.model,CompareItemsModelTest,testConstructor2,Long Statement,Method contains test cases,49
+group15,ca.dal.comparify.compareItems.model,CompareItemsModelTest,testConstructor2,Magic Number,Method contains test cases,49
+group15,ca.dal.comparify.compareItems.model,CompareItemsModelTest,testConstructor2,Magic Number,Method contains test cases,49
+group15,ca.dal.comparify.compareItems.model,CompareItemsModelTest,testConstructor2,Magic Number,Method contains test cases,49
+group15,ca.dal.comparify.compareItems.model,CompareItemsModelTest,testConstructor2,Magic Number,Method contains test cases,49
+group15,ca.dal.comparify.compareItems.model,CompareItemsModelTest,testConstructor2,Magic Number,Method contains test cases,49
+group15,ca.dal.comparify.compareItems.model,CompareItemsModelTest,testConstructor2,Magic Number,Method contains test cases,49
+group15,ca.dal.comparify.compareItems.model,CompareItemsModelTest,testConstructor2,Magic Number,Method contains test cases,49
+group15,ca.dal.comparify.compareItems.model,CompareItemsModelTest,testConstructor2,Magic Number,Method contains test cases,49
+group15,ca.dal.comparify.compareItems.model,CompareItemsModelTest,testConstructor2,Magic Number,Method contains test cases,49
+group15,ca.dal.comparify.compareItems.model,CompareItemsModelTest,testConstructor2,Magic Number,Method contains test cases,49
+group15,ca.dal.comparify.compareItems.model,CompareItemsModelTest,testConstructor2,Magic Number,Method contains test cases,49
+group15,ca.dal.comparify.compareItems.model,CompareItemsModelTest,testConstructor3,Long Statement,Method contains test cases,85
+group15,ca.dal.comparify.compareItems.model,CompareItemsModelTest,testConstructor3,Magic Number,Method contains test cases,85
+group15,ca.dal.comparify.compareItems.model,CompareItemsModelTest,testConstructor3,Magic Number,Method contains test cases,85
+group15,ca.dal.comparify.compareItems.model,CompareItemsModelTest,testConstructor3,Magic Number,Method contains test cases,85
+group15,ca.dal.comparify.compareItems.model,CompareItemsModelTest,testConstructor3,Magic Number,Method contains test cases,85
+group15,ca.dal.comparify.compareItems.model,CompareItemsModelTest,testConstructor3,Magic Number,Method contains test cases,85
+group15,ca.dal.comparify.compareItems.model,CompareItemsModelTest,testConstructor3,Magic Number,Method contains test cases,85
+group15,ca.dal.comparify.compareItems.model,CompareItemsModelTest,testConstructor3,Magic Number,Method contains test cases,85
+group15,ca.dal.comparify.feeedbackTest,FeedbackServiceTest,TestgetFeedbackCount,Magic Number,Method contains test cases,82
+group15,ca.dal.comparify.feeedbackTest,FeedbackServiceTest,TestgetFeedbackCount,Magic Number,Method contains test cases,82
+group15,ca.dal.comparify.searchProduct,TestProductRepository,getAllQuestionSuccessful,Long Statement,Method contains test cases,61
+group15,ca.dal.comparify.searchProduct,TestProductRepository,getAllQuestionSuccessful,Long Statement,Method contains test cases,61
+group15,ca.dal.comparify.searchProduct,TestProductRepository,getAllQuestionSuccessful,Magic Number,Method contains test cases,61
+group15,ca.dal.comparify.searchProduct,TestSearchProductController,getProductsFound,Long Statement,Method contains test cases,39
+group15,ca.dal.comparify.searchProduct,TestSearchProductController,getProductsFound,Magic Number,Method contains test cases,39
+group15,ca.dal.comparify.searchProduct,TestSearchProductController,getProductsFound,Magic Number,Method contains test cases,39
+group15,ca.dal.comparify.searchProduct,TestSearchProductController,getProductsFound,Magic Number,Method contains test cases,39
+group15,ca.dal.comparify.searchProduct,TestSearchProductController,getProductsFound,Magic Number,Method contains test cases,39
+group15,ca.dal.comparify.searchProduct.model,ProductTest,testConstructor,Magic Number,Method contains test cases,8
+group15,ca.dal.comparify.searchProduct.model,ProductTest,testConstructor,Magic Number,Method contains test cases,8
+group15,ca.dal.comparify.searchProduct.model,ProductTest,testConstructor,Magic Number,Method contains test cases,8
+group15,ca.dal.comparify.searchProduct.model,ProductTest,testConstructor,Magic Number,Method contains test cases,8
+group15,ca.dal.comparify.searchProduct.model,ProductTest,testConstructor2,Long Statement,Method contains test cases,34
+group15,ca.dal.comparify.searchProduct.model,ProductTest,testConstructor2,Magic Number,Method contains test cases,34
+group15,ca.dal.comparify.searchProduct.model,ProductTest,testConstructor2,Magic Number,Method contains test cases,34
+group15,ca.dal.comparify.searchProduct.model,ProductTest,testConstructor2,Magic Number,Method contains test cases,34
+group15,ca.dal.comparify.searchProduct.model,ProductTest,testConstructor2,Magic Number,Method contains test cases,34
+group15,ca.dal.comparify.searchProduct.model,Product,Product,Long Parameter List,Method contains test cases,26
+group15,ca.dal.comparify.analytics,AnalyticsServiceTest,testGetMonthlyTotalPurchaseOfItemCategory5,Long Identifier,Method contains test cases,74
+group15,ca.dal.comparify.analytics,AnalyticsServiceTest,testGetMonthlyTotalPurchaseOfItemCategory5,Long Statement,Method contains test cases,74
+group15,ca.dal.comparify.analytics,AnalyticsControllerTest,testGetProductCountForCategoryDatasource,Long Statement,Method contains test cases,66
+group15,ca.dal.comparify.analytics,AnalyticsControllerTest,testGetMonthlyTotalPurchaseOfItemCategoryDatasource,Long Statement,Method contains test cases,84
+group15,ca.dal.comparify.analytics,AnalyticsControllerTest,testGetMonthlyTotalPurchaseOfItemCategoryDatasource,Magic Number,Method contains test cases,84
+group15,ca.dal.comparify.analytics,AnalyticsControllerTest,testGetMonthlyTotalPurchaseOfItemCategoryDatasource,Magic Number,Method contains test cases,84
+group15,ca.dal.comparify.analytics,AnalyticsControllerTest,testGetMonthlyTotalPurchaseOfItemCategoryDatasource,Magic Number,Method contains test cases,84
+group15,ca.dal.comparify.analytics,AnalyticsControllerTest,testGetMonthlyTotalPurchaseOfItemCategoryDatasource,Magic Number,Method contains test cases,84
+group15,ca.dal.comparify.analytics,AnalyticsControllerTest,testGetMonthlyTotalPurchaseOfItemCategoryDatasource,Magic Number,Method contains test cases,84
+group15,ca.dal.comparify.analytics,AnalyticsControllerTest,testGetPriceTrendDatasource,Long Statement,Method contains test cases,103
+group15,ca.dal.comparify.analytics,AnalyticsControllerTest,testGetPriceTrendForDifferentBrandsDatasource,Long Statement,Method contains test cases,120
+group15,ca.dal.comparify.analytics,AnalyticsControllerTest,testGetPriceTrendForDifferentBrandsDatasource,Magic Number,Method contains test cases,120
+group15,ca.dal.comparify.analytics,AnalyticsControllerTest,testGetProductCountForCategory,Long Statement,Method contains test cases,143
+group15,ca.dal.comparify.analytics,AnalyticsControllerTest,testGetMonthlyTotalPurchaseOfItemCategory,Long Identifier,Method contains test cases,167
+group15,ca.dal.comparify.analytics,AnalyticsControllerTest,testGetMonthlyTotalPurchaseOfItemCategory,Long Statement,Method contains test cases,167
+group15,ca.dal.comparify.analytics,AnalyticsControllerTest,testGetPriceTrend,Long Statement,Method contains test cases,192
+group15,ca.dal.comparify.analytics,AnalyticsControllerTest,testGetPriceTrendForDifferentBrands,Long Identifier,Method contains test cases,209
+group15,ca.dal.comparify.analytics,AnalyticsControllerTest,testGetPriceTrendForDifferentBrands,Long Statement,Method contains test cases,209
+group15,ca.dal.comparify.analytics,AnalyticsRepository,getPriceTrend,Long Statement,Constructor method and hence long statement,39
+group15,ca.dal.comparify.analytics,AnalyticsRepository,getPriceTrendForDifferentBrands,Long Statement,Constructor method and hence long statement,80
+group15,ca.dal.comparify.analytics,AnalyticsRepository,getProductCountForCategory,Long Statement,Constructor method and hence long statement,121
+group15,ca.dal.comparify.analytics,AnalyticsRepository,getMonthlyTotalPurchaseOfItemCategory,Long Statement,Constructor method and hence long statement,153
+group15,ca.dal.comparify.analytics,AnalyticsService,getMonthlyTotalPurchaseOfItemCategory,Long Statement,Constructor method and hence long statement,63
+group15,ca.dal.comparify.store,StoreRepositoryTest,getResponseMessageTestException,Magic Number,Method contains test cases,32
+group15,ca.dal.comparify.store,StoreRepositoryTest,testGetStoreCount,Magic Number,Method contains test cases,112
+group15,ca.dal.comparify.store,StoreRepositoryTest,testGetStoreCount,Magic Number,Method contains test cases,112
+group15,ca.dal.comparify.store,StoreRepositoryTest,getResponseMessageTestUnknown,Magic Number,Method contains test cases,138
+group15,ca.dal.comparify.store,StoreServiceTest,getSpecificStoreDetailsTest,Long Statement,Method contains test cases,50
+group15,ca.dal.comparify.store.model,StoreModel,StoreModel,Long Parameter List,Constructor method and hence long statement,20
+group15,ca.dal.comparify.framework.security,WebSecurityConfig,configure,Long Statement,HTTP configurations,25
+group15,ca.dal.comparify.framework.notification.websocket,WebSocketService,send,Long Statement,HTTP configurations,37
+group15,ca.dal.comparify.framework.notification.push,WebPushNotificationService,WebPushNotificationService,Long Identifier,Need explanable variable,42
+group15,ca.dal.comparify.framework.notification.push,WebPushNotificationService,WebPushNotificationService,Long Identifier,Need explanable variable,42
+group15,ca.dal.comparify.framework.notification.push,WebPushNotificationService,send,Long Statement,Calling methods without explicitly  creating the references of the class,61
+group15,ca.dal.comparify.framework.scheduler,SchedulerService,checkUserSecretValidity,Long Statement,Calling constructor,32
+group15,ca.dal.comparify.security,TokenService,generateToken,Long Statement,As per sonarqube suggestion to return immediately,34
+group15,ca.dal.comparify.user.repository.iam,UserDetailsRepository,fetchUserDetails,Long Statement,Mongo query,37
+group15,ca.dal.comparify.user.repository.iam,UserDetailsRepository,saveUserDetails,Long Statement,Mongo query,53
+group15,ca.dal.comparify.user.repository.iam,UserIAMRepository,fetchUserAuthenticationInfo,Long Statement,Mongo query,39
+group15,ca.dal.comparify.user.repository.iam,UserIAMRepository,invalidAuthenticationAttempt,Long Identifier,Need explanable variable,72
+group15,ca.dal.comparify.user.repository.iam,UserIAMRepository,invalidAuthenticationAttempt,Long Statement,Mongo query,72
+group15,ca.dal.comparify.user.repository.iam,UserIAMRepository,validAuthenticationAttempt,Long Identifier,Need explanable variable,83
+group15,ca.dal.comparify.user.repository.iam,UserIAMRepository,validAuthenticationAttempt,Long Statement,Mongo query,83
+group15,ca.dal.comparify.user.repository.iam,UserIAMRepository,getUserRole,Long Statement,Mongo query,94
+group15,ca.dal.comparify.user.repository.iam,UserIAMRepository,checkUserSecretValidity,Long Identifier,Need explanable variable,122
+group15,ca.dal.comparify.user.repository.iam,UserIAMRepository,checkUserSecretValidity,Long Statement,Mongo query,122
+group15,ca.dal.comparify.user.repository.iam,UserIAMRepository,getAllUsers,Long Statement,Mongo query,140
+group15,ca.dal.comparify.user.service.iam,UserIAMService,authenticate,Long Statement,As per sonarqube suggestion to return immediately,77
+group15,ca.dal.comparify.user.service.iam,UserIAMService,createUserIAMInfo,Long Statement,Throwing exception,125
+group15,ca.dal.comparify.user.service.iam,UserIAMService,createUserIAMInfo,Long Statement,Calling constructor,125
+group15,ca.dal.comparify.user.service.iam,UserIAMService,createUserIAMInfo,Magic Number,The method contains a magic number: 400,125
+group15,ca.dal.comparify.user.service.iam,UserIAMService,checkUserSecretValidity,Long Identifier,Need explanable variable,183
+group15,ca.dal.comparify.compareitems,CompareItemRepository,getSameItems,Long Statement,Mongo query,50
+group15,ca.dal.comparify.compareitems.model,CompareItemsModel,CompareItemsModel,Long Parameter List,Constructor method and hence long statement,36
+group15,ca.dal.comparify.compareitems.model,CompareItemsModel,CompareItemsModel,Long Parameter List,Constructor method and hence long statement,60
+group15,ca.dal.comparify.compareitems.model,CompareItemsModel,create,Long Statement,"The length of the statement ""return new CompareItemsModel(model.getImageText()`model.getUserId()`model.getProductId()`model.getPrice()`model.getPriceAfterDiscount()`model.getStoreId()`model.getDateOfPurchase()`model.getUnit()`model.getBrandId()`model.getStatus());"" is 235.",74
+group15,ca.dal.comparify.searchProduct.repository,ProductRepository,getAllProducts,Long Statement,Mongo query,42
+group15,ca.dal.comparify.searchProduct.repository,ProductRepository,getAllProducts,Long Statement,Mongo query,42
+group15,ca.dal.comparify.itemcategories,ItemCategoryRepository,getCategoryName,Long Statement,Mongo query,30
