@@ -10,18 +10,18 @@ import java.util.Date;
 
 public class DateUtils {
 
-    private DateUtils(){}
-
     private static final ZoneId DEFAULT_ZONE_ID = ZoneId.systemDefault();
+
+    private DateUtils() {
+    }
 
     /*------------------  Instant ------------------*/
 
     /**
      * @return
-     *
      * @author Harsh Shah
      */
-    public static ZonedDateTime zoneNow(){
+    public static ZonedDateTime zoneNow() {
         return Instant.now().atZone(DEFAULT_ZONE_ID);
     }
 
@@ -29,20 +29,18 @@ public class DateUtils {
 
     /**
      * @return
-     *
      * @author Harsh Shah
      */
-    public static Date dateNow(){
-        return  Date.from(Instant.from(Instant.now().atZone(DEFAULT_ZONE_ID)));
+    public static Date dateNow() {
+        return Date.from(Instant.from(Instant.now().atZone(DEFAULT_ZONE_ID)));
     }
 
     /**
      * @param seconds
      * @return
-     *
      * @author Harsh Shah
      */
-    public static Date addSecondsToDateNow(long seconds){
+    public static Date addSecondsToDateNow(long seconds) {
         return new Date(dateNow().getTime() + seconds);
     }
 
@@ -50,40 +48,36 @@ public class DateUtils {
 
     /**
      * @return
-     *
      * @author Harsh Shah
      */
-    public static LocalDate localNow(){
+    public static LocalDate localNow() {
         return zoneNow().toLocalDate();
     }
 
     /**
      * @param seconds
      * @return
-     *
      * @author Harsh Shah
      */
-    public static LocalDate addSecondsToLocalNow(long seconds){
+    public static LocalDate addSecondsToLocalNow(long seconds) {
         return localNow().plus(seconds, ChronoUnit.SECONDS);
     }
 
     /**
      * @param days
      * @return
-     *
      * @author Harsh Shah
      */
-    public static LocalDate addDaysToLocalNow(long days){
+    public static LocalDate addDaysToLocalNow(long days) {
         return localNow().plusDays(days);
     }
 
     /**
      * @param localDate
      * @return
-     *
      * @author Harsh Shah
      */
-    public static boolean isAfterNow(LocalDate localDate){
+    public static boolean isAfterNow(LocalDate localDate) {
         return localNow().isAfter(localDate);
     }
 
@@ -91,10 +85,9 @@ public class DateUtils {
     /**
      * @param date yyyy-MM-dd
      * @return
-     *
      * @author Harsh Shah
      */
-    public static LocalDate parse(String date){
+    public static LocalDate parse(String date) {
         return LocalDate.parse(date, DateTimeFormatter.ISO_DATE);
     }
 }
