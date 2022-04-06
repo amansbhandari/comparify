@@ -112,6 +112,7 @@ public class CompareItemsRepositoryTest {
         assertEquals(fetchCompareResult, result);
     }
 
+
     @Test
     void TestUpdateItem()
     {

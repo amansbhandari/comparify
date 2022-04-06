@@ -45,7 +45,7 @@ const createImage = (newImage) => httpClient.post(newImage);
 
   return (
     <div>
-      <label for="pictureInput"><strong>Add Invoice</strong></label>
+      <label for="pictureInput"><strong>Upload</strong></label>
         <TextField
          onSubmit={handleSubmit}
           type="file"
