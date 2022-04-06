@@ -14,7 +14,7 @@ test:
     - dalfcs_docker_autoscale
   script:
     - cd server
-    - mvn clean verify
+    - mvn clean verify -Ptest
   artifacts:
     when: always
     reports:
