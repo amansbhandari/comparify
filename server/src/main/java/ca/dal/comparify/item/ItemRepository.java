@@ -16,7 +16,7 @@ import static ca.dal.comparify.mongo.MongoUtils.eq;
 @Service
 public class ItemRepository {
 
-    public static final String ITEM_COLLECTION = "item";
+    private static final String ITEM_COLLECTION = "item";
 
     @Autowired
     private MongoRepository mongoRepository;

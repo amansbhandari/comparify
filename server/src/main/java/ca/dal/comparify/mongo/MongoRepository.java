@@ -34,9 +34,10 @@ import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 @Service
 public class MongoRepository {
 
-    public static final int ERROR_1 = -1;
-    public static final int ERROR_2 = -2;
-    public static final int SUCCESS_0 = 0;
+    private static final int ERROR_1 = -1;
+    private static final int ERROR_2 = -2;
+    private static final int SUCCESS_0 = 0;
+
     private MongoDatabase database;
 
     private CodecRegistry pojoCodecRegistry;

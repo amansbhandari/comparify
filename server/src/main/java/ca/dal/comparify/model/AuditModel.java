@@ -11,10 +11,10 @@ import java.util.Date;
  */
 public class AuditModel {
 
-    public static final String CREATED_BY = "created_by";
-    public static final String UPDATED_BY = "updated_by";
-    public static final String CREATED_ON = "created_on";
-    public static final String UPDATED_ON = "updated_on";
+    private static final String CREATED_BY = "created_by";
+    private static final String UPDATED_BY = "updated_by";
+    private static final String CREATED_ON = "created_on";
+    private static final String UPDATED_ON = "updated_on";
 
     @BsonProperty(CREATED_BY)
     @JsonProperty(CREATED_BY)

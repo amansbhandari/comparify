@@ -22,12 +22,12 @@ import static java.util.Arrays.asList;
 @Service
 public class UserIAMRepository {
 
-    public static final String USER_IAM_COLLECTION = "user_identity_management";
+    private static final String USER_IAM_COLLECTION = "user_identity_management";
 
-    public static final String USER_AUTHORIZATION_KEY = "authorization";
+    private static final String USER_AUTHORIZATION_KEY = "authorization";
 
-    public static final String USER_AUTHENTICATION_KEY = "authentication";
-    public static final String FIELD_NUMBER_OF_INCORRECT_ATTEMPTS = USER_AUTHENTICATION_KEY + DOT +
+    private static final String USER_AUTHENTICATION_KEY = "authentication";
+    private static final String FIELD_NUMBER_OF_INCORRECT_ATTEMPTS = USER_AUTHENTICATION_KEY + DOT +
             "number_of_incorrect_attempts";
 
     public static final String FIELD_SECRET = USER_AUTHORIZATION_KEY + DOT + "secret";

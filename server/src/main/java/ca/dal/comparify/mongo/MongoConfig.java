@@ -18,8 +18,8 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class MongoConfig {
 
-    public static final int W = 2;
-    public static final int W_TIMEOUT = 2500;
+    private static final int W = 2;
+    private static final int W_TIMEOUT = 2500;
 
     @Bean
     @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)

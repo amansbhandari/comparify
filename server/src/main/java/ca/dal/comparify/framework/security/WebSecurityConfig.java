@@ -18,7 +18,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    public static final String SECURITY_QUESTION = "/securityQuestion/**";
+    private static final String SECURITY_QUESTION = "/securityQuestion/**";
+
     @Autowired
     private TokenService tokenService;
 

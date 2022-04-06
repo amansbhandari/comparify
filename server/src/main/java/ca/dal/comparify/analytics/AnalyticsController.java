@@ -21,8 +21,9 @@ import static java.util.Collections.emptyMap;
 @RestController
 public class AnalyticsController {
 
-    public static final int START_MONTH = 1;
-    public static final int END_MONTH = 12;
+    private static final int START_MONTH = 1;
+    private static final int END_MONTH = 12;
+
     @Autowired
     private AnalyticsService analyticsService;
 

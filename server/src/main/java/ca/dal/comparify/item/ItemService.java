@@ -16,7 +16,8 @@ import java.util.Map;
 @Service
 public class ItemService {
 
-    public static final int ERROR = -2;
+    private static final int ERROR = -2;
+
     @Autowired
     private ItemRepository itemRepository;
 

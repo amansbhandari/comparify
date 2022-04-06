@@ -18,10 +18,10 @@ import static com.mongodb.client.model.Filters.in;
 
 @Service
 public class StoreRepository {
-    public static final String STORE_COLLECTION = "store";
-    public static final int ERROR_1 = -1;
-    public static final int ERROR_2 = -2;
-    public static final int SUCCESS = 0;
+    private static final String STORE_COLLECTION = "store";
+    private static final int ERROR_1 = -1;
+    private static final int ERROR_2 = -2;
+    private static final int SUCCESS = 0;
 
     @Autowired
     private MongoRepository mongoRepository;

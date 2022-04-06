@@ -12,7 +12,7 @@ import static ca.dal.comparify.mongo.MongoUtils.eq;
 
 @Service
 public class ItemCategoryRepository {
-    public static final String CATEGORY_COLLECTION = "itemCategories";
+    private static final String CATEGORY_COLLECTION = "itemCategories";
 
     @Autowired
     private MongoRepository mongoRepository;

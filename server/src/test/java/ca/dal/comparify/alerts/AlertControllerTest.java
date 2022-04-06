@@ -56,8 +56,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class AlertControllerTest {
 
-    public static final String REQUEST_MAPPING = "/alert";
-    public static final String DELETE_API = REQUEST_MAPPING + "/delete";
+    private static final String REQUEST_MAPPING = "/alert";
+    private static final String DELETE_API = REQUEST_MAPPING + "/delete";
 
     @Autowired
     private MockMvc mockMvc;

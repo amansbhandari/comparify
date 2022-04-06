@@ -50,10 +50,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class AnalyticsControllerTest {
 
-    public static final String REQUEST_MAPPING = "/analytics";
-    public static final String PRICE_TREND_FOR_DIFFERENT_BRANDS = REQUEST_MAPPING + "/brands";
-    public static final String PRODUCT_COUNT_FOR_CATEGORY = REQUEST_MAPPING + "/categories";
-    public static final String MONTHLY_TOTAL_PURCHASE_OF_ITEM_CATEGORY = REQUEST_MAPPING + "/monthly";
+    private static final String REQUEST_MAPPING = "/analytics";
+    private static final String PRICE_TREND_FOR_DIFFERENT_BRANDS = REQUEST_MAPPING + "/brands";
+    private static final String PRODUCT_COUNT_FOR_CATEGORY = REQUEST_MAPPING + "/categories";
+    private static final String MONTHLY_TOTAL_PURCHASE_OF_ITEM_CATEGORY = REQUEST_MAPPING + "/monthly";
 
     @Autowired
     private MockMvc mockMvc;
