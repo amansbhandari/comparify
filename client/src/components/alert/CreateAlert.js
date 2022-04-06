@@ -238,7 +238,7 @@ const CreateAlert = (props) => {
                         </Grid>)}
                         <Grid item className={classes.buttonContainer}>
                             <Button color="primary" variant="contained" type="submit" className={classes.button} >
-                                Submit
+                                Create
                             </Button>
                         </Grid>
                     </Grid>

@@ -176,37 +176,5 @@ class AlertServiceTest {
         verify(this.alertRepository).fetchAlertById((String) any());
         verify(alertModel, atLeast(1)).getAlertIdentifier();
     }
-
-    @Test
-    @Disabled
-    void testTrigger() {
-
-        AlertModel actualAlertModel = new AlertModel();
-        actualAlertModel.setAlertIdentifier("42");
-        AuditModel createResult = AuditModel.create("Jan 1, 2020 8:00am GMT+0100");
-        actualAlertModel.setAudit(createResult);
-        LocalDateTime atStartOfDayResult = LocalDate.of(1970, 1, 1).atStartOfDay();
-        Date fromResult = Date.from(atStartOfDayResult.atZone(ZoneId.of("UTC")).toInstant());
-        actualAlertModel.setExpiresOn(fromResult);
-        actualAlertModel.setId("42");
-        RangeModel<Integer> rangeModel = new RangeModel<>();
-        actualAlertModel.setPriceRange(rangeModel);
-        actualAlertModel.setStatus(true);
-
-        HashModel activeAlerts = new HashModel();
-        activeAlerts.put(PRODUCT_INFORMATION_AVAILABLE.getValueLowerCase(),
-            Collections.singleton(actualAlertModel));
-
-        activeAlerts.put(PRICE_RANGE.getValueLowerCase(),
-            Collections.singleton(actualAlertModel));
-
-        activeAlerts.put(PRICE_DROP.getValueLowerCase(),
-            Collections.singleton(actualAlertModel));
-
-        when(this.alertRepository.checkForAlerts(any(), any())).thenReturn(activeAlerts);
-
-        this.alertService.trigger("sampleBrandId", "sampleProductId",
-            10.0d, "sampleStoreId");
-    }
 }
 
