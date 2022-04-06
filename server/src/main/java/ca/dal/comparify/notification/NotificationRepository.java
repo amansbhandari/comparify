@@ -15,7 +15,7 @@ import static ca.dal.comparify.mongo.MongoUtils.eq;
 @Service
 public class NotificationRepository {
 
-    public static final String NOTIFICATION_COLLECTION = "notification";
+    private static final String NOTIFICATION_COLLECTION = "notification";
 
     @Autowired
     private MongoRepository mongoRepository;

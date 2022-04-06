@@ -22,15 +22,16 @@ import static java.util.Arrays.asList;
 @Service
 public class AnalyticsRepository {
 
-    public static final String STATUS = "status";
-    public static final String VERIFIED = "verified";
-    public static final String DATE_OF_PURCHASE = "$dateOfPurchase";
-    public static final String PRICE = "$price";
-    public static final String BRANDS = "brands";
-    public static final String BRAND_ID = "$brandId";
-    public static final String BRAND = "brand";
-    public static final String CATEGORY = "category";
-    public static final String EXPR = "$expr";
+    private static final String STATUS = "status";
+    private static final String VERIFIED = "verified";
+    private static final String DATE_OF_PURCHASE = "$dateOfPurchase";
+    private static final String PRICE = "$price";
+    private static final String BRANDS = "brands";
+    private static final String BRAND_ID = "$brandId";
+    private static final String BRAND = "brand";
+    private static final String CATEGORY = "category";
+    private static final String EXPR = "$expr";
+
 
 
     @Autowired

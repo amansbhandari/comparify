@@ -49,8 +49,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class NotificationControllerTest {
 
-    public static final String REQUEST_MAPPING = "/notification";
-    public static final String RECEIVER_REGISTER_API = REQUEST_MAPPING + "/receiver/register";
+    private static final String REQUEST_MAPPING = "/notification";
+    private static final String RECEIVER_REGISTER_API = REQUEST_MAPPING + "/receiver/register";
 
     @Autowired
     private MockMvc mockMvc;

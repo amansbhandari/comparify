@@ -6,9 +6,9 @@ public class MailTemplateConstant {
 
     public static final String ALERT_SUBSCRIBE_TEMPLATE = "alert-subscribe-template.html";
     public static final String ALERT_UNSUBSCRIBE_TEMPLATE = "alert-subscribe-template.html";
-    public static final String ALERT_UPDATE_TEMPLATE = "alert-update-template.html";
+    public static final String ALERT_UPDATE_TEMPLATE = "alert-updoate-template.html";
 
-    public static final String FEEDBACK_TEMPLATE = "feedback-template.html";
+    private static final String FEEDBACK_TEMPLATE = "feedback-template.html";
 
     public static final String ACCOUNT_SECRET_EXPIRES = "account-secret-expires-template.html";
 

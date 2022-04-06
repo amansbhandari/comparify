@@ -60,12 +60,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class UserControllerTest {
 
-    public static final String REQUEST_MAPPING = "/user";
-    public static final String GET_ALL_USER_API = REQUEST_MAPPING + "/all";
-    public static final String AUTHENTICATION_API = REQUEST_MAPPING + "/authentication";
-    public static final String ROLE_API = REQUEST_MAPPING + "/role";
-    public static final String LOGOUT_API = REQUEST_MAPPING + "/logout";
-    public static final String UPDATE_SECRET_API = REQUEST_MAPPING + "/iam";
+    private static final String REQUEST_MAPPING = "/user";
+    private static final String GET_ALL_USER_API = REQUEST_MAPPING + "/all";
+    private static final String AUTHENTICATION_API = REQUEST_MAPPING + "/authentication";
+    private static final String ROLE_API = REQUEST_MAPPING + "/role";
+    private static final String LOGOUT_API = REQUEST_MAPPING + "/logout";
+    private static final String UPDATE_SECRET_API = REQUEST_MAPPING + "/iam";
 
     @Autowired
     private MockMvc mockMvc;

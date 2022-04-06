@@ -9,7 +9,6 @@ import org.bson.codecs.pojo.annotations.BsonProperty;
 public class UserAuthorizationModel {
 
     public static final String CREATE_ACTION = "create";
-    public static final String UPDATE_ACTION = "update";
 
     @BsonProperty("role_id")
     private UserAuthorizationRoleEnum roleId;

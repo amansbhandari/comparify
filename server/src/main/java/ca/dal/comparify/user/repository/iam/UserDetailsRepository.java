@@ -24,8 +24,8 @@ public class UserDetailsRepository {
     @Autowired
     private MongoRepository mongoRepository;
 
-    public static final String USER_DETAILS_COLLECTION = "user";
-    public static final String USER_PASSWORD= "password";
+    private static final String USER_DETAILS_COLLECTION = "user";
+    private static final String USER_PASSWORD= "password";
     private static final String USERNAME = "username";
 
     private static final String EMAIL_ID = "email";

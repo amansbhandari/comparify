@@ -21,11 +21,11 @@ import static java.util.Arrays.asList;
 @Service
 public class AlertRepository {
 
-    public static final String ALERT_COLLECTION = "alert";
+    private static final String ALERT_COLLECTION = "alert";
 
-    public static final String FIELD_BRAND = "brand.entity_id";
-    public static final String FIELD_ITEM = "item.entity_id";
-    public static final String TYPE = "type";
+    private static final String FIELD_BRAND = "brand.entity_id";
+    private static final String FIELD_ITEM = "item.entity_id";
+    private static final String TYPE = "type";
 
     @Autowired
     private MongoRepository mongoRepository;

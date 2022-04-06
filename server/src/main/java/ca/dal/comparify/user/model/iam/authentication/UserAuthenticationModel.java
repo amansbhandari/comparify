@@ -11,7 +11,8 @@ import java.util.Collection;
 
 public class UserAuthenticationModel {
 
-    public static final int MAX_ATEMPTS = 2;
+    private static final int MAX_ATEMPTS = 2;
+
     private String secret;
 
     @BsonProperty("is_active")

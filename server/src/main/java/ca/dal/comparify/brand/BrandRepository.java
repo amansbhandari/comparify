@@ -16,7 +16,7 @@ import static ca.dal.comparify.mongo.MongoUtils.eq;
 @Service
 public class BrandRepository {
 
-    public static final String BRAND_COLLECTION = "brand";
+    private static final String BRAND_COLLECTION = "brand";
 
     @Autowired
     private MongoRepository mongoRepository;

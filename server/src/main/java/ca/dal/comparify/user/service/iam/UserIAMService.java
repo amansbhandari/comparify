@@ -34,9 +34,10 @@ import static ca.dal.comparify.user.model.iam.authorization.UserAuthorizationRol
 @Service
 public class UserIAMService {
 
-    public static final int ACCOUNT_EXPIRATION_DAYS = 365;
+    private static final int ACCOUNT_EXPIRATION_DAYS = 365;
     private static final long SECRET_EXPIRATION_DAYS = 30;
     private static final long ALERT_BEFORE_SECRET_EXPIRATION_DAYS = 15;
+    private static final int STATUS = 401;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -89,16 +90,16 @@ public class UserIAMService {
         try {
             auth = authenticationManager.authenticate(userCredAuthToken);
         } catch (DisabledException e) {
-            throw new UserAuthenticationException(e.getMessage(), 401, UserErrorCode.E2000.getCode());
+            throw new UserAuthenticationException(e.getMessage(), STATUS, UserErrorCode.E2000.getCode());
         } catch (BadCredentialsException e) {
             invalidAuthenticationAttempt(requestModel.getUserIdentifier());
-            throw new UserAuthenticationException(e.getMessage(), 401, UserErrorCode.E2001.getCode());
+            throw new UserAuthenticationException(e.getMessage(), STATUS, UserErrorCode.E2001.getCode());
         } catch (LockedException e) {
-            throw new UserAuthenticationException(e.getMessage(), 401, UserErrorCode.E2002.getCode());
+            throw new UserAuthenticationException(e.getMessage(), STATUS, UserErrorCode.E2002.getCode());
         } catch (CredentialsExpiredException e) {
-            throw new UserAuthenticationException(e.getMessage(), 401, UserErrorCode.E2003.getCode());
+            throw new UserAuthenticationException(e.getMessage(), STATUS, UserErrorCode.E2003.getCode());
         } catch (Exception e) {
-            throw new UserAuthenticationException(e.getMessage(), 401, UserErrorCode.E2006.getCode());
+            throw new UserAuthenticationException(e.getMessage(), STATUS, UserErrorCode.E2006.getCode());
         }
 
         validAuthenticationAttempt(requestModel.getUserIdentifier());
