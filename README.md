@@ -23,4 +23,5 @@
 4. `node server/index.js`
 
 ### Available Live Web on Heroku ###
-https://tutorial16-group16.herokuapp.com/
+Available Live Web on Heroku
+https://comparify-staging.herokuapp.com/
