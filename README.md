@@ -21,3 +21,6 @@
 2. `npm i`
 3. `npm run build`
 4. `node server/index.js`
+
+### Available Live Web on Heroku ###
+https://tutorial16-group16.herokuapp.com/
